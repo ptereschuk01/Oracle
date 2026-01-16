@@ -11,234 +11,187 @@
 
 -- *****************************************************************************************************************************
 
-set serveroutput on;
+-- ****************************************************************************************
+-- Lesson 1: PL/SQL Introduction / Lektion 1: EinfГјhrung in PL/SQL
+-- ****************************************************************************************
 
+SET SERVEROUTPUT ON; -- Ausgabe aktivieren / Enable output
+
+-- ===============================================
+-- Create tables / Tabellen erstellen
+-- ===============================================
 CREATE TABLE departments
 (
     depid INT PRIMARY KEY,
-    NAME VARCHAR(50)
-); -- Table DEPARTMENTS created.
+    name VARCHAR2(50)
+); -- Tabelle DEPARTMENTS erstellt / Table DEPARTMENTS created
 
 CREATE TABLE employees
 (
     employeeid  INT PRIMARY KEY,
     depid       INT,
     surname     VARCHAR2(40),
-    NAME        VARCHAR2(30),
+    name        VARCHAR2(30),
     bossid      INT,
     salary      NUMBER,
     CONSTRAINT fk FOREIGN KEY(depid) REFERENCES departments(depid)
-); -- Table EMPLOYEES created.
+); -- Tabelle EMPLOYEES erstellt / Table EMPLOYEES created
 
-DROP TABLE employees;
-DROP TABLE departments;
+-- ===============================================
+-- Drop tables if needed / Tabellen lГ¶schen, falls notwendig
+-- ===============================================
+-- DROP TABLE employees;
+-- DROP TABLE departments;
 
-INSERT INTO departments (depid, NAME) VALUES (1, 'Management'); -- 1 row inserted.
-INSERT INTO departments (depid, name) VALUES (2, 'Administration'); -- 1 row inserted.
-INSERT INTO departments (depid, name) VALUES (3, 'Technological'); -- 1 row inserted.
-INSERT INTO departments (depid, name) VALUES (4, 'Business'); -- 1 row inserted.
-INSERT INTO departments (depid, name) VALUES (5, 'Support'); -- 1 row inserted.
+-- ===============================================
+-- Insert sample data / Beispieldaten einfГјgen
+-- ===============================================
+INSERT INTO departments (depid, name) VALUES (1, 'Management'); -- 1 Zeile eingefГјgt / 1 row inserted
+INSERT INTO departments (depid, name) VALUES (2, 'Administration'); 
+INSERT INTO departments (depid, name) VALUES (3, 'Technological');
+INSERT INTO departments (depid, name) VALUES (4, 'Business');
+INSERT INTO departments (depid, name) VALUES (5, 'Support');
 
-INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (1, 1, 'Smith', 'Jacob', NULL, 23000);  -- 1 row inserted.
-INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (2, 2, 'Johnson', 'Ethan', 1, 5300);  -- 1 row inserted.
-INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (3, 3, 'Williams', 'Isabella', 1, 4500);  -- 1 row inserted.
-INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (4, 2, 'Jones', 'Alexander', 2, 6900);  -- 1 row inserted.
-INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (5, 3, 'Brown', 'Joshua', 3, 4300);  -- 1 row inserted.
-INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (6, 4, 'Davis', 'Jan', 3, 6590);  -- 1 row inserted.
-INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (7, 5, 'Smith', 'Madison', 4, 4560);  -- 1 row inserted.
-INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (8, 5, 'Williams', 'Joshua', 3, 3300);  -- 1 row inserted.
-INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (9, 1, 'Nowicki', 'William', 4, 13800);  -- 1 row inserted.
-INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (10, 2, 'Miller', 'Emma', 1, 16000);  -- 1 row inserted.
-INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (11, 4, 'Moore', 'Laurence', 4, 4500);  -- 1 row inserted.
-INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (12, 2, 'Brown', 'Madison', 2, 9800);  -- 1 row inserted.
-INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (13, 4, 'Davis', 'Alexander', 3, 7800);  -- 1 row inserted.
-INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (14, 5, 'Taylor', 'Olivia', 4, 4500);  -- 1 row inserted.
-INSERT INTO employees (employeeid, surname, name, bossid)  VALUES (15, 'Moore', 'Madison', 5);  -- 1 row inserted.
-INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (16, 1, 'Baranowski', 'Jacob', 2, 7600);  -- 1 row inserted.
-INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (17, 1, 'Jakow', 'Isabella', 4, 5800);  -- 1 row inserted.
-INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (18, 1, 'Jackson', 'Robert', 2, 7100);  -- 1 row inserted.
-INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (19, 1, 'Taylor', 'Jurgen', 3, 8200);  -- 1 row inserted.
-INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (20, 1, 'Williams', 'Emma', 4, 7300);  -- 1 row inserted.
+INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (1, 1, 'Smith', 'Jacob', NULL, 23000);
+INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (2, 2, 'Johnson', 'Ethan', 1, 5300);
+INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (3, 3, 'Williams', 'Isabella', 1, 4500);
+INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (4, 2, 'Jones', 'Alexander', 2, 6900);
+INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (5, 3, 'Brown', 'Joshua', 3, 4300);
+INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (6, 4, 'Davis', 'Jan', 3, 6590);
+INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (7, 5, 'Smith', 'Madison', 4, 4560);
+INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (8, 5, 'Williams', 'Joshua', 3, 3300);
+INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (9, 1, 'Nowicki', 'William', 4, 13800);
+INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (10, 2, 'Miller', 'Emma', 1, 16000);
+INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (11, 4, 'Moore', 'Laurence', 4, 4500);
+INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (12, 2, 'Brown', 'Madison', 2, 9800);
+INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (13, 4, 'Davis', 'Alexander', 3, 7800);
+INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (14, 5, 'Taylor', 'Olivia', 4, 4500);
+INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (15, 5, 'Moore', 'Madison', 4, 4000);
+INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (16, 1, 'Baranowski', 'Jacob', 2, 7600);
+INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (17, 1, 'Jakow', 'Isabella', 4, 5800);
+INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (18, 1, 'Jackson', 'Robert', 2, 7100);
+INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (19, 1, 'Taylor', 'Jurgen', 3, 8200);
+INSERT INTO employees (employeeid, depid, surname, name, bossid, salary) VALUES (20, 1, 'Williams', 'Emma', 4, 7300);
 
-COMMIT;
--- SELECT * FROM departments;  SELECT * FROM employees;
+COMMIT; -- Г„nderungen speichern / Save changes
 
---------------------------------------------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------------------------------------------
--- Basics (Lesson 1) PL/SQL Introduction
---------------------------------------------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------------------------------------------
-set serveroutput on;
--- Basic anonymous block
+-- ===============================================
+-- Basics: Anonymous Block / Grundlegender anonymer Block
+-- ===============================================
 DECLARE
-    var1 INTEGER;
-    var2 VARCHAR2(6) := 'World';
+    var1 INTEGER; -- Integer Variable / Ganzzahl Variable
+    var2 VARCHAR2(6) := 'World'; -- String Variable / String Variable
 BEGIN
-    var1 := 5;
-    DBMS_OUTPUT.PUT_LINE( 'Hello ' || var2);
+    var1 := 5; -- Wert zuweisen / Assign value
+    DBMS_OUTPUT.PUT_LINE('Hello ' || var2); -- Ausgabe / Output
 END;
+/
 
---------------------------------------------------------------------------------------------------------------------------------
---  Basic DATATYPES
---------------------------------------------------------------------------------------------------------------------------------
-/*
-
-- VARCHAR2(size) - variable-length character string having maximum length size bytes. Maximum size is 4000, and minimum is
-	1. We must specify size for VARCHAR2.
-- NVARCHAR2(size) - variable-length character string having maximum length size characters or bytes, depending on the
-	choice of national character set. Maximum size is determined by the number of bytes required to store each character, with
-	an upper limit of 4000 bytes. We must specify size for NVARCHAR2.
-- NUMBER(p,s) - number having precision p and scale s. The precision p can range from 1 to 38. The scale s can range from -84 to 127.
-- LONG - character data of variable length up to 2 gigabytes, or 231 -1 bytes.
-- DATE - valid date range from January 1, 4712 BC to December 31, 9999 AD.
-- RAW(size) - raw binary data of length size bytes. Maximum size is 2000 bytes. We must specify size for a RAW value.
-- ROWID - hexadecimal string representing the unique address of a row in its table. This datatype is primarily for values
-	returned by the ROWID pseudo column.
-- CHAR(size) - fixed-length character data of length size bytes. Maximum size is 2000 bytes. Default and minimum size is 1 byte.
-- NCHAR(size) - fixed-length character data of length size characters or bytes, depending on the choice of national character
-	set. Maximum size is determined by the number of bytes required to store each character, with an upper limit of 2000 bytes.
-	Default and minimum size is 1 character or 1 byte, depending on the character set.
-- CLOB - a character large object containing single-byte characters. Both fixed-width and variable-width character sets are
-	supported, both using the CHAR database character set. Maximum size is 4 gigabytes.
-- BLOB - a binary large object. Maximum size is 4 gigabytes.
-- BFILE - contains a locator to a large binary file stored outside the database. Enables byte stream l/O access to external
-- LOBs residing on the database server. Maximum size is 4 gigabytes.
-	There are many sub-types, which are derived from a type and usually add a constraint to a type. For example, an INTEGER is
-	a sub-type of NUMBER and only whole numbers are allowed.
-
-If we want to convert values to different data types, we should use conversion functions:
-  - to_char( value, [format_mask ] ) - converts a number or date to a string. VALUE can either be a number or date that will be 
-converted to a string, FORMAT_MASK is optional, this is the format that will be used to convert value to a string.
-  - to_number( string 1, [ format_mask ]) - converts a string to a number, string1 is the string that will be converted 
-to a number.format_mask is optional. This is the format that will be used to convert string1 to a number.
-  - to_date( string 1, [format_mask ] ) - converts a string to a date. string1 is the string that will be converted to a date. 
-format mask is optional. This is the format that will be used to convert string1 to a date.
-*/
-
+-- ===============================================
+-- Basic Datatypes / Grundlegende Datentypen
+-- ===============================================
 DECLARE
-    num_var         NUMBER (4,2)    := 11.25;
-    int_var         INTEGER         := 5;
-    date_var        DATE            := TO_DATE ('02/04/2022', 'dd/mm/yyyy');
-    string_var      VARCHAR2 (50)   := 'string 1';
-    string_no_var   VARCHAR2 (50)   := '5.30';
-    char_var        CHAR (50)       := 'string 2';
+    num_var      NUMBER(4,2)   := 11.25; -- Number variable / Zahlenvariable
+    int_var      INTEGER        := 5;     -- Integer variable / Ganzzahlvariable
+    date_var     DATE           := TO_DATE('02/04/2022','dd/mm/yyyy'); -- Date variable / Datumsvariable
+    string_var   VARCHAR2(50)  := 'string 1';
+    string_no_var VARCHAR2(50) := '5.30';
+    char_var     CHAR(50)      := 'string 2';
 BEGIN
-    DBMS_OUTPUT.PUT_LINE( 'num_var: ' || num_var);
-    DBMS_OUTPUT.PUT_LINE( 'int_var: ' || int_var);
-    DBMS_OUTPUT.PUT_LINE( 'date_var: ' || date_var);
-    DBMS_OUTPUT.PUT_LINE( 'string_var: ' || string_var);
-    DBMS_OUTPUT.PUT_LINE( 'char_var: ' || char_var);
+    DBMS_OUTPUT.PUT_LINE('num_var: ' || num_var);
+    DBMS_OUTPUT.PUT_LINE('int_var: ' || int_var);
+    DBMS_OUTPUT.PUT_LINE('date_var: ' || date_var);
+    DBMS_OUTPUT.PUT_LINE('string_var: ' || string_var);
+    DBMS_OUTPUT.PUT_LINE('char_var: ' || char_var);
     
-    DBMS_OUTPUT.PUT_LINE( 'We can convert numeric value to a string (TO_CHAR(num_var)): ' || TO_CHAR(num_var));
-    DBMS_OUTPUT.PUT_LINE( '   or string value to a number: ' || TO_NUMBER(string_no_var, '9.99'));
-    
+    -- Type conversion / Typkonvertierung
+    DBMS_OUTPUT.PUT_LINE('Convert number to string: ' || TO_CHAR(num_var)); -- Zahl -> String
+    DBMS_OUTPUT.PUT_LINE('Convert string to number: ' || TO_NUMBER(string_no_var, '9.99')); -- String -> Zahl
 END;
+/
 
+-- ===============================================
+-- %ROWTYPE Example / %ROWTYPE Beispiel
+-- ===============================================
 DECLARE
-    emp_name    employees.NAME%TYPE;
-    emp_surname employees.surname%TYPE;
+    emp_record employees%ROWTYPE; -- Record vom Typ Mitarbeiter / Record of employee type
 BEGIN
-    SELECT NAME, surname
-      INTO emp_name, emp_surname
-      FROM employees
-     WHERE employeeid = 5;
-    
-     DBMS_OUTPUT.PUT_LINE( emp_name || ', ' || emp_surname);
+    SELECT * INTO emp_record FROM employees WHERE employeeid = 5; -- Zeile holen / Fetch row
+    DBMS_OUTPUT.PUT_LINE('Name: ' || emp_record.name || ', Surname: ' || emp_record.surname || ', BossID: ' || emp_record.bossid);
 END;
-/*
-   %ROWTYPE
-The %ROWTYPE attribute provides a record type that represents a row in a database table. The record can store an entire row of 
-data selected from the table or fetched from a cursor or cursor variable. Variables declared using %ROWTYPE are treated like 
-those declared using a datatype name. We can use the %ROWTYPE attribute in variable declarations as a datatype specifier.
-*/
-DECLARE
-    employee_record employees%ROWTYPE;
-BEGIN
-    SELECT *
-      INTO employee_record
-      FROM employees
-     WHERE employeeid = 5;
-    
-     DBMS_OUTPUT.PUT_LINE( 'name: ' || employee_record.NAME );
-     DBMS_OUTPUT.PUT_LINE( 'surname: ' || employee_record.surname );
-     DBMS_OUTPUT.PUT_LINE( 'boss id: ' || employee_record.bossid );
-END;
+/
 
---------------------------------------------------------------------------------------------------------------------------------
--- CONDITIONAL STRUCTURES
---------------------------------------------------------------------------------------------------------------------------------
-
+-- ===============================================
+-- Conditional Structures / Bedingte Strukturen
+-- ===============================================
 DECLARE
-    var1 INTEGER := 5; -- 3, 8
+    var1 INTEGER := 5;
 BEGIN
-    IF var1 = 5
-        THEN DBMS_OUTPUT.PUT_LINE( 'var1 valuue is equal to 5');
-    ELSIF  var1 > 5
-        THEN DBMS_OUTPUT.PUT_LINE( 'var1 valuue is > 5');
+    IF var1 = 5 THEN
+        DBMS_OUTPUT.PUT_LINE('var1 equals 5 / var1 ist 5');
+    ELSIF var1 > 5 THEN
+        DBMS_OUTPUT.PUT_LINE('var1 > 5 / var1 ist grГ¶Гџer als 5');
     ELSE
-             DBMS_OUTPUT.PUT_LINE( 'var1 valuue is < 5');
+        DBMS_OUTPUT.PUT_LINE('var1 < 5 / var1 ist kleiner als 5');
     END IF;
 END;
+/
 
 DECLARE
-    var1 INTEGER := -12; -- 3, 8
+    var1 INTEGER := -12;
 BEGIN
     CASE
-        WHEN var1 = 5 THEN DBMS_OUTPUT.PUT_LINE( 'var1 valuue is equal to 5');
-        WHEN var1 > 5 THEN DBMS_OUTPUT.PUT_LINE( 'var1 valuue is > 5');
-        WHEN var1 < 5 THEN DBMS_OUTPUT.PUT_LINE( 'var1 valuue is < 5');
-        ELSE DBMS_OUTPUT.PUT_LINE( 'var1 valuue is UNKNOWN');
+        WHEN var1 = 5 THEN DBMS_OUTPUT.PUT_LINE('var1 = 5 / var1 ist 5');
+        WHEN var1 > 5 THEN DBMS_OUTPUT.PUT_LINE('var1 > 5 / var1 ist grГ¶Гџer als 5');
+        WHEN var1 < 5 THEN DBMS_OUTPUT.PUT_LINE('var1 < 5 / var1 ist kleiner als 5');
+        ELSE DBMS_OUTPUT.PUT_LINE('Unknown / Unbekannt');
     END CASE;
-END;   
+END;
+/
 
---------------------------------------------------------------------------------------------------------------------------------
--- CITERATIVE STRUCTURES
---      SIMPLE LOOP (LOOP / EXIT WHEN / END LOOP)
---      WHILE LOOP (WHILE / LOOP / END LOOP)
---      FOR LOOP 
---              (FOR i IN 1..10     / LOOP / END LOOP)
---              (FOR i IN SELECT... / LOOP / END LOOP)
---------------------------------------------------------------------------------------------------------------------------------
+-- ===============================================
+-- Iterative Structures / Schleifen
+-- ===============================================
 
--- SIMPLE LOOP
-
+-- Simple LOOP / Einfache Schleife
 DECLARE
     i INTEGER := 0;
 BEGIN
     LOOP
         i := i + 1;
-        DBMS_OUTPUT.PUT_LINE( 'The indey value is: -> ' || i);
+        DBMS_OUTPUT.PUT_LINE('Index: ' || i);
         EXIT WHEN i >= 10;
     END LOOP;
-END;   
+END;
+/
 
 -- WHILE LOOP
-
 DECLARE
     i INTEGER := 1;
 BEGIN
-    WHILE i <= 10
-    LOOP
-        DBMS_OUTPUT.PUT_LINE( 'The indey value is: -> ' || i);
+    WHILE i <= 10 LOOP
+        DBMS_OUTPUT.PUT_LINE('Index: ' || i);
         i := i + 1;
     END LOOP;
 END;
+/
 
 -- FOR LOOP
-
 BEGIN
-    FOR i IN 1..10
-    LOOP
-        DBMS_OUTPUT.PUT_LINE( 'The indey value is: -> ' || i );
+    FOR i IN 1..10 LOOP
+        DBMS_OUTPUT.PUT_LINE('Index: ' || i);
     END LOOP;
 END;
+/
 
+-- FOR LOOP over SELECT / Schleife Гјber SELECT
 BEGIN
-    FOR i IN (SELECT surname FROM employees WHERE depid = 2)
-    LOOP
-        DBMS_OUTPUT.PUT_LINE( 'Department 2 -> ' || i.surname );
+    FOR i IN (SELECT surname FROM employees WHERE depid = 2) LOOP
+        DBMS_OUTPUT.PUT_LINE('Department 2 -> ' || i.surname);
     END LOOP;
 END;
+/
+
 
 
 --------------------------------------------------------------------------------------------------------------------------------
@@ -256,20 +209,20 @@ A cursor is a named SQL SELECT statement that we can use in our PL/SQL program t
 retrieve them one row at a time.
 A cursor is a mechanism by which we can assign a name to a "select statement" and manipulate the information within that SQL statement.
 There are two types of CURSORS: IMPLICIT and EXPLICIT.
-Курсор - это именованная инструкция SQL SELECT, которую мы можем использовать в нашей программе PL/SQL для доступа 
-к нескольким строкам из таблицы и извлечения их по одной строке за раз.
-Курсор - это механизм, с помощью которого мы можем присвоить имя "оператору выбора" и манипулировать информацией внутри него Инструкция SQL.
-Существует два типа КУРСОРОВ: НЕЯВНЫЕ и ЯВНЫЕ.
+ГЉГіГ°Г±Г®Г° - ГЅГІГ® ГЁГ¬ГҐГ­Г®ГўГ Г­Г­Г Гї ГЁГ­Г±ГІГ°ГіГЄГ¶ГЁГї SQL SELECT, ГЄГ®ГІГ®Г°ГіГѕ Г¬Г» Г¬Г®Г¦ГҐГ¬ ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ ГІГј Гў Г­Г ГёГҐГ© ГЇГ°Г®ГЈГ°Г Г¬Г¬ГҐ PL/SQL Г¤Г«Гї Г¤Г®Г±ГІГіГЇГ  
+ГЄ Г­ГҐГ±ГЄГ®Г«ГјГЄГЁГ¬ Г±ГІГ°Г®ГЄГ Г¬ ГЁГ§ ГІГ ГЎГ«ГЁГ¶Г» ГЁ ГЁГ§ГўГ«ГҐГ·ГҐГ­ГЁГї ГЁГµ ГЇГ® Г®Г¤Г­Г®Г© Г±ГІГ°Г®ГЄГҐ Г§Г  Г°Г Г§.
+ГЉГіГ°Г±Г®Г° - ГЅГІГ® Г¬ГҐГµГ Г­ГЁГ§Г¬, Г± ГЇГ®Г¬Г®Г№ГјГѕ ГЄГ®ГІГ®Г°Г®ГЈГ® Г¬Г» Г¬Г®Г¦ГҐГ¬ ГЇГ°ГЁГ±ГўГ®ГЁГІГј ГЁГ¬Гї "Г®ГЇГҐГ°Г ГІГ®Г°Гі ГўГ»ГЎГ®Г°Г " ГЁ Г¬Г Г­ГЁГЇГіГ«ГЁГ°Г®ГўГ ГІГј ГЁГ­ГґГ®Г°Г¬Г Г¶ГЁГҐГ© ГўГ­ГіГІГ°ГЁ Г­ГҐГЈГ® Г€Г­Г±ГІГ°ГіГЄГ¶ГЁГї SQL.
+Г‘ГіГ№ГҐГ±ГІГўГіГҐГІ Г¤ГўГ  ГІГЁГЇГ  ГЉГ“ГђГ‘ГЋГђГЋГ‚: ГЌГ…ГџГ‚ГЌГ›Г… ГЁ ГџГ‚ГЌГ›Г….
 */
 
 --------------------------------------------------------------------------------------------------------------------------------
 --      Implicit cursors
 --------------------------------------------------------------------------------------------------------------------------------
 -- Implicit cursors are simple SELECT statements and are written in the BEGIN block (executable section)
--- Неявные курсоры представляют собой простые операторы SELECT и записываются в блоке BEGIN (раздел executable)
+-- ГЌГҐГїГўГ­Г»ГҐ ГЄГіГ°Г±Г®Г°Г» ГЇГ°ГҐГ¤Г±ГІГ ГўГ«ГїГѕГІ Г±Г®ГЎГ®Г© ГЇГ°Г®Г±ГІГ»ГҐ Г®ГЇГҐГ°Г ГІГ®Г°Г» SELECT ГЁ Г§Г ГЇГЁГ±Г»ГўГ ГѕГІГ±Гї Гў ГЎГ«Г®ГЄГҐ BEGIN (Г°Г Г§Г¤ГҐГ« executable)
 
 -- Every SQL statement in a PL/SQL block is actual an implicit cursor.
--- Каждая инструкция SQL в блоке PL/SQL фактически является неявным курсором.
+-- ГЉГ Г¦Г¤Г Гї ГЁГ­Г±ГІГ°ГіГЄГ¶ГЁГї SQL Гў ГЎГ«Г®ГЄГҐ PL/SQL ГґГ ГЄГІГЁГ·ГҐГ±ГЄГЁ ГїГўГ«ГїГҐГІГ±Гї Г­ГҐГїГўГ­Г»Г¬ ГЄГіГ°Г±Г®Г°Г®Г¬.
 
 DECLARE
     employee_rec employees%ROWTYPE;
@@ -288,20 +241,20 @@ END;
 /*
 Implicit cursors are managed automatically by PL/SQL so we are not required to write any code to handle these cursors. 
 However, we can track information about the execution of an implicit cursor through its cursor attributes.
-Неявные курсоры автоматически управляются PL/SQL, поэтому нам не требуется писать какой-либо код для обработки этих курсоров. 
-Однако, мы можем отслеживать информацию о выполнении неявного курсора через его атрибуты курсора.
+ГЌГҐГїГўГ­Г»ГҐ ГЄГіГ°Г±Г®Г°Г» Г ГўГІГ®Г¬Г ГІГЁГ·ГҐГ±ГЄГЁ ГіГЇГ°Г ГўГ«ГїГѕГІГ±Гї PL/SQL, ГЇГ®ГЅГІГ®Г¬Гі Г­Г Г¬ Г­ГҐ ГІГ°ГҐГЎГіГҐГІГ±Гї ГЇГЁГ±Г ГІГј ГЄГ ГЄГ®Г©-Г«ГЁГЎГ® ГЄГ®Г¤ Г¤Г«Гї Г®ГЎГ°Г ГЎГ®ГІГЄГЁ ГЅГІГЁГµ ГЄГіГ°Г±Г®Г°Г®Гў. 
+ГЋГ¤Г­Г ГЄГ®, Г¬Г» Г¬Г®Г¦ГҐГ¬ Г®ГІГ±Г«ГҐГ¦ГЁГўГ ГІГј ГЁГ­ГґГ®Г°Г¬Г Г¶ГЁГѕ Г® ГўГ»ГЇГ®Г«Г­ГҐГ­ГЁГЁ Г­ГҐГїГўГ­Г®ГЈГ® ГЄГіГ°Г±Г®Г°Г  Г·ГҐГ°ГҐГ§ ГҐГЈГ® Г ГІГ°ГЁГЎГіГІГ» ГЄГіГ°Г±Г®Г°Г .
 
 We can see how many rows are selected or changed by any statement using the %ROWCOUNT attribute after a Data Manipulation 
 Language (DML) statement. INSERT, UPDATE, and DELETE statements are DML statements.
 The reserved word SQL before the %ROWCOUNT cursor attribute stands for any implicit cursor.
-Мы можем видеть, сколько строк выбрано или изменено любым оператором, используя атрибут %ROWCOUNT после инструкции Языка 
-обработки данных (DML). Инструкции INSERT, UPDATE и DELETE - это инструкции DML.
-Зарезервированное слово SQL перед атрибутом курсора %ROWCOUNT обозначает любой неявный курсор.
+ГЊГ» Г¬Г®Г¦ГҐГ¬ ГўГЁГ¤ГҐГІГј, Г±ГЄГ®Г«ГјГЄГ® Г±ГІГ°Г®ГЄ ГўГ»ГЎГ°Г Г­Г® ГЁГ«ГЁ ГЁГ§Г¬ГҐГ­ГҐГ­Г® Г«ГѕГЎГ»Г¬ Г®ГЇГҐГ°Г ГІГ®Г°Г®Г¬, ГЁГ±ГЇГ®Г«ГјГ§ГіГї Г ГІГ°ГЁГЎГіГІ %ROWCOUNT ГЇГ®Г±Г«ГҐ ГЁГ­Г±ГІГ°ГіГЄГ¶ГЁГЁ ГџГ§Г»ГЄГ  
+Г®ГЎГ°Г ГЎГ®ГІГЄГЁ Г¤Г Г­Г­Г»Гµ (DML). Г€Г­Г±ГІГ°ГіГЄГ¶ГЁГЁ INSERT, UPDATE ГЁ DELETE - ГЅГІГ® ГЁГ­Г±ГІГ°ГіГЄГ¶ГЁГЁ DML.
+Г‡Г Г°ГҐГ§ГҐГ°ГўГЁГ°Г®ГўГ Г­Г­Г®ГҐ Г±Г«Г®ГўГ® SQL ГЇГҐГ°ГҐГ¤ Г ГІГ°ГЁГЎГіГІГ®Г¬ ГЄГіГ°Г±Г®Г°Г  %ROWCOUNT Г®ГЎГ®Г§Г­Г Г·Г ГҐГІ Г«ГѕГЎГ®Г© Г­ГҐГїГўГ­Г»Г© ГЄГіГ°Г±Г®Г°.
 
 %FOUND - this attribute yields TRUE if an INSERT, UPDATE, or DELETE statement affected one or more rows or a SELECT INTO 
 statement returned one or more rows. Otherwise, it yields FALSE.
-%FOUND - этот атрибут возвращает значение TRUE, если инструкция INSERT, UPDATE или DELETE затронула одну или несколько строк 
-или инструкция SELECT INTO вернула одну или несколько строк. В противном случае он выдает значение FALSE.
+%FOUND - ГЅГІГ®ГІ Г ГІГ°ГЁГЎГіГІ ГўГ®Г§ГўГ°Г Г№Г ГҐГІ Г§Г­Г Г·ГҐГ­ГЁГҐ TRUE, ГҐГ±Г«ГЁ ГЁГ­Г±ГІГ°ГіГЄГ¶ГЁГї INSERT, UPDATE ГЁГ«ГЁ DELETE Г§Г ГІГ°Г®Г­ГіГ«Г  Г®Г¤Г­Гі ГЁГ«ГЁ Г­ГҐГ±ГЄГ®Г«ГјГЄГ® Г±ГІГ°Г®ГЄ 
+ГЁГ«ГЁ ГЁГ­Г±ГІГ°ГіГЄГ¶ГЁГї SELECT INTO ГўГҐГ°Г­ГіГ«Г  Г®Г¤Г­Гі ГЁГ«ГЁ Г­ГҐГ±ГЄГ®Г«ГјГЄГ® Г±ГІГ°Г®ГЄ. Г‚ ГЇГ°Г®ГІГЁГўГ­Г®Г¬ Г±Г«ГіГ·Г ГҐ Г®Г­ ГўГ»Г¤Г ГҐГІ Г§Г­Г Г·ГҐГ­ГЁГҐ FALSE.
 */
 
 
@@ -310,15 +263,15 @@ statement returned one or more rows. Otherwise, it yields FALSE.
 -------------------------------------------------------------------------------------------------------------
 /*
 EXPLICIT CURSORS can be STATIC or DYNAMIC SELECT statements. 
-ЯВНЫЕ КУРСОРЫ могут быть СТАТИЧЕСКИМИ или ДИНАМИЧЕСКИМИ операторами.
+ГџГ‚ГЌГ›Г… ГЉГ“ГђГ‘ГЋГђГ› Г¬Г®ГЈГіГІ ГЎГ»ГІГј Г‘Г’ГЂГ’Г€Г—Г…Г‘ГЉГ€ГЊГ€ ГЁГ«ГЁ Г„Г€ГЌГЂГЊГ€Г—Г…Г‘ГЉГ€ГЊГ€ Г®ГЇГҐГ°Г ГІГ®Г°Г Г¬ГЁ.
 - STATIC SELECT statements return the same query each time with potentially different results. The results change as the data 
 changes in the tables or views.
-Операторы STATIC SELECT каждый раз возвращают один и тот же запрос с потенциально разными результатами. 
-Результаты меняются по мере изменения данных в таблицах или представлениях.
+ГЋГЇГҐГ°Г ГІГ®Г°Г» STATIC SELECT ГЄГ Г¦Г¤Г»Г© Г°Г Г§ ГўГ®Г§ГўГ°Г Г№Г ГѕГІ Г®Г¤ГЁГ­ ГЁ ГІГ®ГІ Г¦ГҐ Г§Г ГЇГ°Г®Г± Г± ГЇГ®ГІГҐГ­Г¶ГЁГ Г«ГјГ­Г® Г°Г Г§Г­Г»Г¬ГЁ Г°ГҐГ§ГіГ«ГјГІГ ГІГ Г¬ГЁ. 
+ГђГҐГ§ГіГ«ГјГІГ ГІГ» Г¬ГҐГ­ГїГѕГІГ±Гї ГЇГ® Г¬ГҐГ°ГҐ ГЁГ§Г¬ГҐГ­ГҐГ­ГЁГї Г¤Г Г­Г­Г»Гµ Гў ГІГ ГЎГ«ГЁГ¶Г Гµ ГЁГ«ГЁ ГЇГ°ГҐГ¤Г±ГІГ ГўГ«ГҐГ­ГЁГїГµ.
 - DYNAMIC SELECT statements act like parameterized subroutines. They run different queries each time, depending on the actual 
 parameters provided when they are opened.
-Операторы ДИНАМИЧЕСКОГО ВЫБОРА действуют как параметризованные подпрограммы. Каждый раз они выполняют разные запросы, 
-в зависимости от фактических параметров, предоставляемых при их открытии.
+ГЋГЇГҐГ°Г ГІГ®Г°Г» Г„Г€ГЌГЂГЊГ€Г—Г…Г‘ГЉГЋГѓГЋ Г‚Г›ГЃГЋГђГЂ Г¤ГҐГ©Г±ГІГўГіГѕГІ ГЄГ ГЄ ГЇГ Г°Г Г¬ГҐГІГ°ГЁГ§Г®ГўГ Г­Г­Г»ГҐ ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬Г». ГЉГ Г¦Г¤Г»Г© Г°Г Г§ Г®Г­ГЁ ГўГ»ГЇГ®Г«Г­ГїГѕГІ Г°Г Г§Г­Г»ГҐ Г§Г ГЇГ°Г®Г±Г», 
+Гў Г§Г ГўГЁГ±ГЁГ¬Г®Г±ГІГЁ Г®ГІ ГґГ ГЄГІГЁГ·ГҐГ±ГЄГЁГµ ГЇГ Г°Г Г¬ГҐГІГ°Г®Гў, ГЇГ°ГҐГ¤Г®Г±ГІГ ГўГ«ГїГҐГ¬Г»Гµ ГЇГ°ГЁ ГЁГµ Г®ГІГЄГ°Г»ГІГЁГЁ.
 */
 
 --------------------------------------------------------------------------------------
@@ -358,9 +311,9 @@ END;
 -- Explicit cursors require you to open, fetch, and close them whether you're using simple or WHILE loops or cursor FOR loop statements. 
 -- You use the OPEN statement to open cursors, the FETCH statement to fetch records from cursors, and the CLOSE statement to close 
 -- and release resources of cursors.
--- Явные курсоры требуют, чтобы вы открывали, извлекали и закрывали их, независимо от того, используете ли вы
--- простые циклы или циклы WHILE или операторы cursor FOR loop. Вы используете инструкцию OPEN для открытия курсоров, инструкцию 
--- FETCH для извлечения записей из курсоров и инструкцию CLOSE для закрытия и освобождения ресурсов курсоров.
+-- ГџГўГ­Г»ГҐ ГЄГіГ°Г±Г®Г°Г» ГІГ°ГҐГЎГіГѕГІ, Г·ГІГ®ГЎГ» ГўГ» Г®ГІГЄГ°Г»ГўГ Г«ГЁ, ГЁГ§ГўГ«ГҐГЄГ Г«ГЁ ГЁ Г§Г ГЄГ°Г»ГўГ Г«ГЁ ГЁГµ, Г­ГҐГ§Г ГўГЁГ±ГЁГ¬Г® Г®ГІ ГІГ®ГЈГ®, ГЁГ±ГЇГ®Г«ГјГ§ГіГҐГІГҐ Г«ГЁ ГўГ»
+-- ГЇГ°Г®Г±ГІГ»ГҐ Г¶ГЁГЄГ«Г» ГЁГ«ГЁ Г¶ГЁГЄГ«Г» WHILE ГЁГ«ГЁ Г®ГЇГҐГ°Г ГІГ®Г°Г» cursor FOR loop. Г‚Г» ГЁГ±ГЇГ®Г«ГјГ§ГіГҐГІГҐ ГЁГ­Г±ГІГ°ГіГЄГ¶ГЁГѕ OPEN Г¤Г«Гї Г®ГІГЄГ°Г»ГІГЁГї ГЄГіГ°Г±Г®Г°Г®Гў, ГЁГ­Г±ГІГ°ГіГЄГ¶ГЁГѕ 
+-- FETCH Г¤Г«Гї ГЁГ§ГўГ«ГҐГ·ГҐГ­ГЁГї Г§Г ГЇГЁГ±ГҐГ© ГЁГ§ ГЄГіГ°Г±Г®Г°Г®Гў ГЁ ГЁГ­Г±ГІГ°ГіГЄГ¶ГЁГѕ CLOSE Г¤Г«Гї Г§Г ГЄГ°Г»ГІГЁГї ГЁ Г®Г±ГўГ®ГЎГ®Г¦Г¤ГҐГ­ГЁГї Г°ГҐГ±ГіГ°Г±Г®Гў ГЄГіГ°Г±Г®Г°Г®Гў.
 
 -- We can use WHILE loop to fetch records from a cursor.
 DECLARE
@@ -396,9 +349,9 @@ END;
 -- To simplify expression we can use FOR loop. Cursor FOR loop statements implicitly open, fetch, and close cursors for you. 
 -- There is no need to fetch records into additional variables.
 -- The CURSOR FOR Loop will terminate when all of the records in the cursor have been fetched.
--- Чтобы упростить выражение, мы можем использовать ДЛЯ цикла. Операторы Cursor FOR loop неявно открывают, извлекают и 
--- закрывают курсоры для вас. Нет необходимости извлекать записи в дополнительные переменные.
--- Цикл CURSOR FOR завершится, когда будут извлечены все записи в курсоре.
+-- Г—ГІГ®ГЎГ» ГіГЇГ°Г®Г±ГІГЁГІГј ГўГ»Г°Г Г¦ГҐГ­ГЁГҐ, Г¬Г» Г¬Г®Г¦ГҐГ¬ ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ ГІГј Г„Г‹Гџ Г¶ГЁГЄГ«Г . ГЋГЇГҐГ°Г ГІГ®Г°Г» Cursor FOR loop Г­ГҐГїГўГ­Г® Г®ГІГЄГ°Г»ГўГ ГѕГІ, ГЁГ§ГўГ«ГҐГЄГ ГѕГІ ГЁ 
+-- Г§Г ГЄГ°Г»ГўГ ГѕГІ ГЄГіГ°Г±Г®Г°Г» Г¤Г«Гї ГўГ Г±. ГЌГҐГІ Г­ГҐГ®ГЎГµГ®Г¤ГЁГ¬Г®Г±ГІГЁ ГЁГ§ГўГ«ГҐГЄГ ГІГј Г§Г ГЇГЁГ±ГЁ Гў Г¤Г®ГЇГ®Г«Г­ГЁГІГҐГ«ГјГ­Г»ГҐ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г»ГҐ.
+-- Г–ГЁГЄГ« CURSOR FOR Г§Г ГўГҐГ°ГёГЁГІГ±Гї, ГЄГ®ГЈГ¤Г  ГЎГіГ¤ГіГІ ГЁГ§ГўГ«ГҐГ·ГҐГ­Г» ГўГ±ГҐ Г§Г ГЇГЁГ±ГЁ Гў ГЄГіГ°Г±Г®Г°ГҐ.
 DECLARE
     CURSOR get_employees
     IS
@@ -414,8 +367,8 @@ END;
 
 -- A cursor FOR loop statement does not support direct assignment of any type of variable, but we can assign values inside 
 -- the FOR loop statement by using the cursor index. We can assign a record structure or an element of the record structure.
--- Оператор cursor FOR loop не поддерживает прямое присвоение переменных любого типа, но мы можем присваивать значения внутри 
--- оператора FOR loop с помощью индекса курсора. Мы можем назначить структуру записи или элемент структуры записи.
+-- ГЋГЇГҐГ°Г ГІГ®Г° cursor FOR loop Г­ГҐ ГЇГ®Г¤Г¤ГҐГ°Г¦ГЁГўГ ГҐГІ ГЇГ°ГїГ¬Г®ГҐ ГЇГ°ГЁГ±ГўГ®ГҐГ­ГЁГҐ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г»Гµ Г«ГѕГЎГ®ГЈГ® ГІГЁГЇГ , Г­Г® Г¬Г» Г¬Г®Г¦ГҐГ¬ ГЇГ°ГЁГ±ГўГ ГЁГўГ ГІГј Г§Г­Г Г·ГҐГ­ГЁГї ГўГ­ГіГІГ°ГЁ 
+-- Г®ГЇГҐГ°Г ГІГ®Г°Г  FOR loop Г± ГЇГ®Г¬Г®Г№ГјГѕ ГЁГ­Г¤ГҐГЄГ±Г  ГЄГіГ°Г±Г®Г°Г . ГЊГ» Г¬Г®Г¦ГҐГ¬ Г­Г Г§Г­Г Г·ГЁГІГј Г±ГІГ°ГіГЄГІГіГ°Гі Г§Г ГЇГЁГ±ГЁ ГЁГ«ГЁ ГЅГ«ГҐГ¬ГҐГ­ГІ Г±ГІГ°ГіГЄГІГіГ°Г» Г§Г ГЇГЁГ±ГЁ.
 DECLARE
     employee_rec employees%ROWTYPE;
 
@@ -438,18 +391,18 @@ END;
 /*
 Dynamic explicit cursors are very much like static explicit cursors. They use a SQL SELECT statement. Only the SELECT statement 
 uses variables that change the query behavior. The variables take the place of what would otherwise be literal values.
-Динамические явные курсоры очень похожи на статические явные курсоры. Они используют оператор SQL SELECT. Только оператор SELECT 
-использует переменные, которые изменяют поведение запроса. Переменные заменяют то, что в противном случае было бы буквальными значениями.
+Г„ГЁГ­Г Г¬ГЁГ·ГҐГ±ГЄГЁГҐ ГїГўГ­Г»ГҐ ГЄГіГ°Г±Г®Г°Г» Г®Г·ГҐГ­Гј ГЇГ®ГµГ®Г¦ГЁ Г­Г  Г±ГІГ ГІГЁГ·ГҐГ±ГЄГЁГҐ ГїГўГ­Г»ГҐ ГЄГіГ°Г±Г®Г°Г». ГЋГ­ГЁ ГЁГ±ГЇГ®Г«ГјГ§ГіГѕГІ Г®ГЇГҐГ°Г ГІГ®Г° SQL SELECT. Г’Г®Г«ГјГЄГ® Г®ГЇГҐГ°Г ГІГ®Г° SELECT 
+ГЁГ±ГЇГ®Г«ГјГ§ГіГҐГІ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г»ГҐ, ГЄГ®ГІГ®Г°Г»ГҐ ГЁГ§Г¬ГҐГ­ГїГѕГІ ГЇГ®ГўГҐГ¤ГҐГ­ГЁГҐ Г§Г ГЇГ°Г®Г±Г . ГЏГҐГ°ГҐГ¬ГҐГ­Г­Г»ГҐ Г§Г Г¬ГҐГ­ГїГѕГІ ГІГ®, Г·ГІГ® Гў ГЇГ°Г®ГІГЁГўГ­Г®Г¬ Г±Г«ГіГ·Г ГҐ ГЎГ»Г«Г® ГЎГ» ГЎГіГЄГўГ Г«ГјГ­Г»Г¬ГЁ Г§Г­Г Г·ГҐГ­ГЁГїГ¬ГЁ.
 Dynamic explicit cursors have the same four components as static cursors: you define, open, fetch from, and close a dynamic cursor.
-Динамические явные курсоры имеют те же четыре компонента, что и статические курсоры: вы определяете, открываете, извлекаете и 
-закрываете динамический курсор.
+Г„ГЁГ­Г Г¬ГЁГ·ГҐГ±ГЄГЁГҐ ГїГўГ­Г»ГҐ ГЄГіГ°Г±Г®Г°Г» ГЁГ¬ГҐГѕГІ ГІГҐ Г¦ГҐ Г·ГҐГІГ»Г°ГҐ ГЄГ®Г¬ГЇГ®Г­ГҐГ­ГІГ , Г·ГІГ® ГЁ Г±ГІГ ГІГЁГ·ГҐГ±ГЄГЁГҐ ГЄГіГ°Г±Г®Г°Г»: ГўГ» Г®ГЇГ°ГҐГ¤ГҐГ«ГїГҐГІГҐ, Г®ГІГЄГ°Г»ГўГ ГҐГІГҐ, ГЁГ§ГўГ«ГҐГЄГ ГҐГІГҐ ГЁ 
+Г§Г ГЄГ°Г»ГўГ ГҐГІГҐ Г¤ГЁГ­Г Г¬ГЁГ·ГҐГ±ГЄГЁГ© ГЄГіГ°Г±Г®Г°.
 */
 
 -- The example program defines a cursor as a SELECT statement that queries the EMPLOYEES table for employees from department 4 
 -- (defined as v_dep_no variable). This variable is declared as local variable and assigned numeric literal value. 
--- Пример программы определяет курсор как оператор SELECT, который запрашивает таблицу EMPLOYEES для сотрудников из отдела 4 
--- (определяется как переменная v_dep_no). Эта переменная объявляется как локальная переменная и присваивается числовое 
--- буквальное значение. 
+-- ГЏГ°ГЁГ¬ГҐГ° ГЇГ°Г®ГЈГ°Г Г¬Г¬Г» Г®ГЇГ°ГҐГ¤ГҐГ«ГїГҐГІ ГЄГіГ°Г±Г®Г° ГЄГ ГЄ Г®ГЇГҐГ°Г ГІГ®Г° SELECT, ГЄГ®ГІГ®Г°Г»Г© Г§Г ГЇГ°Г ГёГЁГўГ ГҐГІ ГІГ ГЎГ«ГЁГ¶Гі EMPLOYEES Г¤Г«Гї Г±Г®ГІГ°ГіГ¤Г­ГЁГЄГ®Гў ГЁГ§ Г®ГІГ¤ГҐГ«Г  4 
+-- (Г®ГЇГ°ГҐГ¤ГҐГ«ГїГҐГІГ±Гї ГЄГ ГЄ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г Гї v_dep_no). ГќГІГ  ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г Гї Г®ГЎГєГїГўГ«ГїГҐГІГ±Гї ГЄГ ГЄ Г«Г®ГЄГ Г«ГјГ­Г Гї ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г Гї ГЁ ГЇГ°ГЁГ±ГўГ ГЁГўГ ГҐГІГ±Гї Г·ГЁГ±Г«Г®ГўГ®ГҐ 
+-- ГЎГіГЄГўГ Г«ГјГ­Г®ГҐ Г§Г­Г Г·ГҐГ­ГЁГҐ. 
 DECLARE
     v_name      employees.name%TYPE;
     v_surname   employees.surname%TYPE;
@@ -474,20 +427,20 @@ END;
 -- The following program uses local variable inside the cursor's SELECT statement.
 -- The value for department number are substituted when we open the cursor. This also works in cursor FOR and WHILE loops 
 -- because the variables are substituted while opening the cursor.
--- Следующая программа использует локальную переменную внутри оператора ВЫБОРА курсора.
--- Значение для номера отдела подставляется, когда мы открываем курсор. Это также работает в циклах cursor FOR и WHILE, 
--- поскольку переменные заменяются при открытии курсора.
+-- Г‘Г«ГҐГ¤ГіГѕГ№Г Гї ГЇГ°Г®ГЈГ°Г Г¬Г¬Г  ГЁГ±ГЇГ®Г«ГјГ§ГіГҐГІ Г«Г®ГЄГ Г«ГјГ­ГіГѕ ГЇГҐГ°ГҐГ¬ГҐГ­Г­ГіГѕ ГўГ­ГіГІГ°ГЁ Г®ГЇГҐГ°Г ГІГ®Г°Г  Г‚Г›ГЃГЋГђГЂ ГЄГіГ°Г±Г®Г°Г .
+-- Г‡Г­Г Г·ГҐГ­ГЁГҐ Г¤Г«Гї Г­Г®Г¬ГҐГ°Г  Г®ГІГ¤ГҐГ«Г  ГЇГ®Г¤Г±ГІГ ГўГ«ГїГҐГІГ±Гї, ГЄГ®ГЈГ¤Г  Г¬Г» Г®ГІГЄГ°Г»ГўГ ГҐГ¬ ГЄГіГ°Г±Г®Г°. ГќГІГ® ГІГ ГЄГ¦ГҐ Г°Г ГЎГ®ГІГ ГҐГІ Гў Г¶ГЁГЄГ«Г Гµ cursor FOR ГЁ WHILE, 
+-- ГЇГ®Г±ГЄГ®Г«ГјГЄГі ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г»ГҐ Г§Г Г¬ГҐГ­ГїГѕГІГ±Гї ГЇГ°ГЁ Г®ГІГЄГ°Г»ГІГЁГЁ ГЄГіГ°Г±Г®Г°Г .
 
 -- The variable which indicates department number in the SELECT statement is no longer local variable name. It is local variable 
 -- to the cursor, defined by the formal parameter in the cursor definition. You should note that the variable have no physical size, 
 -- because that is derived at run time. When we run the program, the value 4 is assigned to local variable v_dep_no. The local 
 -- variables become actual parameter passed to open the cursor. The actual parameter is then assigned to the department number 
 -- cursor-scoped variable.
--- Переменная, указывающая номер отдела в инструкции SELECT, больше не является именем локальной переменной. Это локальная переменная
--- курсора, определенная формальным параметром в определении курсора. Вы должны отметить, что переменная не имеет физического размера, 
--- поскольку она выводится во время выполнения. Когда мы запускаем программу, локальной переменной v_dep_no присваивается значение 4. 
--- Локальные переменные становятся фактическим параметром, передаваемым для открытия курсора. Затем фактический параметр присваивается 
--- переменной с областью действия курсора номера отдела.
+-- ГЏГҐГ°ГҐГ¬ГҐГ­Г­Г Гї, ГіГЄГ Г§Г»ГўГ ГѕГ№Г Гї Г­Г®Г¬ГҐГ° Г®ГІГ¤ГҐГ«Г  Гў ГЁГ­Г±ГІГ°ГіГЄГ¶ГЁГЁ SELECT, ГЎГ®Г«ГјГёГҐ Г­ГҐ ГїГўГ«ГїГҐГІГ±Гї ГЁГ¬ГҐГ­ГҐГ¬ Г«Г®ГЄГ Г«ГјГ­Г®Г© ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г®Г©. ГќГІГ® Г«Г®ГЄГ Г«ГјГ­Г Гї ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г Гї
+-- ГЄГіГ°Г±Г®Г°Г , Г®ГЇГ°ГҐГ¤ГҐГ«ГҐГ­Г­Г Гї ГґГ®Г°Г¬Г Г«ГјГ­Г»Г¬ ГЇГ Г°Г Г¬ГҐГІГ°Г®Г¬ Гў Г®ГЇГ°ГҐГ¤ГҐГ«ГҐГ­ГЁГЁ ГЄГіГ°Г±Г®Г°Г . Г‚Г» Г¤Г®Г«Г¦Г­Г» Г®ГІГ¬ГҐГІГЁГІГј, Г·ГІГ® ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г Гї Г­ГҐ ГЁГ¬ГҐГҐГІ ГґГЁГ§ГЁГ·ГҐГ±ГЄГ®ГЈГ® Г°Г Г§Г¬ГҐГ°Г , 
+-- ГЇГ®Г±ГЄГ®Г«ГјГЄГі Г®Г­Г  ГўГ»ГўГ®Г¤ГЁГІГ±Гї ГўГ® ГўГ°ГҐГ¬Гї ГўГ»ГЇГ®Г«Г­ГҐГ­ГЁГї. ГЉГ®ГЈГ¤Г  Г¬Г» Г§Г ГЇГіГ±ГЄГ ГҐГ¬ ГЇГ°Г®ГЈГ°Г Г¬Г¬Гі, Г«Г®ГЄГ Г«ГјГ­Г®Г© ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г®Г© v_dep_no ГЇГ°ГЁГ±ГўГ ГЁГўГ ГҐГІГ±Гї Г§Г­Г Г·ГҐГ­ГЁГҐ 4. 
+-- Г‹Г®ГЄГ Г«ГјГ­Г»ГҐ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г»ГҐ Г±ГІГ Г­Г®ГўГїГІГ±Гї ГґГ ГЄГІГЁГ·ГҐГ±ГЄГЁГ¬ ГЇГ Г°Г Г¬ГҐГІГ°Г®Г¬, ГЇГҐГ°ГҐГ¤Г ГўГ ГҐГ¬Г»Г¬ Г¤Г«Гї Г®ГІГЄГ°Г»ГІГЁГї ГЄГіГ°Г±Г®Г°Г . Г‡Г ГІГҐГ¬ ГґГ ГЄГІГЁГ·ГҐГ±ГЄГЁГ© ГЇГ Г°Г Г¬ГҐГІГ° ГЇГ°ГЁГ±ГўГ ГЁГўГ ГҐГІГ±Гї 
+-- ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г®Г© Г± Г®ГЎГ«Г Г±ГІГјГѕ Г¤ГҐГ©Г±ГІГўГЁГї ГЄГіГ°Г±Г®Г°Г  Г­Г®Г¬ГҐГ°Г  Г®ГІГ¤ГҐГ«Г .
 
 DECLARE
     v_name      employees.name%TYPE;
@@ -511,8 +464,8 @@ END;
 
 -- The same logic works when you substitute a cursor FOR loop statement.
 -- The following loop structure is equivalent to the one in the simple loop statement.
--- Та же логика работает, когда вы заменяете оператор цикла курсором.
--- Следующая структура цикла эквивалентна структуре в инструкции simple loop.
+-- Г’Г  Г¦ГҐ Г«Г®ГЈГЁГЄГ  Г°Г ГЎГ®ГІГ ГҐГІ, ГЄГ®ГЈГ¤Г  ГўГ» Г§Г Г¬ГҐГ­ГїГҐГІГҐ Г®ГЇГҐГ°Г ГІГ®Г° Г¶ГЁГЄГ«Г  ГЄГіГ°Г±Г®Г°Г®Г¬.
+-- Г‘Г«ГҐГ¤ГіГѕГ№Г Гї Г±ГІГ°ГіГЄГІГіГ°Г  Г¶ГЁГЄГ«Г  ГЅГЄГўГЁГўГ Г«ГҐГ­ГІГ­Г  Г±ГІГ°ГіГЄГІГіГ°ГҐ Гў ГЁГ­Г±ГІГ°ГіГЄГ¶ГЁГЁ simple loop.
 
 DECLARE
     v_dep_no    INT := 4;
@@ -556,7 +509,7 @@ END;
 
 
 -- We can use the cursor to modify (UPDATE or DELETE) the current row.
--- Мы можем использовать курсор для изменения (обновления или удаления) текущей строки.
+-- ГЊГ» Г¬Г®Г¦ГҐГ¬ ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ ГІГј ГЄГіГ°Г±Г®Г° Г¤Г«Гї ГЁГ§Г¬ГҐГ­ГҐГ­ГЁГї (Г®ГЎГ­Г®ГўГ«ГҐГ­ГЁГї ГЁГ«ГЁ ГіГ¤Г Г«ГҐГ­ГЁГї) ГІГҐГЄГіГ№ГҐГ© Г±ГІГ°Г®ГЄГЁ.
 DECLARE
     v_dep_no INT := 4;
     
@@ -588,16 +541,16 @@ In general, this is a wonderful feature because the number of records locked at 
 absolute minimum: only those records which have been changed but not yet committed are locked. Even then, others will be able 
 to read those records as they appeared before the change.
 
-Когда вы выполняете оператор SELECT для базы данных для запроса некоторых записей, на выбранные строки не накладываются 
-блокировки . В целом, это замечательная функция, потому что количество записей, заблокированных в любой момент времени, 
-(по умолчанию) сведено к абсолютному минимуму: блокируются только те записи, которые были изменены, но еще не зафиксированы. 
-Даже в этом случае другие пользователи смогут прочитать эти записи в том виде, в каком они были до изменения.
+ГЉГ®ГЈГ¤Г  ГўГ» ГўГ»ГЇГ®Г«Г­ГїГҐГІГҐ Г®ГЇГҐГ°Г ГІГ®Г° SELECT Г¤Г«Гї ГЎГ Г§Г» Г¤Г Г­Г­Г»Гµ Г¤Г«Гї Г§Г ГЇГ°Г®Г±Г  Г­ГҐГЄГ®ГІГ®Г°Г»Гµ Г§Г ГЇГЁГ±ГҐГ©, Г­Г  ГўГ»ГЎГ°Г Г­Г­Г»ГҐ Г±ГІГ°Г®ГЄГЁ Г­ГҐ Г­Г ГЄГ«Г Г¤Г»ГўГ ГѕГІГ±Гї 
+ГЎГ«Г®ГЄГЁГ°Г®ГўГЄГЁ . Г‚ Г¶ГҐГ«Г®Г¬, ГЅГІГ® Г§Г Г¬ГҐГ·Г ГІГҐГ«ГјГ­Г Гї ГґГіГ­ГЄГ¶ГЁГї, ГЇГ®ГІГ®Г¬Гі Г·ГІГ® ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г§Г ГЇГЁГ±ГҐГ©, Г§Г ГЎГ«Г®ГЄГЁГ°Г®ГўГ Г­Г­Г»Гµ Гў Г«ГѕГЎГ®Г© Г¬Г®Г¬ГҐГ­ГІ ГўГ°ГҐГ¬ГҐГ­ГЁ, 
+(ГЇГ® ГіГ¬Г®Г«Г·Г Г­ГЁГѕ) Г±ГўГҐГ¤ГҐГ­Г® ГЄ Г ГЎГ±Г®Г«ГѕГІГ­Г®Г¬Гі Г¬ГЁГ­ГЁГ¬ГіГ¬Гі: ГЎГ«Г®ГЄГЁГ°ГіГѕГІГ±Гї ГІГ®Г«ГјГЄГ® ГІГҐ Г§Г ГЇГЁГ±ГЁ, ГЄГ®ГІГ®Г°Г»ГҐ ГЎГ»Г«ГЁ ГЁГ§Г¬ГҐГ­ГҐГ­Г», Г­Г® ГҐГ№ГҐ Г­ГҐ Г§Г ГґГЁГЄГ±ГЁГ°Г®ГўГ Г­Г». 
+Г„Г Г¦ГҐ Гў ГЅГІГ®Г¬ Г±Г«ГіГ·Г ГҐ Г¤Г°ГіГЈГЁГҐ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«ГЁ Г±Г¬Г®ГЈГіГІ ГЇГ°Г®Г·ГЁГІГ ГІГј ГЅГІГЁ Г§Г ГЇГЁГ±ГЁ Гў ГІГ®Г¬ ГўГЁГ¤ГҐ, Гў ГЄГ ГЄГ®Г¬ Г®Г­ГЁ ГЎГ»Г«ГЁ Г¤Г® ГЁГ§Г¬ГҐГ­ГҐГ­ГЁГї.
 
 There are times, however, when you will want to lock a set of records even before you change themin your program. 
 Oracle offers the FOR UPDATE clause of the SELECT statement to perform this locking.
 
-Однако бывают случаи, когда вам захочется заблокировать набор записей еще до того, как вы измените их в своей программе. 
-Oracle предлагает предложение FOR UPDATE инструкции SELECT для выполнения этой блокировки.
+ГЋГ¤Г­Г ГЄГ® ГЎГ»ГўГ ГѕГІ Г±Г«ГіГ·Г ГЁ, ГЄГ®ГЈГ¤Г  ГўГ Г¬ Г§Г ГµГ®Г·ГҐГІГ±Гї Г§Г ГЎГ«Г®ГЄГЁГ°Г®ГўГ ГІГј Г­Г ГЎГ®Г° Г§Г ГЇГЁГ±ГҐГ© ГҐГ№ГҐ Г¤Г® ГІГ®ГЈГ®, ГЄГ ГЄ ГўГ» ГЁГ§Г¬ГҐГ­ГЁГІГҐ ГЁГµ Гў Г±ГўГ®ГҐГ© ГЇГ°Г®ГЈГ°Г Г¬Г¬ГҐ. 
+Oracle ГЇГ°ГҐГ¤Г«Г ГЈГ ГҐГІ ГЇГ°ГҐГ¤Г«Г®Г¦ГҐГ­ГЁГҐ FOR UPDATE ГЁГ­Г±ГІГ°ГіГЄГ¶ГЁГЁ SELECT Г¤Г«Гї ГўГ»ГЇГ®Г«Г­ГҐГ­ГЁГї ГЅГІГ®Г© ГЎГ«Г®ГЄГЁГ°Г®ГўГЄГЁ.
 
 When we issue a SELECT FOR UPDATE statement, the server automatically obtains exclusive row-level locks on all the rows 
 identified by the SELECT statement, holding the records "for our changes only" as we move through the rows retrieved by the cursor. 
@@ -606,27 +559,27 @@ The COMMIT statement makes permanent any changes made to the database during the
 changes visible to other users. The ROLLBACK statement is the inverse of the COMMIT statement. It undoes some or all database 
 changes made during the current transaction.
 
-Когда мы выдаем инструкцию SELECT FOR UPDATE, сервер автоматически получает эксклюзивные блокировки на уровне строк для всех 
-строк, определенных инструкцией SELECT, удерживая записи "только для наших изменений", когда мы перемещаемся по строкам , 
-извлеченным курсором. Никто другой не сможет изменить ни одну из этих записей, пока мы не выполним ОТКАТ или совершить. 
-Инструкция COMMIT делает постоянными любые изменения, внесенные в базу данных во время currenttransaction. Фиксация также 
-делает изменения видимыми для других пользователей. Оператор ROLLBACK является обратным оператору COMMIT. Это отменяет 
-некоторые или все изменения базы данных, внесенные во время текущей транзакции.
+ГЉГ®ГЈГ¤Г  Г¬Г» ГўГ»Г¤Г ГҐГ¬ ГЁГ­Г±ГІГ°ГіГЄГ¶ГЁГѕ SELECT FOR UPDATE, Г±ГҐГ°ГўГҐГ° Г ГўГІГ®Г¬Г ГІГЁГ·ГҐГ±ГЄГЁ ГЇГ®Г«ГіГ·Г ГҐГІ ГЅГЄГ±ГЄГ«ГѕГ§ГЁГўГ­Г»ГҐ ГЎГ«Г®ГЄГЁГ°Г®ГўГЄГЁ Г­Г  ГіГ°Г®ГўГ­ГҐ Г±ГІГ°Г®ГЄ Г¤Г«Гї ГўГ±ГҐГµ 
+Г±ГІГ°Г®ГЄ, Г®ГЇГ°ГҐГ¤ГҐГ«ГҐГ­Г­Г»Гµ ГЁГ­Г±ГІГ°ГіГЄГ¶ГЁГҐГ© SELECT, ГіГ¤ГҐГ°Г¦ГЁГўГ Гї Г§Г ГЇГЁГ±ГЁ "ГІГ®Г«ГјГЄГ® Г¤Г«Гї Г­Г ГёГЁГµ ГЁГ§Г¬ГҐГ­ГҐГ­ГЁГ©", ГЄГ®ГЈГ¤Г  Г¬Г» ГЇГҐГ°ГҐГ¬ГҐГ№Г ГҐГ¬Г±Гї ГЇГ® Г±ГІГ°Г®ГЄГ Г¬ , 
+ГЁГ§ГўГ«ГҐГ·ГҐГ­Г­Г»Г¬ ГЄГіГ°Г±Г®Г°Г®Г¬. ГЌГЁГЄГІГ® Г¤Г°ГіГЈГ®Г© Г­ГҐ Г±Г¬Г®Г¦ГҐГІ ГЁГ§Г¬ГҐГ­ГЁГІГј Г­ГЁ Г®Г¤Г­Гі ГЁГ§ ГЅГІГЁГµ Г§Г ГЇГЁГ±ГҐГ©, ГЇГ®ГЄГ  Г¬Г» Г­ГҐ ГўГ»ГЇГ®Г«Г­ГЁГ¬ ГЋГ’ГЉГЂГ’ ГЁГ«ГЁ Г±Г®ГўГҐГ°ГёГЁГІГј. 
+Г€Г­Г±ГІГ°ГіГЄГ¶ГЁГї COMMIT Г¤ГҐГ«Г ГҐГІ ГЇГ®Г±ГІГ®ГїГ­Г­Г»Г¬ГЁ Г«ГѕГЎГ»ГҐ ГЁГ§Г¬ГҐГ­ГҐГ­ГЁГї, ГўГ­ГҐГ±ГҐГ­Г­Г»ГҐ Гў ГЎГ Г§Гі Г¤Г Г­Г­Г»Гµ ГўГ® ГўГ°ГҐГ¬Гї currenttransaction. Г”ГЁГЄГ±Г Г¶ГЁГї ГІГ ГЄГ¦ГҐ 
+Г¤ГҐГ«Г ГҐГІ ГЁГ§Г¬ГҐГ­ГҐГ­ГЁГї ГўГЁГ¤ГЁГ¬Г»Г¬ГЁ Г¤Г«Гї Г¤Г°ГіГЈГЁГµ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«ГҐГ©. ГЋГЇГҐГ°Г ГІГ®Г° ROLLBACK ГїГўГ«ГїГҐГІГ±Гї Г®ГЎГ°Г ГІГ­Г»Г¬ Г®ГЇГҐГ°Г ГІГ®Г°Гі COMMIT. ГќГІГ® Г®ГІГ¬ГҐГ­ГїГҐГІ 
+Г­ГҐГЄГ®ГІГ®Г°Г»ГҐ ГЁГ«ГЁ ГўГ±ГҐ ГЁГ§Г¬ГҐГ­ГҐГ­ГЁГї ГЎГ Г§Г» Г¤Г Г­Г­Г»Гµ, ГўГ­ГҐГ±ГҐГ­Г­Г»ГҐ ГўГ® ГўГ°ГҐГ¬Гї ГІГҐГЄГіГ№ГҐГ© ГІГ°Г Г­Г§Г ГЄГ¶ГЁГЁ.
 
 We can use the FOR UPDATE option to declare an update cursor. We can use the update cursor to modify (update or delete) 
 the current row.
 
-Мы можем использовать опцию ДЛЯ ОБНОВЛЕНИЯ, чтобы объявить курсор обновления. Мы можем использовать курсор обновления, 
-чтобы изменить (обновить или удалить) текущую строку.
+ГЊГ» Г¬Г®Г¦ГҐГ¬ ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ ГІГј Г®ГЇГ¶ГЁГѕ Г„Г‹Гџ ГЋГЃГЌГЋГ‚Г‹Г…ГЌГ€Гџ, Г·ГІГ®ГЎГ» Г®ГЎГєГїГўГЁГІГј ГЄГіГ°Г±Г®Г° Г®ГЎГ­Г®ГўГ«ГҐГ­ГЁГї. ГЊГ» Г¬Г®Г¦ГҐГ¬ ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ ГІГј ГЄГіГ°Г±Г®Г° Г®ГЎГ­Г®ГўГ«ГҐГ­ГЁГї, 
+Г·ГІГ®ГЎГ» ГЁГ§Г¬ГҐГ­ГЁГІГј (Г®ГЎГ­Г®ГўГЁГІГј ГЁГ«ГЁ ГіГ¤Г Г«ГЁГІГј) ГІГҐГЄГіГ№ГіГѕ Г±ГІГ°Г®ГЄГі.
 
 In an update cursor, we can update or delete rows in the active set. After we create an update cursor, we can update or delete 
 the currently selected row by using an UPDATE or DELETE statement with the WHERE CURRENT OF clause. The words CURRENT OF refer 
 to the row that was most recently fetched; they take the place of the usual test expressions in the WHERE clause.
 
-В курсоре обновления мы можем обновлять или удалять строки в активном наборе. После того, как мы создадим курсор обновления, 
-мы можем обновить или удалить выбранную в данный момент строку с помощью инструкции UPDATE или DELETE с предложением 
-WHERE CURRENT OF. Слова CURRENT OF относятся к строке, которая была извлечена совсем недавно; они заменяют обычные тестовые 
-выражения в предложении WHERE.
+Г‚ ГЄГіГ°Г±Г®Г°ГҐ Г®ГЎГ­Г®ГўГ«ГҐГ­ГЁГї Г¬Г» Г¬Г®Г¦ГҐГ¬ Г®ГЎГ­Г®ГўГ«ГїГІГј ГЁГ«ГЁ ГіГ¤Г Г«ГїГІГј Г±ГІГ°Г®ГЄГЁ Гў Г ГЄГІГЁГўГ­Г®Г¬ Г­Г ГЎГ®Г°ГҐ. ГЏГ®Г±Г«ГҐ ГІГ®ГЈГ®, ГЄГ ГЄ Г¬Г» Г±Г®Г§Г¤Г Г¤ГЁГ¬ ГЄГіГ°Г±Г®Г° Г®ГЎГ­Г®ГўГ«ГҐГ­ГЁГї, 
+Г¬Г» Г¬Г®Г¦ГҐГ¬ Г®ГЎГ­Г®ГўГЁГІГј ГЁГ«ГЁ ГіГ¤Г Г«ГЁГІГј ГўГ»ГЎГ°Г Г­Г­ГіГѕ Гў Г¤Г Г­Г­Г»Г© Г¬Г®Г¬ГҐГ­ГІ Г±ГІГ°Г®ГЄГі Г± ГЇГ®Г¬Г®Г№ГјГѕ ГЁГ­Г±ГІГ°ГіГЄГ¶ГЁГЁ UPDATE ГЁГ«ГЁ DELETE Г± ГЇГ°ГҐГ¤Г«Г®Г¦ГҐГ­ГЁГҐГ¬ 
+WHERE CURRENT OF. Г‘Г«Г®ГўГ  CURRENT OF Г®ГІГ­Г®Г±ГїГІГ±Гї ГЄ Г±ГІГ°Г®ГЄГҐ, ГЄГ®ГІГ®Г°Г Гї ГЎГ»Г«Г  ГЁГ§ГўГ«ГҐГ·ГҐГ­Г  Г±Г®ГўГ±ГҐГ¬ Г­ГҐГ¤Г ГўГ­Г®; Г®Г­ГЁ Г§Г Г¬ГҐГ­ГїГѕГІ Г®ГЎГ»Г·Г­Г»ГҐ ГІГҐГ±ГІГ®ГўГ»ГҐ 
+ГўГ»Г°Г Г¦ГҐГ­ГЁГї Гў ГЇГ°ГҐГ¤Г«Г®Г¦ГҐГ­ГЁГЁ WHERE.
 */
 
 DECLARE
@@ -653,20 +606,20 @@ END;
 
 -- The most important advantage to using WHERE CURRENT OF where we need to change the row fetched last is that we do not have 
 -- to code the criteria used to uniquely identify a row in a table.
--- Наиболее важным преимуществом использования WHERE CURRENT ВМЕСТО where нам нужно изменить строку, выбранную последней, 
--- является то, что нам не нужно кодировать критерии, используемые для однозначной идентификации строки в таблице.
+-- ГЌГ ГЁГЎГ®Г«ГҐГҐ ГўГ Г¦Г­Г»Г¬ ГЇГ°ГҐГЁГ¬ГіГ№ГҐГ±ГІГўГ®Г¬ ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ Г­ГЁГї WHERE CURRENT Г‚ГЊГ…Г‘Г’ГЋ where Г­Г Г¬ Г­ГіГ¦Г­Г® ГЁГ§Г¬ГҐГ­ГЁГІГј Г±ГІГ°Г®ГЄГі, ГўГ»ГЎГ°Г Г­Г­ГіГѕ ГЇГ®Г±Г«ГҐГ¤Г­ГҐГ©, 
+-- ГїГўГ«ГїГҐГІГ±Гї ГІГ®, Г·ГІГ® Г­Г Г¬ Г­ГҐ Г­ГіГ¦Г­Г® ГЄГ®Г¤ГЁГ°Г®ГўГ ГІГј ГЄГ°ГЁГІГҐГ°ГЁГЁ, ГЁГ±ГЇГ®Г«ГјГ§ГіГҐГ¬Г»ГҐ Г¤Г«Гї Г®Г¤Г­Г®Г§Г­Г Г·Г­Г®Г© ГЁГ¤ГҐГ­ГІГЁГґГЁГЄГ Г¶ГЁГЁ Г±ГІГ°Г®ГЄГЁ Гў ГІГ ГЎГ«ГЁГ¶ГҐ.
 /*
     The FOR UPDATE keywords notify the database server that updating is possible and cause it to use more stringent locking 
 than with a select cursor. We declare an update cursor to let the database server know that the program might update 
 (or delete) any row that it fetches as part of the SELECT statement. The update cursor employs promotable locks for rows 
 that the program fetches. Other programs can read the locked row, but no other program can place a promotable lock 
 (also called a write lock). Before the program modifies the row, the row lock is promoted to an exclusive lock.
-    Ключевые слова FOR UPDATE уведомляют сервер базы данных о том, что обновление возможно, и заставляют его использовать 
-более строгую блокировку, чем при использовании курсора выбора. Мы объявляем update курсор, чтобы сообщить серверу базы 
-данных, что программа может обновить (или удалить) любую строку, которую она извлекает как часть инструкции SELECT. 
-Update курсор использует продвигаемые блокировки для строк, которые извлекает программа. Другие программы могут считывать 
-заблокированную строку, но никакая другая программа не может установить продвигаемую блокировку (также называемую блокировкой 
-записи). Перед тем, как программа изменит строку, блокировка строки будет повышена до эксклюзивной блокировки.
+    ГЉГ«ГѕГ·ГҐГўГ»ГҐ Г±Г«Г®ГўГ  FOR UPDATE ГіГўГҐГ¤Г®Г¬Г«ГїГѕГІ Г±ГҐГ°ГўГҐГ° ГЎГ Г§Г» Г¤Г Г­Г­Г»Гµ Г® ГІГ®Г¬, Г·ГІГ® Г®ГЎГ­Г®ГўГ«ГҐГ­ГЁГҐ ГўГ®Г§Г¬Г®Г¦Г­Г®, ГЁ Г§Г Г±ГІГ ГўГ«ГїГѕГІ ГҐГЈГ® ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ ГІГј 
+ГЎГ®Г«ГҐГҐ Г±ГІГ°Г®ГЈГіГѕ ГЎГ«Г®ГЄГЁГ°Г®ГўГЄГі, Г·ГҐГ¬ ГЇГ°ГЁ ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ Г­ГЁГЁ ГЄГіГ°Г±Г®Г°Г  ГўГ»ГЎГ®Г°Г . ГЊГ» Г®ГЎГєГїГўГ«ГїГҐГ¬ update ГЄГіГ°Г±Г®Г°, Г·ГІГ®ГЎГ» Г±Г®Г®ГЎГ№ГЁГІГј Г±ГҐГ°ГўГҐГ°Гі ГЎГ Г§Г» 
+Г¤Г Г­Г­Г»Гµ, Г·ГІГ® ГЇГ°Г®ГЈГ°Г Г¬Г¬Г  Г¬Г®Г¦ГҐГІ Г®ГЎГ­Г®ГўГЁГІГј (ГЁГ«ГЁ ГіГ¤Г Г«ГЁГІГј) Г«ГѕГЎГіГѕ Г±ГІГ°Г®ГЄГі, ГЄГ®ГІГ®Г°ГіГѕ Г®Г­Г  ГЁГ§ГўГ«ГҐГЄГ ГҐГІ ГЄГ ГЄ Г·Г Г±ГІГј ГЁГ­Г±ГІГ°ГіГЄГ¶ГЁГЁ SELECT. 
+Update ГЄГіГ°Г±Г®Г° ГЁГ±ГЇГ®Г«ГјГ§ГіГҐГІ ГЇГ°Г®Г¤ГўГЁГЈГ ГҐГ¬Г»ГҐ ГЎГ«Г®ГЄГЁГ°Г®ГўГЄГЁ Г¤Г«Гї Г±ГІГ°Г®ГЄ, ГЄГ®ГІГ®Г°Г»ГҐ ГЁГ§ГўГ«ГҐГЄГ ГҐГІ ГЇГ°Г®ГЈГ°Г Г¬Г¬Г . Г„Г°ГіГЈГЁГҐ ГЇГ°Г®ГЈГ°Г Г¬Г¬Г» Г¬Г®ГЈГіГІ Г±Г·ГЁГІГ»ГўГ ГІГј 
+Г§Г ГЎГ«Г®ГЄГЁГ°Г®ГўГ Г­Г­ГіГѕ Г±ГІГ°Г®ГЄГі, Г­Г® Г­ГЁГЄГ ГЄГ Гї Г¤Г°ГіГЈГ Гї ГЇГ°Г®ГЈГ°Г Г¬Г¬Г  Г­ГҐ Г¬Г®Г¦ГҐГІ ГіГ±ГІГ Г­Г®ГўГЁГІГј ГЇГ°Г®Г¤ГўГЁГЈГ ГҐГ¬ГіГѕ ГЎГ«Г®ГЄГЁГ°Г®ГўГЄГі (ГІГ ГЄГ¦ГҐ Г­Г Г§Г»ГўГ ГҐГ¬ГіГѕ ГЎГ«Г®ГЄГЁГ°Г®ГўГЄГ®Г© 
+Г§Г ГЇГЁГ±ГЁ). ГЏГҐГ°ГҐГ¤ ГІГҐГ¬, ГЄГ ГЄ ГЇГ°Г®ГЈГ°Г Г¬Г¬Г  ГЁГ§Г¬ГҐГ­ГЁГІ Г±ГІГ°Г®ГЄГі, ГЎГ«Г®ГЄГЁГ°Г®ГўГЄГ  Г±ГІГ°Г®ГЄГЁ ГЎГіГ¤ГҐГІ ГЇГ®ГўГ»ГёГҐГ­Г  Г¤Г® ГЅГЄГ±ГЄГ«ГѕГ§ГЁГўГ­Г®Г© ГЎГ«Г®ГЄГЁГ°Г®ГўГЄГЁ.
 */
 
 
@@ -678,84 +631,84 @@ Update курсор использует продвигаемые блокировки для строк, которые извлекает пр
 --------------------------------------------------------------------------------------------------------------------------------
 /*    There are two types of subroutines: FUNCTIONS and PROCEDURES. You use these to build database tier libraries to encapsulate 
 application functionality, which is then co-located on the database tier for efficiency.
-    Существует два типа подпрограмм: ФУНКЦИИ и ПРОЦЕДУРЫ. Вы используете их для создания библиотек уровня базы данных для 
-инкапсуляции функциональности приложения, которая затем совместно размещается на уровне базы данных для повышения эффективности.
+    Г‘ГіГ№ГҐГ±ГІГўГіГҐГІ Г¤ГўГ  ГІГЁГЇГ  ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬: Г”Г“ГЌГЉГ–Г€Г€ ГЁ ГЏГђГЋГ–Г…Г„Г“ГђГ›. Г‚Г» ГЁГ±ГЇГ®Г«ГјГ§ГіГҐГІГҐ ГЁГµ Г¤Г«Гї Г±Г®Г§Г¤Г Г­ГЁГї ГЎГЁГЎГ«ГЁГ®ГІГҐГЄ ГіГ°Г®ГўГ­Гї ГЎГ Г§Г» Г¤Г Г­Г­Г»Гµ Г¤Г«Гї 
+ГЁГ­ГЄГ ГЇГ±ГіГ«ГїГ¶ГЁГЁ ГґГіГ­ГЄГ¶ГЁГ®Г­Г Г«ГјГ­Г®Г±ГІГЁ ГЇГ°ГЁГ«Г®Г¦ГҐГ­ГЁГї, ГЄГ®ГІГ®Г°Г Гї Г§Г ГІГҐГ¬ Г±Г®ГўГ¬ГҐГ±ГІГ­Г® Г°Г Г§Г¬ГҐГ№Г ГҐГІГ±Гї Г­Г  ГіГ°Г®ГўГ­ГҐ ГЎГ Г§Г» Г¤Г Г­Г­Г»Гµ Г¤Г«Гї ГЇГ®ГўГ»ГёГҐГ­ГЁГї ГЅГґГґГҐГЄГІГЁГўГ­Г®Г±ГІГЁ.
 
     They are named PL/SQL blocks. You can deploy them as standalone subroutines or as components in packages. Packages and 
 object types can contain both functions and procedures. Anonymous blocks can also have local functions and procedures defined 
 in their declaration blocks. You can also nest furctions and procedures inside other functions and procedures.
-    Они называются блоками PL/SQL. Вы можете развернуть их как отдельные подпрограммы или как компоненты в пакетах. Пакеты и 
-типы объектов могут содержать как функции, так и процедуры. Анонимные блоки также могут иметь локальные функции и процедуры, 
-определенные в их блоках объявлений. Вы также можете вложить функции и процедуры в другие функции и процедуры.
+    ГЋГ­ГЁ Г­Г Г§Г»ГўГ ГѕГІГ±Гї ГЎГ«Г®ГЄГ Г¬ГЁ PL/SQL. Г‚Г» Г¬Г®Г¦ГҐГІГҐ Г°Г Г§ГўГҐГ°Г­ГіГІГј ГЁГµ ГЄГ ГЄ Г®ГІГ¤ГҐГ«ГјГ­Г»ГҐ ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬Г» ГЁГ«ГЁ ГЄГ ГЄ ГЄГ®Г¬ГЇГ®Г­ГҐГ­ГІГ» Гў ГЇГ ГЄГҐГІГ Гµ. ГЏГ ГЄГҐГІГ» ГЁ 
+ГІГЁГЇГ» Г®ГЎГєГҐГЄГІГ®Гў Г¬Г®ГЈГіГІ Г±Г®Г¤ГҐГ°Г¦Г ГІГј ГЄГ ГЄ ГґГіГ­ГЄГ¶ГЁГЁ, ГІГ ГЄ ГЁ ГЇГ°Г®Г¶ГҐГ¤ГіГ°Г». ГЂГ­Г®Г­ГЁГ¬Г­Г»ГҐ ГЎГ«Г®ГЄГЁ ГІГ ГЄГ¦ГҐ Г¬Г®ГЈГіГІ ГЁГ¬ГҐГІГј Г«Г®ГЄГ Г«ГјГ­Г»ГҐ ГґГіГ­ГЄГ¶ГЁГЁ ГЁ ГЇГ°Г®Г¶ГҐГ¤ГіГ°Г», 
+Г®ГЇГ°ГҐГ¤ГҐГ«ГҐГ­Г­Г»ГҐ Гў ГЁГµ ГЎГ«Г®ГЄГ Гµ Г®ГЎГєГїГўГ«ГҐГ­ГЁГ©. Г‚Г» ГІГ ГЄГ¦ГҐ Г¬Г®Г¦ГҐГІГҐ ГўГ«Г®Г¦ГЁГІГј ГґГіГ­ГЄГ¶ГЁГЁ ГЁ ГЇГ°Г®Г¶ГҐГ¤ГіГ°Г» Гў Г¤Г°ГіГЈГЁГҐ ГґГіГ­ГЄГ¶ГЁГЁ ГЁ ГЇГ°Г®Г¶ГҐГ¤ГіГ°Г».
 
     You publish functions and procedures as standalone units or within packages and object types. This means that they are 
 defined in the package specification or object type, not the package body or object type body. They are local subroutines when 
 you define functions or procedures inside package bodies or object type bodies. Local subroutines are not published subroutines. 
 Likewise, subroutines defined in the declaration block of anonymous block programs are local subroutines.
-    Вы публикуете функции и процедуры как отдельные модули или внутри пакетов и типов объектов. Это означает, что они определены 
-в спецификации пакета или типе объекта, а не в теле пакета или теле типа объекта. Они являются локальными подпрограммами, когда 
-вы определяете функции или процедуры внутри тел пакетов или тел типов объектов. Локальные подпрограммы не являются 
-опубликованными подпрограммами. Аналогично, подпрограммы, определенные в блоке объявления анонимных блочных программ, 
-являются локальными подпрограммами.
+    Г‚Г» ГЇГіГЎГ«ГЁГЄГіГҐГІГҐ ГґГіГ­ГЄГ¶ГЁГЁ ГЁ ГЇГ°Г®Г¶ГҐГ¤ГіГ°Г» ГЄГ ГЄ Г®ГІГ¤ГҐГ«ГјГ­Г»ГҐ Г¬Г®Г¤ГіГ«ГЁ ГЁГ«ГЁ ГўГ­ГіГІГ°ГЁ ГЇГ ГЄГҐГІГ®Гў ГЁ ГІГЁГЇГ®Гў Г®ГЎГєГҐГЄГІГ®Гў. ГќГІГ® Г®Г§Г­Г Г·Г ГҐГІ, Г·ГІГ® Г®Г­ГЁ Г®ГЇГ°ГҐГ¤ГҐГ«ГҐГ­Г» 
+Гў Г±ГЇГҐГ¶ГЁГґГЁГЄГ Г¶ГЁГЁ ГЇГ ГЄГҐГІГ  ГЁГ«ГЁ ГІГЁГЇГҐ Г®ГЎГєГҐГЄГІГ , Г  Г­ГҐ Гў ГІГҐГ«ГҐ ГЇГ ГЄГҐГІГ  ГЁГ«ГЁ ГІГҐГ«ГҐ ГІГЁГЇГ  Г®ГЎГєГҐГЄГІГ . ГЋГ­ГЁ ГїГўГ«ГїГѕГІГ±Гї Г«Г®ГЄГ Г«ГјГ­Г»Г¬ГЁ ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬Г Г¬ГЁ, ГЄГ®ГЈГ¤Г  
+ГўГ» Г®ГЇГ°ГҐГ¤ГҐГ«ГїГҐГІГҐ ГґГіГ­ГЄГ¶ГЁГЁ ГЁГ«ГЁ ГЇГ°Г®Г¶ГҐГ¤ГіГ°Г» ГўГ­ГіГІГ°ГЁ ГІГҐГ« ГЇГ ГЄГҐГІГ®Гў ГЁГ«ГЁ ГІГҐГ« ГІГЁГЇГ®Гў Г®ГЎГєГҐГЄГІГ®Гў. Г‹Г®ГЄГ Г«ГјГ­Г»ГҐ ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬Г» Г­ГҐ ГїГўГ«ГїГѕГІГ±Гї 
+Г®ГЇГіГЎГ«ГЁГЄГ®ГўГ Г­Г­Г»Г¬ГЁ ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬Г Г¬ГЁ. ГЂГ­Г Г«Г®ГЈГЁГ·Г­Г®, ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬Г», Г®ГЇГ°ГҐГ¤ГҐГ«ГҐГ­Г­Г»ГҐ Гў ГЎГ«Г®ГЄГҐ Г®ГЎГєГїГўГ«ГҐГ­ГЁГї Г Г­Г®Г­ГЁГ¬Г­Г»Гµ ГЎГ«Г®Г·Г­Г»Гµ ГЇГ°Г®ГЈГ°Г Г¬Г¬, 
+ГїГўГ«ГїГѕГІГ±Гї Г«Г®ГЄГ Г«ГјГ­Г»Г¬ГЁ ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬Г Г¬ГЁ.
 
     Functions and procedures are named PL/SQL blocks. You can also call them subroutines or subprograms. They have headers 
 in place of the DECLARE statement. The header defines the function or procedure name, a list of formal parameters, and a return
 data type for functions. Formal parameters define variables that you can send to subroutines when you call them. 
 You use both formal parameters and local variables inside functions and procedures.
-    Функции и процедуры называются блоками PL/SQL. Вы также можете называть их подпрограммами или подпрограммами. У них есть 
-заголовки вместо инструкции DECLARE. Заголовок определяет имя функции или процедуры, список формальных параметров и возвращаемый 
-тип данных для функций. Формальные параметры определяют переменные, которые вы можете отправлять подпрограммам при их вызове. 
-Вы используете как формальные параметры, так и локальные переменные внутри функций и процедур.
+    Г”ГіГ­ГЄГ¶ГЁГЁ ГЁ ГЇГ°Г®Г¶ГҐГ¤ГіГ°Г» Г­Г Г§Г»ГўГ ГѕГІГ±Гї ГЎГ«Г®ГЄГ Г¬ГЁ PL/SQL. Г‚Г» ГІГ ГЄГ¦ГҐ Г¬Г®Г¦ГҐГІГҐ Г­Г Г§Г»ГўГ ГІГј ГЁГµ ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬Г Г¬ГЁ ГЁГ«ГЁ ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬Г Г¬ГЁ. Г“ Г­ГЁГµ ГҐГ±ГІГј 
+Г§Г ГЈГ®Г«Г®ГўГЄГЁ ГўГ¬ГҐГ±ГІГ® ГЁГ­Г±ГІГ°ГіГЄГ¶ГЁГЁ DECLARE. Г‡Г ГЈГ®Г«Г®ГўГ®ГЄ Г®ГЇГ°ГҐГ¤ГҐГ«ГїГҐГІ ГЁГ¬Гї ГґГіГ­ГЄГ¶ГЁГЁ ГЁГ«ГЁ ГЇГ°Г®Г¶ГҐГ¤ГіГ°Г», Г±ГЇГЁГ±Г®ГЄ ГґГ®Г°Г¬Г Г«ГјГ­Г»Гµ ГЇГ Г°Г Г¬ГҐГІГ°Г®Гў ГЁ ГўГ®Г§ГўГ°Г Г№Г ГҐГ¬Г»Г© 
+ГІГЁГЇ Г¤Г Г­Г­Г»Гµ Г¤Г«Гї ГґГіГ­ГЄГ¶ГЁГ©. Г”Г®Г°Г¬Г Г«ГјГ­Г»ГҐ ГЇГ Г°Г Г¬ГҐГІГ°Г» Г®ГЇГ°ГҐГ¤ГҐГ«ГїГѕГІ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г»ГҐ, ГЄГ®ГІГ®Г°Г»ГҐ ГўГ» Г¬Г®Г¦ГҐГІГҐ Г®ГІГЇГ°Г ГўГ«ГїГІГј ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬Г Г¬ ГЇГ°ГЁ ГЁГµ ГўГ»Г§Г®ГўГҐ. 
+Г‚Г» ГЁГ±ГЇГ®Г«ГјГ§ГіГҐГІГҐ ГЄГ ГЄ ГґГ®Г°Г¬Г Г«ГјГ­Г»ГҐ ГЇГ Г°Г Г¬ГҐГІГ°Г», ГІГ ГЄ ГЁ Г«Г®ГЄГ Г«ГјГ­Г»ГҐ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г»ГҐ ГўГ­ГіГІГ°ГЁ ГґГіГ­ГЄГ¶ГЁГ© ГЁ ГЇГ°Г®Г¶ГҐГ¤ГіГ°.
 
     While functions return a datatype, procedures do not. Functions return output as values represented as SQL or PL/SQL 
 datatypes Procedures can return values through their formal parameter list variables when they are passed by reference.
-    В то время как функции возвращают тип данных, процедуры этого не делают. 
-	Функции возвращают выходные данные в виде значений, представленных в виде SQL или процедуры типов данных PL/SQL могут 
-	возвращать значения через свои формальные переменные списка параметров, когда они передаются по ссылке.
+    Г‚ ГІГ® ГўГ°ГҐГ¬Гї ГЄГ ГЄ ГґГіГ­ГЄГ¶ГЁГЁ ГўГ®Г§ГўГ°Г Г№Г ГѕГІ ГІГЁГЇ Г¤Г Г­Г­Г»Гµ, ГЇГ°Г®Г¶ГҐГ¤ГіГ°Г» ГЅГІГ®ГЈГ® Г­ГҐ Г¤ГҐГ«Г ГѕГІ. 
+	Г”ГіГ­ГЄГ¶ГЁГЁ ГўГ®Г§ГўГ°Г Г№Г ГѕГІ ГўГ»ГµГ®Г¤Г­Г»ГҐ Г¤Г Г­Г­Г»ГҐ Гў ГўГЁГ¤ГҐ Г§Г­Г Г·ГҐГ­ГЁГ©, ГЇГ°ГҐГ¤Г±ГІГ ГўГ«ГҐГ­Г­Г»Гµ Гў ГўГЁГ¤ГҐ SQL ГЁГ«ГЁ ГЇГ°Г®Г¶ГҐГ¤ГіГ°Г» ГІГЁГЇГ®Гў Г¤Г Г­Г­Г»Гµ PL/SQL Г¬Г®ГЈГіГІ 
+	ГўГ®Г§ГўГ°Г Г№Г ГІГј Г§Г­Г Г·ГҐГ­ГЁГї Г·ГҐГ°ГҐГ§ Г±ГўГ®ГЁ ГґГ®Г°Г¬Г Г«ГјГ­Г»ГҐ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г»ГҐ Г±ГЇГЁГ±ГЄГ  ГЇГ Г°Г Г¬ГҐГІГ°Г®Гў, ГЄГ®ГЈГ¤Г  Г®Г­ГЁ ГЇГҐГ°ГҐГ¤Г ГѕГІГ±Гї ГЇГ® Г±Г±Г»Г«ГЄГҐ.
 
     There are four types of generic subroutines in programming languages. The four types are defined by two behaviors, whether 
 they return a formal value or not and whether their parameter lists are passed by value
 (subroutines receive copies of values) or reference (subroutines receive references to variables).
-    В языках программирования существует четыре типа универсальных подпрограмм. Четыре типа определяются двумя поведениями, 
-независимо от того, возвращают ли они формальное значение или нет, и передаются ли их списки параметров по значению
-(подпрограммы получают копии значений) или по ссылке (подпрограммы получают ссылки на переменные).
+    Г‚ ГїГ§Г»ГЄГ Гµ ГЇГ°Г®ГЈГ°Г Г¬Г¬ГЁГ°Г®ГўГ Г­ГЁГї Г±ГіГ№ГҐГ±ГІГўГіГҐГІ Г·ГҐГІГ»Г°ГҐ ГІГЁГЇГ  ГіГ­ГЁГўГҐГ°Г±Г Г«ГјГ­Г»Гµ ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬. Г—ГҐГІГ»Г°ГҐ ГІГЁГЇГ  Г®ГЇГ°ГҐГ¤ГҐГ«ГїГѕГІГ±Гї Г¤ГўГіГ¬Гї ГЇГ®ГўГҐГ¤ГҐГ­ГЁГїГ¬ГЁ, 
+Г­ГҐГ§Г ГўГЁГ±ГЁГ¬Г® Г®ГІ ГІГ®ГЈГ®, ГўГ®Г§ГўГ°Г Г№Г ГѕГІ Г«ГЁ Г®Г­ГЁ ГґГ®Г°Г¬Г Г«ГјГ­Г®ГҐ Г§Г­Г Г·ГҐГ­ГЁГҐ ГЁГ«ГЁ Г­ГҐГІ, ГЁ ГЇГҐГ°ГҐГ¤Г ГѕГІГ±Гї Г«ГЁ ГЁГµ Г±ГЇГЁГ±ГЄГЁ ГЇГ Г°Г Г¬ГҐГІГ°Г®Гў ГЇГ® Г§Г­Г Г·ГҐГ­ГЁГѕ
+(ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬Г» ГЇГ®Г«ГіГ·Г ГѕГІ ГЄГ®ГЇГЁГЁ Г§Г­Г Г·ГҐГ­ГЁГ©) ГЁГ«ГЁ ГЇГ® Г±Г±Г»Г«ГЄГҐ (ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬Г» ГЇГ®Г«ГіГ·Г ГѕГІ Г±Г±Г»Г«ГЄГЁ Г­Г  ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г»ГҐ).
 
     You set formal parameters when you define subroutines. You call subroutines with actual parameters. Formal parameters define 
 the list of possible variables, and their positions and datatypes. Formal
 parameters do not assign values other than a default value, which makes a parameter optional. Actual
 parameters are the values you provide to subroutines when calling
 them. You can call subroutines without an actual parameter when the formal parameter has a default value.
-    Вы устанавливаете формальные параметры при определении подпрограмм. Вы вызываете подпрограммы с фактическими параметрами. 
-Формальные параметры определяют список возможных переменных, а также их позиции и типы данных. 
-Формальным параметрам не присваиваются значения, отличные от значения по умолчанию, что делает параметр необязательным. 
-Фактические параметры - это значения, которые вы предоставляете подпрограммам при их вызове. 
-Вы можете вызывать подпрограммы без фактического параметра, если формальный параметр имеет значение по умолчанию.
+    Г‚Г» ГіГ±ГІГ Г­Г ГўГ«ГЁГўГ ГҐГІГҐ ГґГ®Г°Г¬Г Г«ГјГ­Г»ГҐ ГЇГ Г°Г Г¬ГҐГІГ°Г» ГЇГ°ГЁ Г®ГЇГ°ГҐГ¤ГҐГ«ГҐГ­ГЁГЁ ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬. Г‚Г» ГўГ»Г§Г»ГўГ ГҐГІГҐ ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬Г» Г± ГґГ ГЄГІГЁГ·ГҐГ±ГЄГЁГ¬ГЁ ГЇГ Г°Г Г¬ГҐГІГ°Г Г¬ГЁ. 
+Г”Г®Г°Г¬Г Г«ГјГ­Г»ГҐ ГЇГ Г°Г Г¬ГҐГІГ°Г» Г®ГЇГ°ГҐГ¤ГҐГ«ГїГѕГІ Г±ГЇГЁГ±Г®ГЄ ГўГ®Г§Г¬Г®Г¦Г­Г»Гµ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г»Гµ, Г  ГІГ ГЄГ¦ГҐ ГЁГµ ГЇГ®Г§ГЁГ¶ГЁГЁ ГЁ ГІГЁГЇГ» Г¤Г Г­Г­Г»Гµ. 
+Г”Г®Г°Г¬Г Г«ГјГ­Г»Г¬ ГЇГ Г°Г Г¬ГҐГІГ°Г Г¬ Г­ГҐ ГЇГ°ГЁГ±ГўГ ГЁГўГ ГѕГІГ±Гї Г§Г­Г Г·ГҐГ­ГЁГї, Г®ГІГ«ГЁГ·Г­Г»ГҐ Г®ГІ Г§Г­Г Г·ГҐГ­ГЁГї ГЇГ® ГіГ¬Г®Г«Г·Г Г­ГЁГѕ, Г·ГІГ® Г¤ГҐГ«Г ГҐГІ ГЇГ Г°Г Г¬ГҐГІГ° Г­ГҐГ®ГЎГїГ§Г ГІГҐГ«ГјГ­Г»Г¬. 
+Г”Г ГЄГІГЁГ·ГҐГ±ГЄГЁГҐ ГЇГ Г°Г Г¬ГҐГІГ°Г» - ГЅГІГ® Г§Г­Г Г·ГҐГ­ГЁГї, ГЄГ®ГІГ®Г°Г»ГҐ ГўГ» ГЇГ°ГҐГ¤Г®Г±ГІГ ГўГ«ГїГҐГІГҐ ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬Г Г¬ ГЇГ°ГЁ ГЁГµ ГўГ»Г§Г®ГўГҐ. 
+Г‚Г» Г¬Г®Г¦ГҐГІГҐ ГўГ»Г§Г»ГўГ ГІГј ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬Г» ГЎГҐГ§ ГґГ ГЄГІГЁГ·ГҐГ±ГЄГ®ГЈГ® ГЇГ Г°Г Г¬ГҐГІГ°Г , ГҐГ±Г«ГЁ ГґГ®Г°Г¬Г Г«ГјГ­Г»Г© ГЇГ Г°Г Г¬ГҐГІГ° ГЁГ¬ГҐГҐГІ Г§Г­Г Г·ГҐГ­ГЁГҐ ГЇГ® ГіГ¬Г®Г«Г·Г Г­ГЁГѕ.
 
     You can use functions as right operands in assignments because their result is a value of a datatype defined in the database 
 catalog. Both pass-by-value and pass-by-reference functions fill this role equally
 inside PL/SQL blocks. You can use pass-by-reference functions in SQL statements only when you manage
 the actual parameters before and after the function call. You can also use the CALL statement with the
 INTO clause to return SQL data types from functions.
-    Вы можете использовать функции в качестве правильных операндов при присваивании, поскольку их результатом является значение 
-типа данных, определенного в каталоге базы данных. Как функции передачи по значению, так и функции передачи по ссылке одинаково выполняют эту роль
-внутри блоков PL/SQL. Вы можете использовать функции передачи по ссылке в операторах SQL только в том случае, если вы управляете
-фактическими параметрами до и после вызова функции. Вы также можете использовать оператор CALL с
-предложением INTO для возврата типов данных SQL из функций.
+    Г‚Г» Г¬Г®Г¦ГҐГІГҐ ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ ГІГј ГґГіГ­ГЄГ¶ГЁГЁ Гў ГЄГ Г·ГҐГ±ГІГўГҐ ГЇГ°Г ГўГЁГ«ГјГ­Г»Гµ Г®ГЇГҐГ°Г Г­Г¤Г®Гў ГЇГ°ГЁ ГЇГ°ГЁГ±ГўГ ГЁГўГ Г­ГЁГЁ, ГЇГ®Г±ГЄГ®Г«ГјГЄГі ГЁГµ Г°ГҐГ§ГіГ«ГјГІГ ГІГ®Г¬ ГїГўГ«ГїГҐГІГ±Гї Г§Г­Г Г·ГҐГ­ГЁГҐ 
+ГІГЁГЇГ  Г¤Г Г­Г­Г»Гµ, Г®ГЇГ°ГҐГ¤ГҐГ«ГҐГ­Г­Г®ГЈГ® Гў ГЄГ ГІГ Г«Г®ГЈГҐ ГЎГ Г§Г» Г¤Г Г­Г­Г»Гµ. ГЉГ ГЄ ГґГіГ­ГЄГ¶ГЁГЁ ГЇГҐГ°ГҐГ¤Г Г·ГЁ ГЇГ® Г§Г­Г Г·ГҐГ­ГЁГѕ, ГІГ ГЄ ГЁ ГґГіГ­ГЄГ¶ГЁГЁ ГЇГҐГ°ГҐГ¤Г Г·ГЁ ГЇГ® Г±Г±Г»Г«ГЄГҐ Г®Г¤ГЁГ­Г ГЄГ®ГўГ® ГўГ»ГЇГ®Г«Г­ГїГѕГІ ГЅГІГі Г°Г®Г«Гј
+ГўГ­ГіГІГ°ГЁ ГЎГ«Г®ГЄГ®Гў PL/SQL. Г‚Г» Г¬Г®Г¦ГҐГІГҐ ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ ГІГј ГґГіГ­ГЄГ¶ГЁГЁ ГЇГҐГ°ГҐГ¤Г Г·ГЁ ГЇГ® Г±Г±Г»Г«ГЄГҐ Гў Г®ГЇГҐГ°Г ГІГ®Г°Г Гµ SQL ГІГ®Г«ГјГЄГ® Гў ГІГ®Г¬ Г±Г«ГіГ·Г ГҐ, ГҐГ±Г«ГЁ ГўГ» ГіГЇГ°Г ГўГ«ГїГҐГІГҐ
+ГґГ ГЄГІГЁГ·ГҐГ±ГЄГЁГ¬ГЁ ГЇГ Г°Г Г¬ГҐГІГ°Г Г¬ГЁ Г¤Г® ГЁ ГЇГ®Г±Г«ГҐ ГўГ»Г§Г®ГўГ  ГґГіГ­ГЄГ¶ГЁГЁ. Г‚Г» ГІГ ГЄГ¦ГҐ Г¬Г®Г¦ГҐГІГҐ ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ ГІГј Г®ГЇГҐГ°Г ГІГ®Г° CALL Г±
+ГЇГ°ГҐГ¤Г«Г®Г¦ГҐГ­ГЁГҐГ¬ INTO Г¤Г«Гї ГўГ®Г§ГўГ°Г ГІГ  ГІГЁГЇГ®Гў Г¤Г Г­Г­Г»Гµ SQL ГЁГ§ ГґГіГ­ГЄГ¶ГЁГ©.
 
     PL/SQL qualifies functions and procedures as pass-by-value or pass-by-reference subroutines by the mode of their formal 
 parameter lists. PL/SQL supports three modes: read-only, write-only, and read-write. The IN
 mode is the default and designates a formal parameter as read-only. OUT mode designates a write-only
 parameter, and IN OUT mode designates a read-write parameter mode.
 
-    PL/SQL квалифицирует функции и процедуры как подпрограммы передачи по значению или передачи по ссылке с помощью режима 
-из их формальных списков параметров. 
-PL/SQL поддерживает три режима: 
--- только для чтения, 
--- только для записи,
--- для чтения и для записи.
-Режим IN используется по умолчанию и определяет формальный параметр как доступный только для чтения. 
-Режим OUT определяет параметр, доступный только для записи, а 
-режим IN OUT определяет режим параметров для чтения и записи.
+    PL/SQL ГЄГўГ Г«ГЁГґГЁГ¶ГЁГ°ГіГҐГІ ГґГіГ­ГЄГ¶ГЁГЁ ГЁ ГЇГ°Г®Г¶ГҐГ¤ГіГ°Г» ГЄГ ГЄ ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬Г» ГЇГҐГ°ГҐГ¤Г Г·ГЁ ГЇГ® Г§Г­Г Г·ГҐГ­ГЁГѕ ГЁГ«ГЁ ГЇГҐГ°ГҐГ¤Г Г·ГЁ ГЇГ® Г±Г±Г»Г«ГЄГҐ Г± ГЇГ®Г¬Г®Г№ГјГѕ Г°ГҐГ¦ГЁГ¬Г  
+ГЁГ§ ГЁГµ ГґГ®Г°Г¬Г Г«ГјГ­Г»Гµ Г±ГЇГЁГ±ГЄГ®Гў ГЇГ Г°Г Г¬ГҐГІГ°Г®Гў. 
+PL/SQL ГЇГ®Г¤Г¤ГҐГ°Г¦ГЁГўГ ГҐГІ ГІГ°ГЁ Г°ГҐГ¦ГЁГ¬Г : 
+-- ГІГ®Г«ГјГЄГ® Г¤Г«Гї Г·ГІГҐГ­ГЁГї, 
+-- ГІГ®Г«ГјГЄГ® Г¤Г«Гї Г§Г ГЇГЁГ±ГЁ,
+-- Г¤Г«Гї Г·ГІГҐГ­ГЁГї ГЁ Г¤Г«Гї Г§Г ГЇГЁГ±ГЁ.
+ГђГҐГ¦ГЁГ¬ IN ГЁГ±ГЇГ®Г«ГјГ§ГіГҐГІГ±Гї ГЇГ® ГіГ¬Г®Г«Г·Г Г­ГЁГѕ ГЁ Г®ГЇГ°ГҐГ¤ГҐГ«ГїГҐГІ ГґГ®Г°Г¬Г Г«ГјГ­Г»Г© ГЇГ Г°Г Г¬ГҐГІГ° ГЄГ ГЄ Г¤Г®Г±ГІГіГЇГ­Г»Г© ГІГ®Г«ГјГЄГ® Г¤Г«Гї Г·ГІГҐГ­ГЁГї. 
+ГђГҐГ¦ГЁГ¬ OUT Г®ГЇГ°ГҐГ¤ГҐГ«ГїГҐГІ ГЇГ Г°Г Г¬ГҐГІГ°, Г¤Г®Г±ГІГіГЇГ­Г»Г© ГІГ®Г«ГјГЄГ® Г¤Г«Гї Г§Г ГЇГЁГ±ГЁ, Г  
+Г°ГҐГ¦ГЁГ¬ IN OUT Г®ГЇГ°ГҐГ¤ГҐГ«ГїГҐГІ Г°ГҐГ¦ГЁГ¬ ГЇГ Г°Г Г¬ГҐГІГ°Г®Гў Г¤Г«Гї Г·ГІГҐГ­ГЁГї ГЁ Г§Г ГЇГЁГ±ГЁ.
 
     The IN mode is the default mode. It means a formal parameter is read-only. When you set a formal parameter as read-only, 
 you can not alter it during the execution of the subroutine. You can assign a
@@ -763,11 +716,11 @@ default value to a parameter, making the parameter optional. You use the IN mode
 parameters when you want to define a pass-by-value subroutine. The IN parameter allows you to pass
 values in to the module, but will not pass anything out of the module and back to the calling PL/SQL
 block.
-    Режим IN - это режим по умолчанию. Это означает, что формальный параметр доступен только для чтения. 
-Когда вы устанавливаете формальный параметр как доступный только для чтения, вы не можете изменять его во время выполнения подпрограммы.
-Вы можете присвоить параметру значение по умолчанию, сделав его необязательным. Вы используете режим IN для всех формальных
-параметров, когда хотите определить подпрограмму передачи по значению. Параметр IN позволяет вам передавать
-значения в модуль, но не будет передавать ничего из модуля и обратно в вызывающий блок PL/SQL
+    ГђГҐГ¦ГЁГ¬ IN - ГЅГІГ® Г°ГҐГ¦ГЁГ¬ ГЇГ® ГіГ¬Г®Г«Г·Г Г­ГЁГѕ. ГќГІГ® Г®Г§Г­Г Г·Г ГҐГІ, Г·ГІГ® ГґГ®Г°Г¬Г Г«ГјГ­Г»Г© ГЇГ Г°Г Г¬ГҐГІГ° Г¤Г®Г±ГІГіГЇГҐГ­ ГІГ®Г«ГјГЄГ® Г¤Г«Гї Г·ГІГҐГ­ГЁГї. 
+ГЉГ®ГЈГ¤Г  ГўГ» ГіГ±ГІГ Г­Г ГўГ«ГЁГўГ ГҐГІГҐ ГґГ®Г°Г¬Г Г«ГјГ­Г»Г© ГЇГ Г°Г Г¬ГҐГІГ° ГЄГ ГЄ Г¤Г®Г±ГІГіГЇГ­Г»Г© ГІГ®Г«ГјГЄГ® Г¤Г«Гї Г·ГІГҐГ­ГЁГї, ГўГ» Г­ГҐ Г¬Г®Г¦ГҐГІГҐ ГЁГ§Г¬ГҐГ­ГїГІГј ГҐГЈГ® ГўГ® ГўГ°ГҐГ¬Гї ГўГ»ГЇГ®Г«Г­ГҐГ­ГЁГї ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬Г».
+Г‚Г» Г¬Г®Г¦ГҐГІГҐ ГЇГ°ГЁГ±ГўГ®ГЁГІГј ГЇГ Г°Г Г¬ГҐГІГ°Гі Г§Г­Г Г·ГҐГ­ГЁГҐ ГЇГ® ГіГ¬Г®Г«Г·Г Г­ГЁГѕ, Г±Г¤ГҐГ«Г Гў ГҐГЈГ® Г­ГҐГ®ГЎГїГ§Г ГІГҐГ«ГјГ­Г»Г¬. Г‚Г» ГЁГ±ГЇГ®Г«ГјГ§ГіГҐГІГҐ Г°ГҐГ¦ГЁГ¬ IN Г¤Г«Гї ГўГ±ГҐГµ ГґГ®Г°Г¬Г Г«ГјГ­Г»Гµ
+ГЇГ Г°Г Г¬ГҐГІГ°Г®Гў, ГЄГ®ГЈГ¤Г  ГµГ®ГІГЁГІГҐ Г®ГЇГ°ГҐГ¤ГҐГ«ГЁГІГј ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬Гі ГЇГҐГ°ГҐГ¤Г Г·ГЁ ГЇГ® Г§Г­Г Г·ГҐГ­ГЁГѕ. ГЏГ Г°Г Г¬ГҐГІГ° IN ГЇГ®Г§ГўГ®Г«ГїГҐГІ ГўГ Г¬ ГЇГҐГ°ГҐГ¤Г ГўГ ГІГј
+Г§Г­Г Г·ГҐГ­ГЁГї Гў Г¬Г®Г¤ГіГ«Гј, Г­Г® Г­ГҐ ГЎГіГ¤ГҐГІ ГЇГҐГ°ГҐГ¤Г ГўГ ГІГј Г­ГЁГ·ГҐГЈГ® ГЁГ§ Г¬Г®Г¤ГіГ«Гї ГЁ Г®ГЎГ°Г ГІГ­Г® Гў ГўГ»Г§Г»ГўГ ГѕГ№ГЁГ© ГЎГ«Г®ГЄ PL/SQL
 
     The OUT mode means a formal parameter is write-only. When you set a formal parameter as write-only, there is no initial 
 physical size allocated to the variable. You allocate the physical sizeand value inside
@@ -775,12 +728,12 @@ your subroutine. You can't assign a default value, which would make an OUT mode 
 optional. You use an OUT mode with one or more formal parameters when you want a write-only pass-
 by-reference subroutine. Use the OUT parameter to pass a value back from the program to the calling
 PL/SQL block.
-    Режим OUT означает, что формальный параметр доступен только для записи. Когда вы устанавливаете формальный параметр как 
-доступный только для записи, для переменной не выделяется начальный физический размер. Вы выделяете физический размер и значение внутри
-своей подпрограммы. Вы не можете присвоить значение по умолчанию, которое сделало бы формальный параметр OUT mode
-необязательным. Вы используете режим OUT с одним или несколькими формальными параметрами, когда вам нужна подпрограмма передачи
-по ссылке только для записи. Используйте параметр OUT для передачи значения обратно из программы вызывающему
-Блок PL/SQL.
+    ГђГҐГ¦ГЁГ¬ OUT Г®Г§Г­Г Г·Г ГҐГІ, Г·ГІГ® ГґГ®Г°Г¬Г Г«ГјГ­Г»Г© ГЇГ Г°Г Г¬ГҐГІГ° Г¤Г®Г±ГІГіГЇГҐГ­ ГІГ®Г«ГјГЄГ® Г¤Г«Гї Г§Г ГЇГЁГ±ГЁ. ГЉГ®ГЈГ¤Г  ГўГ» ГіГ±ГІГ Г­Г ГўГ«ГЁГўГ ГҐГІГҐ ГґГ®Г°Г¬Г Г«ГјГ­Г»Г© ГЇГ Г°Г Г¬ГҐГІГ° ГЄГ ГЄ 
+Г¤Г®Г±ГІГіГЇГ­Г»Г© ГІГ®Г«ГјГЄГ® Г¤Г«Гї Г§Г ГЇГЁГ±ГЁ, Г¤Г«Гї ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г®Г© Г­ГҐ ГўГ»Г¤ГҐГ«ГїГҐГІГ±Гї Г­Г Г·Г Г«ГјГ­Г»Г© ГґГЁГ§ГЁГ·ГҐГ±ГЄГЁГ© Г°Г Г§Г¬ГҐГ°. Г‚Г» ГўГ»Г¤ГҐГ«ГїГҐГІГҐ ГґГЁГ§ГЁГ·ГҐГ±ГЄГЁГ© Г°Г Г§Г¬ГҐГ° ГЁ Г§Г­Г Г·ГҐГ­ГЁГҐ ГўГ­ГіГІГ°ГЁ
+Г±ГўГ®ГҐГ© ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬Г». Г‚Г» Г­ГҐ Г¬Г®Г¦ГҐГІГҐ ГЇГ°ГЁГ±ГўГ®ГЁГІГј Г§Г­Г Г·ГҐГ­ГЁГҐ ГЇГ® ГіГ¬Г®Г«Г·Г Г­ГЁГѕ, ГЄГ®ГІГ®Г°Г®ГҐ Г±Г¤ГҐГ«Г Г«Г® ГЎГ» ГґГ®Г°Г¬Г Г«ГјГ­Г»Г© ГЇГ Г°Г Г¬ГҐГІГ° OUT mode
+Г­ГҐГ®ГЎГїГ§Г ГІГҐГ«ГјГ­Г»Г¬. Г‚Г» ГЁГ±ГЇГ®Г«ГјГ§ГіГҐГІГҐ Г°ГҐГ¦ГЁГ¬ OUT Г± Г®Г¤Г­ГЁГ¬ ГЁГ«ГЁ Г­ГҐГ±ГЄГ®Г«ГјГЄГЁГ¬ГЁ ГґГ®Г°Г¬Г Г«ГјГ­Г»Г¬ГЁ ГЇГ Г°Г Г¬ГҐГІГ°Г Г¬ГЁ, ГЄГ®ГЈГ¤Г  ГўГ Г¬ Г­ГіГ¦Г­Г  ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬Г  ГЇГҐГ°ГҐГ¤Г Г·ГЁ
+ГЇГ® Г±Г±Г»Г«ГЄГҐ ГІГ®Г«ГјГЄГ® Г¤Г«Гї Г§Г ГЇГЁГ±ГЁ. Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ ГЇГ Г°Г Г¬ГҐГІГ° OUT Г¤Г«Гї ГЇГҐГ°ГҐГ¤Г Г·ГЁ Г§Г­Г Г·ГҐГ­ГЁГї Г®ГЎГ°Г ГІГ­Г® ГЁГ§ ГЇГ°Г®ГЈГ°Г Г¬Г¬Г» ГўГ»Г§Г»ГўГ ГѕГ№ГҐГ¬Гі
+ГЃГ«Г®ГЄ PL/SQL.
 
     The IN OUT mode means a formal parameter is read-write. When you set a formal parameter as read-write, the actual parameter 
 provides the physical size of the actual parameter. While you can change the contents of the variable inside the subroutine, 
@@ -789,13 +742,13 @@ allocated size. You can't assign a default value making an IN OUT mode parameter
 IN OUT mode with one or more formal parameters when you want a read-write pass-by-reference
 subroutine. With an IN OUT parameter, you can pass values into the program and return a value back to
 the calling program (either the original, unchanged value or a new value set within the program).
-    Режим IN OUT означает, что формальным параметром является чтение-запись. Когда вы устанавливаете формальный параметр 
-как чтение-запись, фактический параметр предоставляет физический размер фактического параметра. В то время как вы можете изменять
-содержимое переменной внутри подпрограммы, вы не можете изменять или превышать фактический размер выделенных параметров.
-Вы не можете присвоить значение по умолчанию, сделав параметр IN OUT mode необязательным. Вы используете В режиме OUT с одним
-или несколькими формальными параметрами, когда вам нужна подпрограмма передачи чтения-записи по ссылке. С помощью параметра 
-IN OUT вы можете передавать значения в программу и возвращать значение обратно в вызывающая программа (либо исходное, 
-неизмененное значение, либо новое значение, установленное в программе).
+    ГђГҐГ¦ГЁГ¬ IN OUT Г®Г§Г­Г Г·Г ГҐГІ, Г·ГІГ® ГґГ®Г°Г¬Г Г«ГјГ­Г»Г¬ ГЇГ Г°Г Г¬ГҐГІГ°Г®Г¬ ГїГўГ«ГїГҐГІГ±Гї Г·ГІГҐГ­ГЁГҐ-Г§Г ГЇГЁГ±Гј. ГЉГ®ГЈГ¤Г  ГўГ» ГіГ±ГІГ Г­Г ГўГ«ГЁГўГ ГҐГІГҐ ГґГ®Г°Г¬Г Г«ГјГ­Г»Г© ГЇГ Г°Г Г¬ГҐГІГ° 
+ГЄГ ГЄ Г·ГІГҐГ­ГЁГҐ-Г§Г ГЇГЁГ±Гј, ГґГ ГЄГІГЁГ·ГҐГ±ГЄГЁГ© ГЇГ Г°Г Г¬ГҐГІГ° ГЇГ°ГҐГ¤Г®Г±ГІГ ГўГ«ГїГҐГІ ГґГЁГ§ГЁГ·ГҐГ±ГЄГЁГ© Г°Г Г§Г¬ГҐГ° ГґГ ГЄГІГЁГ·ГҐГ±ГЄГ®ГЈГ® ГЇГ Г°Г Г¬ГҐГІГ°Г . Г‚ ГІГ® ГўГ°ГҐГ¬Гї ГЄГ ГЄ ГўГ» Г¬Г®Г¦ГҐГІГҐ ГЁГ§Г¬ГҐГ­ГїГІГј
+Г±Г®Г¤ГҐГ°Г¦ГЁГ¬Г®ГҐ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г®Г© ГўГ­ГіГІГ°ГЁ ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬Г», ГўГ» Г­ГҐ Г¬Г®Г¦ГҐГІГҐ ГЁГ§Г¬ГҐГ­ГїГІГј ГЁГ«ГЁ ГЇГ°ГҐГўГ»ГёГ ГІГј ГґГ ГЄГІГЁГ·ГҐГ±ГЄГЁГ© Г°Г Г§Г¬ГҐГ° ГўГ»Г¤ГҐГ«ГҐГ­Г­Г»Гµ ГЇГ Г°Г Г¬ГҐГІГ°Г®Гў.
+Г‚Г» Г­ГҐ Г¬Г®Г¦ГҐГІГҐ ГЇГ°ГЁГ±ГўГ®ГЁГІГј Г§Г­Г Г·ГҐГ­ГЁГҐ ГЇГ® ГіГ¬Г®Г«Г·Г Г­ГЁГѕ, Г±Г¤ГҐГ«Г Гў ГЇГ Г°Г Г¬ГҐГІГ° IN OUT mode Г­ГҐГ®ГЎГїГ§Г ГІГҐГ«ГјГ­Г»Г¬. Г‚Г» ГЁГ±ГЇГ®Г«ГјГ§ГіГҐГІГҐ Г‚ Г°ГҐГ¦ГЁГ¬ГҐ OUT Г± Г®Г¤Г­ГЁГ¬
+ГЁГ«ГЁ Г­ГҐГ±ГЄГ®Г«ГјГЄГЁГ¬ГЁ ГґГ®Г°Г¬Г Г«ГјГ­Г»Г¬ГЁ ГЇГ Г°Г Г¬ГҐГІГ°Г Г¬ГЁ, ГЄГ®ГЈГ¤Г  ГўГ Г¬ Г­ГіГ¦Г­Г  ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬Г  ГЇГҐГ°ГҐГ¤Г Г·ГЁ Г·ГІГҐГ­ГЁГї-Г§Г ГЇГЁГ±ГЁ ГЇГ® Г±Г±Г»Г«ГЄГҐ. Г‘ ГЇГ®Г¬Г®Г№ГјГѕ ГЇГ Г°Г Г¬ГҐГІГ°Г  
+IN OUT ГўГ» Г¬Г®Г¦ГҐГІГҐ ГЇГҐГ°ГҐГ¤Г ГўГ ГІГј Г§Г­Г Г·ГҐГ­ГЁГї Гў ГЇГ°Г®ГЈГ°Г Г¬Г¬Гі ГЁ ГўГ®Г§ГўГ°Г Г№Г ГІГј Г§Г­Г Г·ГҐГ­ГЁГҐ Г®ГЎГ°Г ГІГ­Г® Гў ГўГ»Г§Г»ГўГ ГѕГ№Г Гї ГЇГ°Г®ГЈГ°Г Г¬Г¬Г  (Г«ГЁГЎГ® ГЁГ±ГµГ®Г¤Г­Г®ГҐ, 
+Г­ГҐГЁГ§Г¬ГҐГ­ГҐГ­Г­Г®ГҐ Г§Г­Г Г·ГҐГ­ГЁГҐ, Г«ГЁГЎГ® Г­Г®ГўГ®ГҐ Г§Г­Г Г·ГҐГ­ГЁГҐ, ГіГ±ГІГ Г­Г®ГўГ«ГҐГ­Г­Г®ГҐ Гў ГЇГ°Г®ГЈГ°Г Г¬Г¬ГҐ).
 */
 
 CREATE OR REPLACE PROCEDURE print_strings (str1 IN VARCHAR, str2 IN VARCHAR)
@@ -812,12 +765,12 @@ BEGIN
 END;  --  Procedure PRINT_STRINGS compiled
 
 -- We are able to use POSITIONAL, NAMED and MIXED NOTATION when calling subroutines in PL/SQL program units.
--- Мы можем использовать ПОЗИЦИОННУЮ, ИМЕНОВАННУЮ и СМЕШАННУЮ НОТАЦИЮ при вызове подпрограмм в программных единицах PL/SQL.
+-- ГЊГ» Г¬Г®Г¦ГҐГ¬ ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ ГІГј ГЏГЋГ‡Г€Г–Г€ГЋГЌГЌГ“Гћ, Г€ГЊГ…ГЌГЋГ‚ГЂГЌГЌГ“Гћ ГЁ Г‘ГЊГ…ГГЂГЌГЌГ“Гћ ГЌГЋГ’ГЂГ–Г€Гћ ГЇГ°ГЁ ГўГ»Г§Г®ГўГҐ ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬ Гў ГЇГ°Г®ГЈГ°Г Г¬Г¬Г­Г»Гµ ГҐГ¤ГЁГ­ГЁГ¶Г Гµ PL/SQL.
 
 -- POSITIONAL NOTATION means that you provide a value for each variable in the formal parameter list. 
 -- The values must be in sequential order and must also match the datatype.
--- ПОЗИЦИОННАЯ НОТАЦИЯ означает, что вы указываете значение для каждой переменной в списке формальных параметров. 
--- Значения должны быть в последовательном порядке, а также должны соответствовать типу данных.
+-- ГЏГЋГ‡Г€Г–Г€ГЋГЌГЌГЂГџ ГЌГЋГ’ГЂГ–Г€Гџ Г®Г§Г­Г Г·Г ГҐГІ, Г·ГІГ® ГўГ» ГіГЄГ Г§Г»ГўГ ГҐГІГҐ Г§Г­Г Г·ГҐГ­ГЁГҐ Г¤Г«Гї ГЄГ Г¦Г¤Г®Г© ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г®Г© Гў Г±ГЇГЁГ±ГЄГҐ ГґГ®Г°Г¬Г Г«ГјГ­Г»Гµ ГЇГ Г°Г Г¬ГҐГІГ°Г®Гў. 
+-- Г‡Г­Г Г·ГҐГ­ГЁГї Г¤Г®Г«Г¦Г­Г» ГЎГ»ГІГј Гў ГЇГ®Г±Г«ГҐГ¤Г®ГўГ ГІГҐГ«ГјГ­Г®Г¬ ГЇГ®Г°ГїГ¤ГЄГҐ, Г  ГІГ ГЄГ¦ГҐ Г¤Г®Г«Г¦Г­Г» Г±Г®Г®ГІГўГҐГІГ±ГІГўГ®ГўГ ГІГј ГІГЁГЇГі Г¤Г Г­Г­Г»Гµ.
 BEGIN
     print_strings ('first_str_1', 'second_str_2');
 END;
@@ -825,9 +778,9 @@ END;
 -- NAMED NOTATION means that you pass actual parameters by using their formal parameter name, the association operator (=>), 
 -- and the value. Named notation lets you only pass values to required parameters, which means you accept the default 
 -- values for any optional parameters.
--- Именованная нотация означает, что вы передаете фактические параметры, используя их формальное имя параметра, оператор 
--- ассоциации (=>) и значение. Именованная нотация позволяет передавать значения только требуемым параметрам, что означает, 
--- что вы принимаете значения по умолчанию для любых необязательных параметров.
+-- Г€Г¬ГҐГ­Г®ГўГ Г­Г­Г Гї Г­Г®ГІГ Г¶ГЁГї Г®Г§Г­Г Г·Г ГҐГІ, Г·ГІГ® ГўГ» ГЇГҐГ°ГҐГ¤Г ГҐГІГҐ ГґГ ГЄГІГЁГ·ГҐГ±ГЄГЁГҐ ГЇГ Г°Г Г¬ГҐГІГ°Г», ГЁГ±ГЇГ®Г«ГјГ§ГіГї ГЁГµ ГґГ®Г°Г¬Г Г«ГјГ­Г®ГҐ ГЁГ¬Гї ГЇГ Г°Г Г¬ГҐГІГ°Г , Г®ГЇГҐГ°Г ГІГ®Г° 
+-- Г Г±Г±Г®Г¶ГЁГ Г¶ГЁГЁ (=>) ГЁ Г§Г­Г Г·ГҐГ­ГЁГҐ. Г€Г¬ГҐГ­Г®ГўГ Г­Г­Г Гї Г­Г®ГІГ Г¶ГЁГї ГЇГ®Г§ГўГ®Г«ГїГҐГІ ГЇГҐГ°ГҐГ¤Г ГўГ ГІГј Г§Г­Г Г·ГҐГ­ГЁГї ГІГ®Г«ГјГЄГ® ГІГ°ГҐГЎГіГҐГ¬Г»Г¬ ГЇГ Г°Г Г¬ГҐГІГ°Г Г¬, Г·ГІГ® Г®Г§Г­Г Г·Г ГҐГІ, 
+-- Г·ГІГ® ГўГ» ГЇГ°ГЁГ­ГЁГ¬Г ГҐГІГҐ Г§Г­Г Г·ГҐГ­ГЁГї ГЇГ® ГіГ¬Г®Г«Г·Г Г­ГЁГѕ Г¤Г«Гї Г«ГѕГЎГ»Гµ Г­ГҐГ®ГЎГїГ§Г ГІГҐГ«ГјГ­Г»Гµ ГЇГ Г°Г Г¬ГҐГІГ°Г®Гў.
 BEGIN
     print_strings (str2 => 'second_str_2', str1 => 'first_str_1');
 END;
@@ -873,37 +826,37 @@ END;
 
 --------------------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------------------
--- Функция 
+-- Г”ГіГ­ГЄГ¶ГЁГї 
 --------------------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------------------
 /*
-Функция  — это подпрограмма на языке ORACLE PL SQL, которая вычисляет значения и возвращает результат вычисления.
-У функции есть уникальное в рамках схемы БД имя и набор параметров.
-Функцию можно вызывать из другой процедуры или функции, а также из анонимного PL SQL блока.
-Замечательным свойством функции является то, что функцию можно использовать в SQL запросе,
-передавая функции PL SQL параметры из SQL запроса.
+Г”ГіГ­ГЄГ¶ГЁГї  В— ГЅГІГ® ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬Г  Г­Г  ГїГ§Г»ГЄГҐ ORACLE PL SQL, ГЄГ®ГІГ®Г°Г Гї ГўГ»Г·ГЁГ±Г«ГїГҐГІ Г§Г­Г Г·ГҐГ­ГЁГї ГЁ ГўГ®Г§ГўГ°Г Г№Г ГҐГІ Г°ГҐГ§ГіГ«ГјГІГ ГІ ГўГ»Г·ГЁГ±Г«ГҐГ­ГЁГї.
+Г“ ГґГіГ­ГЄГ¶ГЁГЁ ГҐГ±ГІГј ГіГ­ГЁГЄГ Г«ГјГ­Г®ГҐ Гў Г°Г Г¬ГЄГ Гµ Г±ГµГҐГ¬Г» ГЃГ„ ГЁГ¬Гї ГЁ Г­Г ГЎГ®Г° ГЇГ Г°Г Г¬ГҐГІГ°Г®Гў.
+Г”ГіГ­ГЄГ¶ГЁГѕ Г¬Г®Г¦Г­Г® ГўГ»Г§Г»ГўГ ГІГј ГЁГ§ Г¤Г°ГіГЈГ®Г© ГЇГ°Г®Г¶ГҐГ¤ГіГ°Г» ГЁГ«ГЁ ГґГіГ­ГЄГ¶ГЁГЁ, Г  ГІГ ГЄГ¦ГҐ ГЁГ§ Г Г­Г®Г­ГЁГ¬Г­Г®ГЈГ® PL SQL ГЎГ«Г®ГЄГ .
+Г‡Г Г¬ГҐГ·Г ГІГҐГ«ГјГ­Г»Г¬ Г±ГўГ®Г©Г±ГІГўГ®Г¬ ГґГіГ­ГЄГ¶ГЁГЁ ГїГўГ«ГїГҐГІГ±Гї ГІГ®, Г·ГІГ® ГґГіГ­ГЄГ¶ГЁГѕ Г¬Г®Г¦Г­Г® ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ ГІГј Гў SQL Г§Г ГЇГ°Г®Г±ГҐ,
+ГЇГҐГ°ГҐГ¤Г ГўГ Гї ГґГіГ­ГЄГ¶ГЁГЁ PL SQL ГЇГ Г°Г Г¬ГҐГІГ°Г» ГЁГ§ SQL Г§Г ГЇГ°Г®Г±Г .
 */
--- Синтаксис
+-- Г‘ГЁГ­ГІГ ГЄГ±ГЁГ±
 
-CREATE OR REPLACE FUNCTION -- имя_функции
--- [ (параметр [, параметр, …]) ] 
-RETURN -- возвращаемый тип 
+CREATE OR REPLACE FUNCTION -- ГЁГ¬Гї_ГґГіГ­ГЄГ¶ГЁГЁ
+-- [ (ГЇГ Г°Г Г¬ГҐГІГ° [, ГЇГ Г°Г Г¬ГҐГІГ°, В…]) ] 
+RETURN -- ГўГ®Г§ГўГ°Г Г№Г ГҐГ¬Г»Г© ГІГЁГЇ 
 IS
--- [локальные объявления]
+-- [Г«Г®ГЄГ Г«ГјГ­Г»ГҐ Г®ГЎГєГїГўГ«ГҐГ­ГЁГї]
 BEGIN
--- исполняемые предложения
-RETURN -- возвращаемое значение;
+-- ГЁГ±ГЇГ®Г«Г­ГїГҐГ¬Г»ГҐ ГЇГ°ГҐГ¤Г«Г®Г¦ГҐГ­ГЁГї
+RETURN -- ГўГ®Г§ГўГ°Г Г№Г ГҐГ¬Г®ГҐ Г§Г­Г Г·ГҐГ­ГЁГҐ;
 [EXCEPTION
--- обработчики исключений]
-END -- [имя_функции];
+-- Г®ГЎГ°Г ГЎГ®ГІГ·ГЁГЄГЁ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГ©]
+END -- [ГЁГ¬Гї_ГґГіГ­ГЄГ¶ГЁГЁ];
 
 
--- Удаление процедуры из БД осуществляется командой 
-DROP FUNCTION "имя процедуры".
+-- Г“Г¤Г Г«ГҐГ­ГЁГҐ ГЇГ°Г®Г¶ГҐГ¤ГіГ°Г» ГЁГ§ ГЃГ„ Г®Г±ГіГ№ГҐГ±ГІГўГ«ГїГҐГІГ±Гї ГЄГ®Г¬Г Г­Г¤Г®Г© 
+DROP FUNCTION "ГЁГ¬Гї ГЇГ°Г®Г¶ГҐГ¤ГіГ°Г»".
 
--- Параметры, передаваемые в функцию, могут быть in или/и out(по умолчанию in)
--- Параметры in можно использовать в функции, но им нельзя присваивать значение.
--- Параметры Out можно использовать в функции, им присваивается значение, которое передается во внешний программой блок.
+-- ГЏГ Г°Г Г¬ГҐГІГ°Г», ГЇГҐГ°ГҐГ¤Г ГўГ ГҐГ¬Г»ГҐ Гў ГґГіГ­ГЄГ¶ГЁГѕ, Г¬Г®ГЈГіГІ ГЎГ»ГІГј in ГЁГ«ГЁ/ГЁ out(ГЇГ® ГіГ¬Г®Г«Г·Г Г­ГЁГѕ in)
+-- ГЏГ Г°Г Г¬ГҐГІГ°Г» in Г¬Г®Г¦Г­Г® ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ ГІГј Гў ГґГіГ­ГЄГ¶ГЁГЁ, Г­Г® ГЁГ¬ Г­ГҐГ«ГјГ§Гї ГЇГ°ГЁГ±ГўГ ГЁГўГ ГІГј Г§Г­Г Г·ГҐГ­ГЁГҐ.
+-- ГЏГ Г°Г Г¬ГҐГІГ°Г» Out Г¬Г®Г¦Г­Г® ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ ГІГј Гў ГґГіГ­ГЄГ¶ГЁГЁ, ГЁГ¬ ГЇГ°ГЁГ±ГўГ ГЁГўГ ГҐГІГ±Гї Г§Г­Г Г·ГҐГ­ГЁГҐ, ГЄГ®ГІГ®Г°Г®ГҐ ГЇГҐГ°ГҐГ¤Г ГҐГІГ±Гї ГўГ® ГўГ­ГҐГёГ­ГЁГ© ГЇГ°Г®ГЈГ°Г Г¬Г¬Г®Г© ГЎГ«Г®ГЄ.
 
 -- 1
 CREATE OR REPLACE FUNCTION x_3(x NUMBER) 
@@ -918,15 +871,15 @@ EXCEPTION
 END x_3;
 
 ---------------------------------------------------------
--- Примеры вызова функции
+-- ГЏГ°ГЁГ¬ГҐГ°Г» ГўГ»Г§Г®ГўГ  ГґГіГ­ГЄГ¶ГЁГЁ
 ---------------------------------------------------------
 
---      Анонимный блок
+--      ГЂГ­Г®Г­ГЁГ¬Г­Г»Г© ГЎГ«Г®ГЄ
 BEGIN
      DBMS_OUTPUT.PUT_LINE( add_number(2, 3) );
 END;
 
---      Процедура
+--      ГЏГ°Г®Г¶ГҐГ¤ГіГ°Г 
 create or replace procedure test_proc(par1 number:=10, par2 out number, par3 in out number)
 is
   t varchar2(50):= 'test1';
@@ -935,7 +888,7 @@ begin
   t:= 'test';
   r := 11;
   par2 := par1 * r;
-  -- ВЫЗОВ X_3
+  -- Г‚Г›Г‡ГЋГ‚ X_3
   par3 := x_3(par2 + par1);
 exception 
   when others then raise;
@@ -956,7 +909,7 @@ BEGIN
 END add_number;
 
 -- Any formal parameter may have a default initial value. 
--- Любой формальный параметр может иметь начальное значение по умолчанию.
+-- Г‹ГѕГЎГ®Г© ГґГ®Г°Г¬Г Г«ГјГ­Г»Г© ГЇГ Г°Г Г¬ГҐГІГ° Г¬Г®Г¦ГҐГІ ГЁГ¬ГҐГІГј Г­Г Г·Г Г«ГјГ­Г®ГҐ Г§Г­Г Г·ГҐГ­ГЁГҐ ГЇГ® ГіГ¬Г®Г«Г·Г Г­ГЁГѕ.
 CREATE OR REPLACE FUNCTION add_number (num1 NUMBER := 4, num2 NUMBER := 5) 
     RETURN NUMBER
 IS
@@ -965,19 +918,19 @@ BEGIN
 END add_number;
 
 -- If the function has declared default values we can omit parameters and parentheses when we call the function.
--- Если функция имеет объявленные значения по умолчанию, мы можем опустить параметры и круглые скобки при вызове функции.
+-- Г…Г±Г«ГЁ ГґГіГ­ГЄГ¶ГЁГї ГЁГ¬ГҐГҐГІ Г®ГЎГєГїГўГ«ГҐГ­Г­Г»ГҐ Г§Г­Г Г·ГҐГ­ГЁГї ГЇГ® ГіГ¬Г®Г«Г·Г Г­ГЁГѕ, Г¬Г» Г¬Г®Г¦ГҐГ¬ Г®ГЇГіГ±ГІГЁГІГј ГЇГ Г°Г Г¬ГҐГІГ°Г» ГЁ ГЄГ°ГіГЈГ«Г»ГҐ Г±ГЄГ®ГЎГЄГЁ ГЇГ°ГЁ ГўГ»Г§Г®ГўГҐ ГґГіГ­ГЄГ¶ГЁГЁ.
 DECLARE
     result  NUMBER;
 BEGIN
-    --result := add_number; -- Если функция имеет объявленные значения по умолчанию, мы можем опустить параметры и круглые скобки при вызове функции.
-    result := add_number (5); -- можно опустить только один параметр (в данном случае num1 = 5, num2 = 5 по умолчанию)
+    --result := add_number; -- Г…Г±Г«ГЁ ГґГіГ­ГЄГ¶ГЁГї ГЁГ¬ГҐГҐГІ Г®ГЎГєГїГўГ«ГҐГ­Г­Г»ГҐ Г§Г­Г Г·ГҐГ­ГЁГї ГЇГ® ГіГ¬Г®Г«Г·Г Г­ГЁГѕ, Г¬Г» Г¬Г®Г¦ГҐГ¬ Г®ГЇГіГ±ГІГЁГІГј ГЇГ Г°Г Г¬ГҐГІГ°Г» ГЁ ГЄГ°ГіГЈГ«Г»ГҐ Г±ГЄГ®ГЎГЄГЁ ГЇГ°ГЁ ГўГ»Г§Г®ГўГҐ ГґГіГ­ГЄГ¶ГЁГЁ.
+    result := add_number (5); -- Г¬Г®Г¦Г­Г® Г®ГЇГіГ±ГІГЁГІГј ГІГ®Г«ГјГЄГ® Г®Г¤ГЁГ­ ГЇГ Г°Г Г¬ГҐГІГ° (Гў Г¤Г Г­Г­Г®Г¬ Г±Г«ГіГ·Г ГҐ num1 = 5, num2 = 5 ГЇГ® ГіГ¬Г®Г«Г·Г Г­ГЁГѕ)
     DBMS_OUTPUT.PUT_LINE(result);
 END;
 
 -- We use pass-by-reference functions when we want to perform an operation, return a value from the function, and alter one 
 -- or more actual parameters.
--- Мы используем функции передачи по ссылке, когда хотим выполнить операцию, вернуть значение из функции и изменить один 
--- или несколько фактических параметров.
+-- ГЊГ» ГЁГ±ГЇГ®Г«ГјГ§ГіГҐГ¬ ГґГіГ­ГЄГ¶ГЁГЁ ГЇГҐГ°ГҐГ¤Г Г·ГЁ ГЇГ® Г±Г±Г»Г«ГЄГҐ, ГЄГ®ГЈГ¤Г  ГµГ®ГІГЁГ¬ ГўГ»ГЇГ®Г«Г­ГЁГІГј Г®ГЇГҐГ°Г Г¶ГЁГѕ, ГўГҐГ°Г­ГіГІГј Г§Г­Г Г·ГҐГ­ГЁГҐ ГЁГ§ ГґГіГ­ГЄГ¶ГЁГЁ ГЁ ГЁГ§Г¬ГҐГ­ГЁГІГј Г®Г¤ГЁГ­ 
+-- ГЁГ«ГЁ Г­ГҐГ±ГЄГ®Г«ГјГЄГ® ГґГ ГЄГІГЁГ·ГҐГ±ГЄГЁГµ ГЇГ Г°Г Г¬ГҐГІГ°Г®Гў.
 
 CREATE OR REPLACE FUNCTION add_numbers_out (
     num1 IN OUT NUMBER, 
@@ -1006,10 +959,10 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('Param2 -> ' || param2);
 END;
 
--- Функция должна иметь по крайней мере один оператор RETURN в своем разделе инструкций execution. Он может иметь более одного 
--- ВОЗВРАТА, но при каждом вызове функции выполняется только один из этих операторов. Оператор RETURN, выполняемый функцией, 
--- определяет значение, возвращаемое этой функцией. Когда оператор RETURN обрабатывается, функция немедленно завершается и 
--- возвращает управление вызывающему блоку PL/SQL.
+-- Г”ГіГ­ГЄГ¶ГЁГї Г¤Г®Г«Г¦Г­Г  ГЁГ¬ГҐГІГј ГЇГ® ГЄГ°Г Г©Г­ГҐГ© Г¬ГҐГ°ГҐ Г®Г¤ГЁГ­ Г®ГЇГҐГ°Г ГІГ®Г° RETURN Гў Г±ГўГ®ГҐГ¬ Г°Г Г§Г¤ГҐГ«ГҐ ГЁГ­Г±ГІГ°ГіГЄГ¶ГЁГ© execution. ГЋГ­ Г¬Г®Г¦ГҐГІ ГЁГ¬ГҐГІГј ГЎГ®Г«ГҐГҐ Г®Г¤Г­Г®ГЈГ® 
+-- Г‚ГЋГ‡Г‚ГђГЂГ’ГЂ, Г­Г® ГЇГ°ГЁ ГЄГ Г¦Г¤Г®Г¬ ГўГ»Г§Г®ГўГҐ ГґГіГ­ГЄГ¶ГЁГЁ ГўГ»ГЇГ®Г«Г­ГїГҐГІГ±Гї ГІГ®Г«ГјГЄГ® Г®Г¤ГЁГ­ ГЁГ§ ГЅГІГЁГµ Г®ГЇГҐГ°Г ГІГ®Г°Г®Гў. ГЋГЇГҐГ°Г ГІГ®Г° RETURN, ГўГ»ГЇГ®Г«Г­ГїГҐГ¬Г»Г© ГґГіГ­ГЄГ¶ГЁГҐГ©, 
+-- Г®ГЇГ°ГҐГ¤ГҐГ«ГїГҐГІ Г§Г­Г Г·ГҐГ­ГЁГҐ, ГўГ®Г§ГўГ°Г Г№Г ГҐГ¬Г®ГҐ ГЅГІГ®Г© ГґГіГ­ГЄГ¶ГЁГҐГ©. ГЉГ®ГЈГ¤Г  Г®ГЇГҐГ°Г ГІГ®Г° RETURN Г®ГЎГ°Г ГЎГ ГІГ»ГўГ ГҐГІГ±Гї, ГґГіГ­ГЄГ¶ГЁГї Г­ГҐГ¬ГҐГ¤Г«ГҐГ­Г­Г® Г§Г ГўГҐГ°ГёГ ГҐГІГ±Гї ГЁ 
+-- ГўГ®Г§ГўГ°Г Г№Г ГҐГІ ГіГЇГ°Г ГўГ«ГҐГ­ГЁГҐ ГўГ»Г§Г»ГўГ ГѕГ№ГҐГ¬Гі ГЎГ«Г®ГЄГі PL/SQL.
 CREATE OR REPLACE FUNCTION max_number (num1 NUMBER, num2 NUMBER) 
     RETURN NUMBER
 IS
@@ -1030,18 +983,18 @@ END;
 --------------------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------------------
 
--- Lesson 4: EXCEPTION HANDLING  (ОБРАБОТКА ИСКЛЮЧЕНИЙ)
+-- Lesson 4: EXCEPTION HANDLING  (ГЋГЃГђГЂГЃГЋГ’ГЉГЂ Г€Г‘ГЉГ‹ГћГ—Г…ГЌГ€Г‰)
 
 --      NAMED SYSTEM EXCEPTION EXAMPLES
 --      NAMED PROGRAMMER-DEFINED EXCEPTIONS
 --      UNNAMED SYSTEM EXCEPTIONS
 --      UNNAMED PROGRAMMER-DEFINED EXCEPTIONS
---      SCOPE OF AN EXCEPTION AND PROPAGATION (ОБЛАСТЬ ДЕЙСТВИЯ ИСКЛЮЧЕНИЯ И РАСПРОСТРАНЕНИЕ)
+--      SCOPE OF AN EXCEPTION AND PROPAGATION (ГЋГЃГ‹ГЂГ‘Г’Гњ Г„Г…Г‰Г‘Г’Г‚Г€Гџ Г€Г‘ГЉГ‹ГћГ—Г…ГЌГ€Гџ Г€ ГђГЂГ‘ГЏГђГЋГ‘Г’ГђГЂГЌГ…ГЌГ€Г…)
 --------------------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------------------
 /*
-В Oracle сущетвуют исключительные ситуации, которые возникают при определнных обычно некорректных дествиях в программе
-Исключение Oracle Error SQLCODE Value
+Г‚ Oracle Г±ГіГ№ГҐГІГўГіГѕГІ ГЁГ±ГЄГ«ГѕГ·ГЁГІГҐГ«ГјГ­Г»ГҐ Г±ГЁГІГіГ Г¶ГЁГЁ, ГЄГ®ГІГ®Г°Г»ГҐ ГўГ®Г§Г­ГЁГЄГ ГѕГІ ГЇГ°ГЁ Г®ГЇГ°ГҐГ¤ГҐГ«Г­Г­Г»Гµ Г®ГЎГ»Г·Г­Г® Г­ГҐГЄГ®Г°Г°ГҐГЄГІГ­Г»Гµ Г¤ГҐГ±ГІГўГЁГїГµ Гў ГЇГ°Г®ГЈГ°Г Г¬Г¬ГҐ
+Г€Г±ГЄГ«ГѕГ·ГҐГ­ГЁГҐ Oracle Error SQLCODE Value
 
 CURSOR_ALREADY_OPEN ORA-06511 -6511
 DUP_VAL_ON_INDEX ORA-00001 -1
@@ -1057,66 +1010,66 @@ TIMEOUT_ON_RESOURCE ORA-00051 -51
 TOO_MANY_ROWS ORA-01422 -1422
 VALUE_ERROR ORA-06502 -6502
 ZERO_DIVIDE ORA-01476 -1476
-Чтобы ознакомится с более подробным списком исключений, смотрите Server Messages.
+Г—ГІГ®ГЎГ» Г®Г§Г­Г ГЄГ®Г¬ГЁГІГ±Гї Г± ГЎГ®Г«ГҐГҐ ГЇГ®Г¤Г°Г®ГЎГ­Г»Г¬ Г±ГЇГЁГ±ГЄГ®Г¬ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГ©, Г±Г¬Г®ГІГ°ГЁГІГҐ Server Messages.
 
-Описание исключений :
-CURSOR_ALREADY_OPEN вызывается, если вы раннее уже открыли данный курсор. Вы должны закрыть курсор, перед тем как снова открыть его.
-        Курсор для цикла FOR открывается автоматически , поэтому вы не можете выполнить куpсорный цикл по уже открытому курсору. 
-DUP_VAL_ON_INDEX вызывается при попытке сохранить несколько одинаковых значений в колонку таблицы, когда на данную колонку 
-                 установлен уникальный индекс.
-INVALID_CURSOR вызывается ,если вы пытаетесь выполнить некорректную операцию с курсором. Например, INVALID_CURSOR вызывается, 
-                если вы пытаетесь закрыть еще не открытый курсор.
-INVALID_NUMBER вызывается в SQL выражениях, когда не получается корректно конвертировать строку в число , потому что строка 
-                не преобразуется корректно в число. Например, следующее выражение INSERT вызывает INVALID_NUMBER когда Oracle 
-                пытается преобразовать строку 'HALL' в число:
+ГЋГЇГЁГ±Г Г­ГЁГҐ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГ© :
+CURSOR_ALREADY_OPEN ГўГ»Г§Г»ГўГ ГҐГІГ±Гї, ГҐГ±Г«ГЁ ГўГ» Г°Г Г­Г­ГҐГҐ ГіГ¦ГҐ Г®ГІГЄГ°Г»Г«ГЁ Г¤Г Г­Г­Г»Г© ГЄГіГ°Г±Г®Г°. Г‚Г» Г¤Г®Г«Г¦Г­Г» Г§Г ГЄГ°Г»ГІГј ГЄГіГ°Г±Г®Г°, ГЇГҐГ°ГҐГ¤ ГІГҐГ¬ ГЄГ ГЄ Г±Г­Г®ГўГ  Г®ГІГЄГ°Г»ГІГј ГҐГЈГ®.
+        ГЉГіГ°Г±Г®Г° Г¤Г«Гї Г¶ГЁГЄГ«Г  FOR Г®ГІГЄГ°Г»ГўГ ГҐГІГ±Гї Г ГўГІГ®Г¬Г ГІГЁГ·ГҐГ±ГЄГЁ , ГЇГ®ГЅГІГ®Г¬Гі ГўГ» Г­ГҐ Г¬Г®Г¦ГҐГІГҐ ГўГ»ГЇГ®Г«Г­ГЁГІГј ГЄГіpГ±Г®Г°Г­Г»Г© Г¶ГЁГЄГ« ГЇГ® ГіГ¦ГҐ Г®ГІГЄГ°Г»ГІГ®Г¬Гі ГЄГіГ°Г±Г®Г°Гі. 
+DUP_VAL_ON_INDEX ГўГ»Г§Г»ГўГ ГҐГІГ±Гї ГЇГ°ГЁ ГЇГ®ГЇГ»ГІГЄГҐ Г±Г®ГµГ°Г Г­ГЁГІГј Г­ГҐГ±ГЄГ®Г«ГјГЄГ® Г®Г¤ГЁГ­Г ГЄГ®ГўГ»Гµ Г§Г­Г Г·ГҐГ­ГЁГ© Гў ГЄГ®Г«Г®Г­ГЄГі ГІГ ГЎГ«ГЁГ¶Г», ГЄГ®ГЈГ¤Г  Г­Г  Г¤Г Г­Г­ГіГѕ ГЄГ®Г«Г®Г­ГЄГі 
+                 ГіГ±ГІГ Г­Г®ГўГ«ГҐГ­ ГіГ­ГЁГЄГ Г«ГјГ­Г»Г© ГЁГ­Г¤ГҐГЄГ±.
+INVALID_CURSOR ГўГ»Г§Г»ГўГ ГҐГІГ±Гї ,ГҐГ±Г«ГЁ ГўГ» ГЇГ»ГІГ ГҐГІГҐГ±Гј ГўГ»ГЇГ®Г«Г­ГЁГІГј Г­ГҐГЄГ®Г°Г°ГҐГЄГІГ­ГіГѕ Г®ГЇГҐГ°Г Г¶ГЁГѕ Г± ГЄГіГ°Г±Г®Г°Г®Г¬. ГЌГ ГЇГ°ГЁГ¬ГҐГ°, INVALID_CURSOR ГўГ»Г§Г»ГўГ ГҐГІГ±Гї, 
+                ГҐГ±Г«ГЁ ГўГ» ГЇГ»ГІГ ГҐГІГҐГ±Гј Г§Г ГЄГ°Г»ГІГј ГҐГ№ГҐ Г­ГҐ Г®ГІГЄГ°Г»ГІГ»Г© ГЄГіГ°Г±Г®Г°.
+INVALID_NUMBER ГўГ»Г§Г»ГўГ ГҐГІГ±Гї Гў SQL ГўГ»Г°Г Г¦ГҐГ­ГЁГїГµ, ГЄГ®ГЈГ¤Г  Г­ГҐ ГЇГ®Г«ГіГ·Г ГҐГІГ±Гї ГЄГ®Г°Г°ГҐГЄГІГ­Г® ГЄГ®Г­ГўГҐГ°ГІГЁГ°Г®ГўГ ГІГј Г±ГІГ°Г®ГЄГі Гў Г·ГЁГ±Г«Г® , ГЇГ®ГІГ®Г¬Гі Г·ГІГ® Г±ГІГ°Г®ГЄГ  
+                Г­ГҐ ГЇГ°ГҐГ®ГЎГ°Г Г§ГіГҐГІГ±Гї ГЄГ®Г°Г°ГҐГЄГІГ­Г® Гў Г·ГЁГ±Г«Г®. ГЌГ ГЇГ°ГЁГ¬ГҐГ°, Г±Г«ГҐГ¤ГіГѕГ№ГҐГҐ ГўГ»Г°Г Г¦ГҐГ­ГЁГҐ INSERT ГўГ»Г§Г»ГўГ ГҐГІ INVALID_NUMBER ГЄГ®ГЈГ¤Г  Oracle 
+                ГЇГ»ГІГ ГҐГІГ±Гї ГЇГ°ГҐГ®ГЎГ°Г Г§Г®ГўГ ГІГј Г±ГІГ°Г®ГЄГі 'HALL' Гў Г·ГЁГ±Г«Г®:
 
 
 INSERT INTO emp (empno, ename, deptno) VALUES ('HALL', 7888, 20);
- Следует помнить, что процедурных выражениях вызывается исключение VALUE_ERROR .
-LOGIN_DENIED вызывается если вы пытаетесь соединится с Oracle с неправильным именем пользователя или паролем.
-NO_DATA_FOUND вызывается если в выражение SELECT INTO не возвращает ни одной строки или если вы обращаетесь к неустановленной строке в PL/SQL таблице. Выражение FETCH в случае когда не выбрано строк, выполняется успешно, не вызывая исключения.
+ Г‘Г«ГҐГ¤ГіГҐГІ ГЇГ®Г¬Г­ГЁГІГј, Г·ГІГ® ГЇГ°Г®Г¶ГҐГ¤ГіГ°Г­Г»Гµ ГўГ»Г°Г Г¦ГҐГ­ГЁГїГµ ГўГ»Г§Г»ГўГ ГҐГІГ±Гї ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГҐ VALUE_ERROR .
+LOGIN_DENIED ГўГ»Г§Г»ГўГ ГҐГІГ±Гї ГҐГ±Г«ГЁ ГўГ» ГЇГ»ГІГ ГҐГІГҐГ±Гј Г±Г®ГҐГ¤ГЁГ­ГЁГІГ±Гї Г± Oracle Г± Г­ГҐГЇГ°Г ГўГЁГ«ГјГ­Г»Г¬ ГЁГ¬ГҐГ­ГҐГ¬ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї ГЁГ«ГЁ ГЇГ Г°Г®Г«ГҐГ¬.
+NO_DATA_FOUND ГўГ»Г§Г»ГўГ ГҐГІГ±Гї ГҐГ±Г«ГЁ Гў ГўГ»Г°Г Г¦ГҐГ­ГЁГҐ SELECT INTO Г­ГҐ ГўГ®Г§ГўГ°Г Г№Г ГҐГІ Г­ГЁ Г®Г¤Г­Г®Г© Г±ГІГ°Г®ГЄГЁ ГЁГ«ГЁ ГҐГ±Г«ГЁ ГўГ» Г®ГЎГ°Г Г№Г ГҐГІГҐГ±Гј ГЄ Г­ГҐГіГ±ГІГ Г­Г®ГўГ«ГҐГ­Г­Г®Г© Г±ГІГ°Г®ГЄГҐ Гў PL/SQL ГІГ ГЎГ«ГЁГ¶ГҐ. Г‚Г»Г°Г Г¦ГҐГ­ГЁГҐ FETCH Гў Г±Г«ГіГ·Г ГҐ ГЄГ®ГЈГ¤Г  Г­ГҐ ГўГ»ГЎГ°Г Г­Г® Г±ГІГ°Г®ГЄ, ГўГ»ГЇГ®Г«Г­ГїГҐГІГ±Гї ГіГ±ГЇГҐГёГ­Г®, Г­ГҐ ГўГ»Г§Г»ГўГ Гї ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї.
 
-Групповые выражения SQL ,такие как AVG и SUM всегда возвращают значение или null. Так, выражение SELECT INTO statement с групповой функцией никогда не вызовет исключение NO_DATA_FOUND.
+ГѓГ°ГіГЇГЇГ®ГўГ»ГҐ ГўГ»Г°Г Г¦ГҐГ­ГЁГї SQL ,ГІГ ГЄГЁГҐ ГЄГ ГЄ AVG ГЁ SUM ГўГ±ГҐГЈГ¤Г  ГўГ®Г§ГўГ°Г Г№Г ГѕГІ Г§Г­Г Г·ГҐГ­ГЁГҐ ГЁГ«ГЁ null. Г’Г ГЄ, ГўГ»Г°Г Г¦ГҐГ­ГЁГҐ SELECT INTO statement Г± ГЈГ°ГіГЇГЇГ®ГўГ®Г© ГґГіГ­ГЄГ¶ГЁГҐГ© Г­ГЁГЄГ®ГЈГ¤Г  Г­ГҐ ГўГ»Г§Г®ГўГҐГІ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГҐ NO_DATA_FOUND.
 
-NOT_LOGGED_ON вызывается если вы в PL/SQL приложении обращаетесь к базе данных без предварительного соединения с Oracle.
-PROGRAM_ERROR вызывается если в PL/SQL при внутренниих структурных ошибках.
-ROWTYPE_MISMATCH вызывается , когда курсор или выражение PL/SQL вы пытаетесь преобразовать к перемнной несовместимого типа. 
-Например, когда вы открыли курсор в хранимой процедуре, если возвращаемый тип имеет несовметимый формат параметров, PL/SQL вызывает ROWTYPE_MISMATCH.
-STORAGE_ERROR вызывается если PL/SQL не хватет оперативной памяти или в опративной памяти есть поврежденные блоки.
-TIMEOUT_ON_RESOURCE вызвается когда превышен интервал ожидания Oracle необходимого ресурса.
-TOO_MANY_ROWS вызывается если в выражение SELECT INTO возвращается более одной строки.
-VALUE_ERROR возникает в операциях преобразования, математических операциях, или когда не совпадает размерность типов. Например, когда вы выбираете значение колонки строку, и если длина переменно меньше размерности данной строки, PL/SQL прерывает выполнение программы исключением VALUE_ERROR.
-В процедурных выражениях, VALUE_ERROR вызывается если преобразование строки в число ошибочно. Например, следующее выражение вызывает VALUE_ERROR когда PL/SQL пытается преобразовать строку 'HALL' в число:
-в выражениях SQL вызывается исключение INVALID_NUMBER 
-ZERO_DIVIDE вызывается при попытке деления на ноль.
+NOT_LOGGED_ON ГўГ»Г§Г»ГўГ ГҐГІГ±Гї ГҐГ±Г«ГЁ ГўГ» Гў PL/SQL ГЇГ°ГЁГ«Г®Г¦ГҐГ­ГЁГЁ Г®ГЎГ°Г Г№Г ГҐГІГҐГ±Гј ГЄ ГЎГ Г§ГҐ Г¤Г Г­Г­Г»Гµ ГЎГҐГ§ ГЇГ°ГҐГ¤ГўГ Г°ГЁГІГҐГ«ГјГ­Г®ГЈГ® Г±Г®ГҐГ¤ГЁГ­ГҐГ­ГЁГї Г± Oracle.
+PROGRAM_ERROR ГўГ»Г§Г»ГўГ ГҐГІГ±Гї ГҐГ±Г«ГЁ Гў PL/SQL ГЇГ°ГЁ ГўГ­ГіГІГ°ГҐГ­Г­ГЁГЁГµ Г±ГІГ°ГіГЄГІГіГ°Г­Г»Гµ Г®ГёГЁГЎГЄГ Гµ.
+ROWTYPE_MISMATCH ГўГ»Г§Г»ГўГ ГҐГІГ±Гї , ГЄГ®ГЈГ¤Г  ГЄГіГ°Г±Г®Г° ГЁГ«ГЁ ГўГ»Г°Г Г¦ГҐГ­ГЁГҐ PL/SQL ГўГ» ГЇГ»ГІГ ГҐГІГҐГ±Гј ГЇГ°ГҐГ®ГЎГ°Г Г§Г®ГўГ ГІГј ГЄ ГЇГҐГ°ГҐГ¬Г­Г­Г®Г© Г­ГҐГ±Г®ГўГ¬ГҐГ±ГІГЁГ¬Г®ГЈГ® ГІГЁГЇГ . 
+ГЌГ ГЇГ°ГЁГ¬ГҐГ°, ГЄГ®ГЈГ¤Г  ГўГ» Г®ГІГЄГ°Г»Г«ГЁ ГЄГіГ°Г±Г®Г° Гў ГµГ°Г Г­ГЁГ¬Г®Г© ГЇГ°Г®Г¶ГҐГ¤ГіГ°ГҐ, ГҐГ±Г«ГЁ ГўГ®Г§ГўГ°Г Г№Г ГҐГ¬Г»Г© ГІГЁГЇ ГЁГ¬ГҐГҐГІ Г­ГҐГ±Г®ГўГ¬ГҐГІГЁГ¬Г»Г© ГґГ®Г°Г¬Г ГІ ГЇГ Г°Г Г¬ГҐГІГ°Г®Гў, PL/SQL ГўГ»Г§Г»ГўГ ГҐГІ ROWTYPE_MISMATCH.
+STORAGE_ERROR ГўГ»Г§Г»ГўГ ГҐГІГ±Гї ГҐГ±Г«ГЁ PL/SQL Г­ГҐ ГµГўГ ГІГҐГІ Г®ГЇГҐГ°Г ГІГЁГўГ­Г®Г© ГЇГ Г¬ГїГІГЁ ГЁГ«ГЁ Гў Г®ГЇГ°Г ГІГЁГўГ­Г®Г© ГЇГ Г¬ГїГІГЁ ГҐГ±ГІГј ГЇГ®ГўГ°ГҐГ¦Г¤ГҐГ­Г­Г»ГҐ ГЎГ«Г®ГЄГЁ.
+TIMEOUT_ON_RESOURCE ГўГ»Г§ГўГ ГҐГІГ±Гї ГЄГ®ГЈГ¤Г  ГЇГ°ГҐГўГ»ГёГҐГ­ ГЁГ­ГІГҐГ°ГўГ Г« Г®Г¦ГЁГ¤Г Г­ГЁГї Oracle Г­ГҐГ®ГЎГµГ®Г¤ГЁГ¬Г®ГЈГ® Г°ГҐГ±ГіГ°Г±Г .
+TOO_MANY_ROWS ГўГ»Г§Г»ГўГ ГҐГІГ±Гї ГҐГ±Г«ГЁ Гў ГўГ»Г°Г Г¦ГҐГ­ГЁГҐ SELECT INTO ГўГ®Г§ГўГ°Г Г№Г ГҐГІГ±Гї ГЎГ®Г«ГҐГҐ Г®Г¤Г­Г®Г© Г±ГІГ°Г®ГЄГЁ.
+VALUE_ERROR ГўГ®Г§Г­ГЁГЄГ ГҐГІ Гў Г®ГЇГҐГ°Г Г¶ГЁГїГµ ГЇГ°ГҐГ®ГЎГ°Г Г§Г®ГўГ Г­ГЁГї, Г¬Г ГІГҐГ¬Г ГІГЁГ·ГҐГ±ГЄГЁГµ Г®ГЇГҐГ°Г Г¶ГЁГїГµ, ГЁГ«ГЁ ГЄГ®ГЈГ¤Г  Г­ГҐ Г±Г®ГўГЇГ Г¤Г ГҐГІ Г°Г Г§Г¬ГҐГ°Г­Г®Г±ГІГј ГІГЁГЇГ®Гў. ГЌГ ГЇГ°ГЁГ¬ГҐГ°, ГЄГ®ГЈГ¤Г  ГўГ» ГўГ»ГЎГЁГ°Г ГҐГІГҐ Г§Г­Г Г·ГҐГ­ГЁГҐ ГЄГ®Г«Г®Г­ГЄГЁ Г±ГІГ°Г®ГЄГі, ГЁ ГҐГ±Г«ГЁ Г¤Г«ГЁГ­Г  ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г® Г¬ГҐГ­ГјГёГҐ Г°Г Г§Г¬ГҐГ°Г­Г®Г±ГІГЁ Г¤Г Г­Г­Г®Г© Г±ГІГ°Г®ГЄГЁ, PL/SQL ГЇГ°ГҐГ°Г»ГўГ ГҐГІ ГўГ»ГЇГ®Г«Г­ГҐГ­ГЁГҐ ГЇГ°Г®ГЈГ°Г Г¬Г¬Г» ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГҐГ¬ VALUE_ERROR.
+Г‚ ГЇГ°Г®Г¶ГҐГ¤ГіГ°Г­Г»Гµ ГўГ»Г°Г Г¦ГҐГ­ГЁГїГµ, VALUE_ERROR ГўГ»Г§Г»ГўГ ГҐГІГ±Гї ГҐГ±Г«ГЁ ГЇГ°ГҐГ®ГЎГ°Г Г§Г®ГўГ Г­ГЁГҐ Г±ГІГ°Г®ГЄГЁ Гў Г·ГЁГ±Г«Г® Г®ГёГЁГЎГ®Г·Г­Г®. ГЌГ ГЇГ°ГЁГ¬ГҐГ°, Г±Г«ГҐГ¤ГіГѕГ№ГҐГҐ ГўГ»Г°Г Г¦ГҐГ­ГЁГҐ ГўГ»Г§Г»ГўГ ГҐГІ VALUE_ERROR ГЄГ®ГЈГ¤Г  PL/SQL ГЇГ»ГІГ ГҐГІГ±Гї ГЇГ°ГҐГ®ГЎГ°Г Г§Г®ГўГ ГІГј Г±ГІГ°Г®ГЄГі 'HALL' Гў Г·ГЁГ±Г«Г®:
+Гў ГўГ»Г°Г Г¦ГҐГ­ГЁГїГµ SQL ГўГ»Г§Г»ГўГ ГҐГІГ±Гї ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГҐ INVALID_NUMBER 
+ZERO_DIVIDE ГўГ»Г§Г»ГўГ ГҐГІГ±Гї ГЇГ°ГЁ ГЇГ®ГЇГ»ГІГЄГҐ Г¤ГҐГ«ГҐГ­ГЁГї Г­Г  Г­Г®Г«Гј.
 
-как это использовать исключения в прогрммном коде
+ГЄГ ГЄ ГЅГІГ® ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ ГІГј ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї Гў ГЇГ°Г®ГЈГ°Г¬Г¬Г­Г®Г¬ ГЄГ®Г¤ГҐ
 
-Функция SQLERRM возвращает сообщение об ошибке связанное с последним возникшим исключением (ошибкой).
-Функция SQLERRM — не имеет параметров.
+Г”ГіГ­ГЄГ¶ГЁГї SQLERRM ГўГ®Г§ГўГ°Г Г№Г ГҐГІ Г±Г®Г®ГЎГ№ГҐГ­ГЁГҐ Г®ГЎ Г®ГёГЁГЎГЄГҐ Г±ГўГїГ§Г Г­Г­Г®ГҐ Г± ГЇГ®Г±Г«ГҐГ¤Г­ГЁГ¬ ГўГ®Г§Г­ГЁГЄГёГЁГ¬ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГҐГ¬ (Г®ГёГЁГЎГЄГ®Г©).
+Г”ГіГ­ГЄГ¶ГЁГї SQLERRM В— Г­ГҐ ГЁГ¬ГҐГҐГІ ГЇГ Г°Г Г¬ГҐГІГ°Г®Гў.
 
-Функция SQLCODE возвращает код ошибки связанный с последним возникшим исключением (ошибкой)
+Г”ГіГ­ГЄГ¶ГЁГї SQLCODE ГўГ®Г§ГўГ°Г Г№Г ГҐГІ ГЄГ®Г¤ Г®ГёГЁГЎГЄГЁ Г±ГўГїГ§Г Г­Г­Г»Г© Г± ГЇГ®Г±Г«ГҐГ¤Г­ГЁГ¬ ГўГ®Г§Г­ГЁГЄГёГЁГ¬ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГҐГ¬ (Г®ГёГЁГЎГЄГ®Г©)
 
 */
 
--- Обычно обработка исключений EXCEPTION выглядит следующим образом:
+-- ГЋГЎГ»Г·Г­Г® Г®ГЎГ°Г ГЎГ®ГІГЄГ  ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГ© EXCEPTION ГўГ»ГЈГ«ГїГ¤ГЁГІ Г±Г«ГҐГ¤ГіГѕГ№ГЁГ¬ Г®ГЎГ°Г Г§Г®Г¬:
 EXCEPTION
-   WHEN наименование_ошибки_1 THEN
+   WHEN Г­Г ГЁГ¬ГҐГ­Г®ГўГ Г­ГЁГҐ_Г®ГёГЁГЎГЄГЁ_1 THEN
       [statements]
 
-   WHEN наименование_ошибки_2 THEN
+   WHEN Г­Г ГЁГ¬ГҐГ­Г®ГўГ Г­ГЁГҐ_Г®ГёГЁГЎГЄГЁ_2 THEN
       [statements]
 
-   WHEN наименование_ошибки_N THEN
+   WHEN Г­Г ГЁГ¬ГҐГ­Г®ГўГ Г­ГЁГҐ_Г®ГёГЁГЎГЄГЁ_N THEN
       [statements]
 
    WHEN OTHERS THEN
       [statements]
 
-END [наименование_процедуры];
+END [Г­Г ГЁГ¬ГҐГ­Г®ГўГ Г­ГЁГҐ_ГЇГ°Г®Г¶ГҐГ¤ГіГ°Г»];
 
 --------------------------------------------
--- примеры
+-- ГЇГ°ГЁГ¬ГҐГ°Г»
 --------------------------------------------
 declare 
   -- Local variables here
@@ -1128,9 +1081,9 @@ begin
  
   i:=i/to_number(t);
 exception 
-  WHEN ZERO_DIVIDE THEN dbms_output.put_line('деление на 0 '||SQLCODE ||' '||SQLERRM );
-  WHEN VALUE_ERROR THEN dbms_output.put_line('ошибка преобразования  '||SQLCODE||' '||SQLERRM  );
-  WHEN OTHERS  THEN  dbms_output.put_line('еще какая то ошибка '||SQLCODE ||' '||SQLERRM );
+  WHEN ZERO_DIVIDE THEN dbms_output.put_line('Г¤ГҐГ«ГҐГ­ГЁГҐ Г­Г  0 '||SQLCODE ||' '||SQLERRM );
+  WHEN VALUE_ERROR THEN dbms_output.put_line('Г®ГёГЁГЎГЄГ  ГЇГ°ГҐГ®ГЎГ°Г Г§Г®ГўГ Г­ГЁГї  '||SQLCODE||' '||SQLERRM  );
+  WHEN OTHERS  THEN  dbms_output.put_line('ГҐГ№ГҐ ГЄГ ГЄГ Гї ГІГ® Г®ГёГЁГЎГЄГ  '||SQLCODE ||' '||SQLERRM );
 end;
 
 set serveroutput on
@@ -1145,45 +1098,45 @@ begin
   i := 100; t := '0';
   i:=i/to_number(t);
 exception 
-  when ZERO_DIVIDE then dbms_output.put_line('деление на 0 '||SQLCODE ||' '||SQLERRM );
-  when VALUE_ERROR then dbms_output.put_line('ошибка преобразования  '||SQLCODE||' '||SQLERRM  );
-  when others  then  dbms_output.put_line('еще какая то ошибка '||SQLCODE ||' '||SQLERRM );
+  when ZERO_DIVIDE then dbms_output.put_line('Г¤ГҐГ«ГҐГ­ГЁГҐ Г­Г  0 '||SQLCODE ||' '||SQLERRM );
+  when VALUE_ERROR then dbms_output.put_line('Г®ГёГЁГЎГЄГ  ГЇГ°ГҐГ®ГЎГ°Г Г§Г®ГўГ Г­ГЁГї  '||SQLCODE||' '||SQLERRM  );
+  when others  then  dbms_output.put_line('ГҐГ№ГҐ ГЄГ ГЄГ Гї ГІГ® Г®ГёГЁГЎГЄГ  '||SQLCODE ||' '||SQLERRM );
 end;
 
 --------------------------------------------------------------------------------------------------------------------------------
     Run-time errors arise from design faults, coding mistakes, hardware failures, and many other sources. Although you cannot 
 anticipate all possible errors, you can plan to handle certain kinds of errors meaningful to your PL/SQL program.
-    Ошибки во время выполнения возникают из-за ошибок проектирования, ошибок кодирования, аппаратных сбоев и многих других источников. 
-Хотя вы не можете предвидеть все возможные ошибки, вы можете спланировать обработку определенных типов ошибок, значимых для вашей программы PL/SQL.
+    ГЋГёГЁГЎГЄГЁ ГўГ® ГўГ°ГҐГ¬Гї ГўГ»ГЇГ®Г«Г­ГҐГ­ГЁГї ГўГ®Г§Г­ГЁГЄГ ГѕГІ ГЁГ§-Г§Г  Г®ГёГЁГЎГ®ГЄ ГЇГ°Г®ГҐГЄГІГЁГ°Г®ГўГ Г­ГЁГї, Г®ГёГЁГЎГ®ГЄ ГЄГ®Г¤ГЁГ°Г®ГўГ Г­ГЁГї, Г ГЇГЇГ Г°Г ГІГ­Г»Гµ Г±ГЎГ®ГҐГў ГЁ Г¬Г­Г®ГЈГЁГµ Г¤Г°ГіГЈГЁГµ ГЁГ±ГІГ®Г·Г­ГЁГЄГ®Гў. 
+Г•Г®ГІГї ГўГ» Г­ГҐ Г¬Г®Г¦ГҐГІГҐ ГЇГ°ГҐГ¤ГўГЁГ¤ГҐГІГј ГўГ±ГҐ ГўГ®Г§Г¬Г®Г¦Г­Г»ГҐ Г®ГёГЁГЎГЄГЁ, ГўГ» Г¬Г®Г¦ГҐГІГҐ Г±ГЇГ«Г Г­ГЁГ°Г®ГўГ ГІГј Г®ГЎГ°Г ГЎГ®ГІГЄГі Г®ГЇГ°ГҐГ¤ГҐГ«ГҐГ­Г­Г»Гµ ГІГЁГЇГ®Гў Г®ГёГЁГЎГ®ГЄ, Г§Г­Г Г·ГЁГ¬Г»Гµ Г¤Г«Гї ГўГ ГёГҐГ© ГЇГ°Г®ГЈГ°Г Г¬Г¬Г» PL/SQL.
 
     In the PL/SQL language, errors of any kind are treated as exceptions - situations that should not occur.
 An exception can be one of the following:
 - an error generated by the system (such as "out of memory" or "duplicate value in index")
 - an error caused by a user action
 - a warning issued by the application to the user.
-    В языке PL/SQL ошибки любого рода рассматриваются как исключения - ситуации, которые не должны возникать.
-Исключением может быть одно из следующих:
-- ошибка, сгенерированная системой (например, "не хватает памяти" или "повторяющееся значение в индексе")
-- ошибка, вызванная действием пользователя
-- предупреждение, выданное приложением пользователю
+    Г‚ ГїГ§Г»ГЄГҐ PL/SQL Г®ГёГЁГЎГЄГЁ Г«ГѕГЎГ®ГЈГ® Г°Г®Г¤Г  Г°Г Г±Г±Г¬Г ГІГ°ГЁГўГ ГѕГІГ±Гї ГЄГ ГЄ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї - Г±ГЁГІГіГ Г¶ГЁГЁ, ГЄГ®ГІГ®Г°Г»ГҐ Г­ГҐ Г¤Г®Г«Г¦Г­Г» ГўГ®Г§Г­ГЁГЄГ ГІГј.
+Г€Г±ГЄГ«ГѕГ·ГҐГ­ГЁГҐГ¬ Г¬Г®Г¦ГҐГІ ГЎГ»ГІГј Г®Г¤Г­Г® ГЁГ§ Г±Г«ГҐГ¤ГіГѕГ№ГЁГµ:
+- Г®ГёГЁГЎГЄГ , Г±ГЈГҐГ­ГҐГ°ГЁГ°Г®ГўГ Г­Г­Г Гї Г±ГЁГ±ГІГҐГ¬Г®Г© (Г­Г ГЇГ°ГЁГ¬ГҐГ°, "Г­ГҐ ГµГўГ ГІГ ГҐГІ ГЇГ Г¬ГїГІГЁ" ГЁГ«ГЁ "ГЇГ®ГўГІГ®Г°ГїГѕГ№ГҐГҐГ±Гї Г§Г­Г Г·ГҐГ­ГЁГҐ Гў ГЁГ­Г¤ГҐГЄГ±ГҐ")
+- Г®ГёГЁГЎГЄГ , ГўГ»Г§ГўГ Г­Г­Г Гї Г¤ГҐГ©Г±ГІГўГЁГҐГ¬ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї
+- ГЇГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГҐ, ГўГ»Г¤Г Г­Г­Г®ГҐ ГЇГ°ГЁГ«Г®Г¦ГҐГ­ГЁГҐГ¬ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гѕ
 
     PL/SQL traps and responds to errors using an architecture of exception handlers. The exception-handler mechanism allows you 
 to cleanly separate your error processing code from your executable statements. It also provides an event-driven model, as 
 opposed to a linear code model, for processing errors. In other words, no matter how a particular exception is raised, it is 
 handled by the same exception handler in the exception section.
-    PL/SQL улавливает ошибки и реагирует на них, используя архитектуру обработчиков исключений. Механизм обработки исключений 
-позволяет вам четко отделять ваш код обработки ошибок от ваших исполняемых инструкций. Он также предоставляет управляемую 
-событиями модель, в отличие от линейной модели кода, для обработки ошибок. Другими словами, независимо от того, как создается 
-конкретное исключение, оно обрабатывается одним и тем же обработчиком исключений в разделе исключений.
+    PL/SQL ГіГ«Г ГўГ«ГЁГўГ ГҐГІ Г®ГёГЁГЎГЄГЁ ГЁ Г°ГҐГ ГЈГЁГ°ГіГҐГІ Г­Г  Г­ГЁГµ, ГЁГ±ГЇГ®Г«ГјГ§ГіГї Г Г°ГµГЁГІГҐГЄГІГіГ°Гі Г®ГЎГ°Г ГЎГ®ГІГ·ГЁГЄГ®Гў ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГ©. ГЊГҐГµГ Г­ГЁГ§Г¬ Г®ГЎГ°Г ГЎГ®ГІГЄГЁ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГ© 
+ГЇГ®Г§ГўГ®Г«ГїГҐГІ ГўГ Г¬ Г·ГҐГІГЄГ® Г®ГІГ¤ГҐГ«ГїГІГј ГўГ Гё ГЄГ®Г¤ Г®ГЎГ°Г ГЎГ®ГІГЄГЁ Г®ГёГЁГЎГ®ГЄ Г®ГІ ГўГ ГёГЁГµ ГЁГ±ГЇГ®Г«Г­ГїГҐГ¬Г»Гµ ГЁГ­Г±ГІГ°ГіГЄГ¶ГЁГ©. ГЋГ­ ГІГ ГЄГ¦ГҐ ГЇГ°ГҐГ¤Г®Г±ГІГ ГўГ«ГїГҐГІ ГіГЇГ°Г ГўГ«ГїГҐГ¬ГіГѕ 
+Г±Г®ГЎГ»ГІГЁГїГ¬ГЁ Г¬Г®Г¤ГҐГ«Гј, Гў Г®ГІГ«ГЁГ·ГЁГҐ Г®ГІ Г«ГЁГ­ГҐГ©Г­Г®Г© Г¬Г®Г¤ГҐГ«ГЁ ГЄГ®Г¤Г , Г¤Г«Гї Г®ГЎГ°Г ГЎГ®ГІГЄГЁ Г®ГёГЁГЎГ®ГЄ. Г„Г°ГіГЈГЁГ¬ГЁ Г±Г«Г®ГўГ Г¬ГЁ, Г­ГҐГ§Г ГўГЁГ±ГЁГ¬Г® Г®ГІ ГІГ®ГЈГ®, ГЄГ ГЄ Г±Г®Г§Г¤Г ГҐГІГ±Гї 
+ГЄГ®Г­ГЄГ°ГҐГІГ­Г®ГҐ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГҐ, Г®Г­Г® Г®ГЎГ°Г ГЎГ ГІГ»ГўГ ГҐГІГ±Гї Г®Г¤Г­ГЁГ¬ ГЁ ГІГҐГ¬ Г¦ГҐ Г®ГЎГ°Г ГЎГ®ГІГ·ГЁГЄГ®Г¬ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГ© Гў Г°Г Г§Г¤ГҐГ«ГҐ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГ©.
 
     When an error occurs in PL/SQL, whether a system error or an application error, an exception is raised. The processing in 
 the current PL/SQL blocks execution section halts and control is transferred to the separate exception section of your program, 
 if one exists, to handle the exception. You cannot return to that block after you finish handling the exception. Instead, 
 control is passed to the enclosing block, if any.
-    При возникновении ошибки в PL/SQL, будь то системная ошибка или ошибка приложения, возникает исключение. Обработка в разделе 
-выполнения текущего блока PL/SQL останавливается, и управление передается в отдельный раздел исключения вашей программы, если 
-таковой существует, для обработки исключения. Вы не можете вернуться к этому блоку после завершения обработки исключения. 
-Вместо этого управление передается включающему блоку, если таковой имеется.
+    ГЏГ°ГЁ ГўГ®Г§Г­ГЁГЄГ­Г®ГўГҐГ­ГЁГЁ Г®ГёГЁГЎГЄГЁ Гў PL/SQL, ГЎГіГ¤Гј ГІГ® Г±ГЁГ±ГІГҐГ¬Г­Г Гї Г®ГёГЁГЎГЄГ  ГЁГ«ГЁ Г®ГёГЁГЎГЄГ  ГЇГ°ГЁГ«Г®Г¦ГҐГ­ГЁГї, ГўГ®Г§Г­ГЁГЄГ ГҐГІ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГҐ. ГЋГЎГ°Г ГЎГ®ГІГЄГ  Гў Г°Г Г§Г¤ГҐГ«ГҐ 
+ГўГ»ГЇГ®Г«Г­ГҐГ­ГЁГї ГІГҐГЄГіГ№ГҐГЈГ® ГЎГ«Г®ГЄГ  PL/SQL Г®Г±ГІГ Г­Г ГўГ«ГЁГўГ ГҐГІГ±Гї, ГЁ ГіГЇГ°Г ГўГ«ГҐГ­ГЁГҐ ГЇГҐГ°ГҐГ¤Г ГҐГІГ±Гї Гў Г®ГІГ¤ГҐГ«ГјГ­Г»Г© Г°Г Г§Г¤ГҐГ« ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї ГўГ ГёГҐГ© ГЇГ°Г®ГЈГ°Г Г¬Г¬Г», ГҐГ±Г«ГЁ 
+ГІГ ГЄГ®ГўГ®Г© Г±ГіГ№ГҐГ±ГІГўГіГҐГІ, Г¤Г«Гї Г®ГЎГ°Г ГЎГ®ГІГЄГЁ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї. Г‚Г» Г­ГҐ Г¬Г®Г¦ГҐГІГҐ ГўГҐГ°Г­ГіГІГјГ±Гї ГЄ ГЅГІГ®Г¬Гі ГЎГ«Г®ГЄГі ГЇГ®Г±Г«ГҐ Г§Г ГўГҐГ°ГёГҐГ­ГЁГї Г®ГЎГ°Г ГЎГ®ГІГЄГЁ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї. 
+Г‚Г¬ГҐГ±ГІГ® ГЅГІГ®ГЈГ® ГіГЇГ°Г ГўГ«ГҐГ­ГЁГҐ ГЇГҐГ°ГҐГ¤Г ГҐГІГ±Гї ГўГЄГ«ГѕГ·Г ГѕГ№ГҐГ¬Гі ГЎГ«Г®ГЄГі, ГҐГ±Г«ГЁ ГІГ ГЄГ®ГўГ®Г© ГЁГ¬ГҐГҐГІГ±Гї.
 
 There are four kinds of exceptions in PL/SQL:
 
@@ -1198,25 +1151,25 @@ the rest have numbers and can be assigned names with the special PRAGMA EXCEPTIO
 the programmer provides both an error number (between -20000 and - 20999) and an error message, and raises that exception with 
 a call to  RAISE_APPLICATION_ERROR. That error, along with its message, is propagated back to the client-side application.
 
-В PL/SQL существует четыре вида исключений:
+Г‚ PL/SQL Г±ГіГ№ГҐГ±ГІГўГіГҐГІ Г·ГҐГІГ»Г°ГҐ ГўГЁГ¤Г  ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГ©:
 
-- именованные системные исключения - исключения, которым PL/SQL присвоил имена и которые возникли в результате ошибки при 
-обработке PL/SQL или СУБД.
-- именованные исключения, определяемые программистом - исключения, которые возникают в результате ошибок в коде вашего приложения. 
-Вы даете этим исключениям имена, объявляя их в разделе объявления. Затем вы вызываете исключения явно в программе.
-- безымянные системные исключения - исключения, которые возникают в результате ошибки при обработке PL/SQL или СУБД, но 
-которым PL/SQL не присвоил имен. Так называются только наиболее распространенные ошибки.;
-остальные имеют номера, и им могут быть присвоены имена с помощью специального синтаксиса PRAGMA EXCEPTION_INIT.
-- неназванные исключения, определенные программистом - исключения, которые определяются и вызываются на сервере программистом. 
-В этом случае программист предоставляет как номер ошибки (от -20000 до - 20999), так и сообщение об ошибке и вызывает это 
-исключение с помощью вызова RAISE_APPLICATION_ERROR. Эта ошибка вместе с ее сообщением передается обратно в клиентское приложение.
+- ГЁГ¬ГҐГ­Г®ГўГ Г­Г­Г»ГҐ Г±ГЁГ±ГІГҐГ¬Г­Г»ГҐ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї - ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї, ГЄГ®ГІГ®Г°Г»Г¬ PL/SQL ГЇГ°ГЁГ±ГўГ®ГЁГ« ГЁГ¬ГҐГ­Г  ГЁ ГЄГ®ГІГ®Г°Г»ГҐ ГўГ®Г§Г­ГЁГЄГ«ГЁ Гў Г°ГҐГ§ГіГ«ГјГІГ ГІГҐ Г®ГёГЁГЎГЄГЁ ГЇГ°ГЁ 
+Г®ГЎГ°Г ГЎГ®ГІГЄГҐ PL/SQL ГЁГ«ГЁ Г‘Г“ГЃГ„.
+- ГЁГ¬ГҐГ­Г®ГўГ Г­Г­Г»ГҐ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї, Г®ГЇГ°ГҐГ¤ГҐГ«ГїГҐГ¬Г»ГҐ ГЇГ°Г®ГЈГ°Г Г¬Г¬ГЁГ±ГІГ®Г¬ - ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї, ГЄГ®ГІГ®Г°Г»ГҐ ГўГ®Г§Г­ГЁГЄГ ГѕГІ Гў Г°ГҐГ§ГіГ«ГјГІГ ГІГҐ Г®ГёГЁГЎГ®ГЄ Гў ГЄГ®Г¤ГҐ ГўГ ГёГҐГЈГ® ГЇГ°ГЁГ«Г®Г¦ГҐГ­ГЁГї. 
+Г‚Г» Г¤Г ГҐГІГҐ ГЅГІГЁГ¬ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГїГ¬ ГЁГ¬ГҐГ­Г , Г®ГЎГєГїГўГ«ГїГї ГЁГµ Гў Г°Г Г§Г¤ГҐГ«ГҐ Г®ГЎГєГїГўГ«ГҐГ­ГЁГї. Г‡Г ГІГҐГ¬ ГўГ» ГўГ»Г§Г»ГўГ ГҐГІГҐ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї ГїГўГ­Г® Гў ГЇГ°Г®ГЈГ°Г Г¬Г¬ГҐ.
+- ГЎГҐГ§Г»Г¬ГїГ­Г­Г»ГҐ Г±ГЁГ±ГІГҐГ¬Г­Г»ГҐ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї - ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї, ГЄГ®ГІГ®Г°Г»ГҐ ГўГ®Г§Г­ГЁГЄГ ГѕГІ Гў Г°ГҐГ§ГіГ«ГјГІГ ГІГҐ Г®ГёГЁГЎГЄГЁ ГЇГ°ГЁ Г®ГЎГ°Г ГЎГ®ГІГЄГҐ PL/SQL ГЁГ«ГЁ Г‘Г“ГЃГ„, Г­Г® 
+ГЄГ®ГІГ®Г°Г»Г¬ PL/SQL Г­ГҐ ГЇГ°ГЁГ±ГўГ®ГЁГ« ГЁГ¬ГҐГ­. Г’Г ГЄ Г­Г Г§Г»ГўГ ГѕГІГ±Гї ГІГ®Г«ГјГЄГ® Г­Г ГЁГЎГ®Г«ГҐГҐ Г°Г Г±ГЇГ°Г®Г±ГІГ°Г Г­ГҐГ­Г­Г»ГҐ Г®ГёГЁГЎГЄГЁ.;
+Г®Г±ГІГ Г«ГјГ­Г»ГҐ ГЁГ¬ГҐГѕГІ Г­Г®Г¬ГҐГ°Г , ГЁ ГЁГ¬ Г¬Г®ГЈГіГІ ГЎГ»ГІГј ГЇГ°ГЁГ±ГўГ®ГҐГ­Г» ГЁГ¬ГҐГ­Г  Г± ГЇГ®Г¬Г®Г№ГјГѕ Г±ГЇГҐГ¶ГЁГ Г«ГјГ­Г®ГЈГ® Г±ГЁГ­ГІГ ГЄГ±ГЁГ±Г  PRAGMA EXCEPTION_INIT.
+- Г­ГҐГ­Г Г§ГўГ Г­Г­Г»ГҐ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї, Г®ГЇГ°ГҐГ¤ГҐГ«ГҐГ­Г­Г»ГҐ ГЇГ°Г®ГЈГ°Г Г¬Г¬ГЁГ±ГІГ®Г¬ - ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї, ГЄГ®ГІГ®Г°Г»ГҐ Г®ГЇГ°ГҐГ¤ГҐГ«ГїГѕГІГ±Гї ГЁ ГўГ»Г§Г»ГўГ ГѕГІГ±Гї Г­Г  Г±ГҐГ°ГўГҐГ°ГҐ ГЇГ°Г®ГЈГ°Г Г¬Г¬ГЁГ±ГІГ®Г¬. 
+Г‚ ГЅГІГ®Г¬ Г±Г«ГіГ·Г ГҐ ГЇГ°Г®ГЈГ°Г Г¬Г¬ГЁГ±ГІ ГЇГ°ГҐГ¤Г®Г±ГІГ ГўГ«ГїГҐГІ ГЄГ ГЄ Г­Г®Г¬ГҐГ° Г®ГёГЁГЎГЄГЁ (Г®ГІ -20000 Г¤Г® - 20999), ГІГ ГЄ ГЁ Г±Г®Г®ГЎГ№ГҐГ­ГЁГҐ Г®ГЎ Г®ГёГЁГЎГЄГҐ ГЁ ГўГ»Г§Г»ГўГ ГҐГІ ГЅГІГ® 
+ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГҐ Г± ГЇГ®Г¬Г®Г№ГјГѕ ГўГ»Г§Г®ГўГ  RAISE_APPLICATION_ERROR. ГќГІГ  Г®ГёГЁГЎГЄГ  ГўГ¬ГҐГ±ГІГҐ Г± ГҐГҐ Г±Г®Г®ГЎГ№ГҐГ­ГЁГҐГ¬ ГЇГҐГ°ГҐГ¤Г ГҐГІГ±Гї Г®ГЎГ°Г ГІГ­Г® Гў ГЄГ«ГЁГҐГ­ГІГ±ГЄГ®ГҐ ГЇГ°ГЁГ«Г®Г¦ГҐГ­ГЁГҐ.
 
     The system exceptions (both named and unnamed) are raised by PL/SQL whenever a program violates a rule in the RDBMS or 
 causes a resource limit to be exceeded. Each of these RDBMS errors has a number associated with it. In addition, PL/SQL 
 predefines names for some of the most commonly encountered errors.
-    Системные исключения (как именованные, так и неназванные) вызываются PL/SQL всякий раз, когда программа нарушает правило 
-в СУБД или приводит к превышению лимита ресурсов. Каждая из этих ошибок СУБД имеет связанный с ней номер. Кроме того, PL/SQL 
-предопределяет имена для некоторых наиболее часто встречающихся ошибок.
+    Г‘ГЁГ±ГІГҐГ¬Г­Г»ГҐ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї (ГЄГ ГЄ ГЁГ¬ГҐГ­Г®ГўГ Г­Г­Г»ГҐ, ГІГ ГЄ ГЁ Г­ГҐГ­Г Г§ГўГ Г­Г­Г»ГҐ) ГўГ»Г§Г»ГўГ ГѕГІГ±Гї PL/SQL ГўГ±ГїГЄГЁГ© Г°Г Г§, ГЄГ®ГЈГ¤Г  ГЇГ°Г®ГЈГ°Г Г¬Г¬Г  Г­Г Г°ГіГёГ ГҐГІ ГЇГ°Г ГўГЁГ«Г® 
+Гў Г‘Г“ГЃГ„ ГЁГ«ГЁ ГЇГ°ГЁГўГ®Г¤ГЁГІ ГЄ ГЇГ°ГҐГўГ»ГёГҐГ­ГЁГѕ Г«ГЁГ¬ГЁГІГ  Г°ГҐГ±ГіГ°Г±Г®Гў. ГЉГ Г¦Г¤Г Гї ГЁГ§ ГЅГІГЁГµ Г®ГёГЁГЎГ®ГЄ Г‘Г“ГЃГ„ ГЁГ¬ГҐГҐГІ Г±ГўГїГ§Г Г­Г­Г»Г© Г± Г­ГҐГ© Г­Г®Г¬ГҐГ°. ГЉГ°Г®Г¬ГҐ ГІГ®ГЈГ®, PL/SQL 
+ГЇГ°ГҐГ¤Г®ГЇГ°ГҐГ¤ГҐГ«ГїГҐГІ ГЁГ¬ГҐГ­Г  Г¤Г«Гї Г­ГҐГЄГ®ГІГ®Г°Г»Гµ Г­Г ГЁГЎГ®Г«ГҐГҐ Г·Г Г±ГІГ® ГўГ±ГІГ°ГҐГ·Г ГѕГ№ГЁГµГ±Гї Г®ГёГЁГЎГ®ГЄ.
 
 --------------------------------------------------------------------------------------------------------------------------------
 --      NAMED SYSTEM EXCEPTION EXAMPLES
@@ -1238,7 +1191,7 @@ EXCEPTION
     THEN    DBMS_OUTPUT.PUT_LINE('ZERO divide. Exit program.' );
     WHEN    NO_DATA_FOUND
     THEN    DBMS_OUTPUT.PUT_LINE('NO DATA found. Exit program.' );
-    WHEN    OTHERS  -- The WHEN OTHERS clause is used to trap all remaining exceptions (перехвата всех оставшихся)
+    WHEN    OTHERS  -- The WHEN OTHERS clause is used to trap all remaining exceptions (ГЇГҐГ°ГҐГµГўГ ГІГ  ГўГ±ГҐГµ Г®Г±ГІГ ГўГёГЁГµГ±Гї)
     THEN    DBMS_OUTPUT.PUT_LINE('An OTHER error. Exit program.' );
 END;
 
@@ -1252,21 +1205,21 @@ an application, however, are specific to that application. Your program might ne
 trap and handle errors such as "negative balance in account" or "call date cannot be
 in the past." While different in nature from "division by zero," these errors are still
 exceptions to normal processing and should be handled gracefully by your program.
-    Исключения, объявленные PL/SQL в СТАНДАРТНОМ пакете, охватывают внутренние
-или системные ошибки. Однако многие проблемы, с которыми пользователь столкнется (или вызовет) в
-приложении, специфичны для этого приложения. Вашей программе может потребоваться
-перехватывать и обрабатывать такие ошибки, как "отрицательный баланс на счете" или "дата вызова не может быть
-в прошлом". Несмотря на то, что эти ошибки отличаются по своей природе от "деления на ноль", они по-прежнему
-являются исключениями из обычной обработки и должны корректно обрабатываться вашей программой.
+    Г€Г±ГЄГ«ГѕГ·ГҐГ­ГЁГї, Г®ГЎГєГїГўГ«ГҐГ­Г­Г»ГҐ PL/SQL Гў Г‘Г’ГЂГЌГ„ГЂГђГ’ГЌГЋГЊ ГЇГ ГЄГҐГІГҐ, Г®ГµГўГ ГІГ»ГўГ ГѕГІ ГўГ­ГіГІГ°ГҐГ­Г­ГЁГҐ
+ГЁГ«ГЁ Г±ГЁГ±ГІГҐГ¬Г­Г»ГҐ Г®ГёГЁГЎГЄГЁ. ГЋГ¤Г­Г ГЄГ® Г¬Г­Г®ГЈГЁГҐ ГЇГ°Г®ГЎГ«ГҐГ¬Г», Г± ГЄГ®ГІГ®Г°Г»Г¬ГЁ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј Г±ГІГ®Г«ГЄГ­ГҐГІГ±Гї (ГЁГ«ГЁ ГўГ»Г§Г®ГўГҐГІ) Гў
+ГЇГ°ГЁГ«Г®Г¦ГҐГ­ГЁГЁ, Г±ГЇГҐГ¶ГЁГґГЁГ·Г­Г» Г¤Г«Гї ГЅГІГ®ГЈГ® ГЇГ°ГЁГ«Г®Г¦ГҐГ­ГЁГї. Г‚Г ГёГҐГ© ГЇГ°Г®ГЈГ°Г Г¬Г¬ГҐ Г¬Г®Г¦ГҐГІ ГЇГ®ГІГ°ГҐГЎГ®ГўГ ГІГјГ±Гї
+ГЇГҐГ°ГҐГµГўГ ГІГ»ГўГ ГІГј ГЁ Г®ГЎГ°Г ГЎГ ГІГ»ГўГ ГІГј ГІГ ГЄГЁГҐ Г®ГёГЁГЎГЄГЁ, ГЄГ ГЄ "Г®ГІГ°ГЁГ¶Г ГІГҐГ«ГјГ­Г»Г© ГЎГ Г«Г Г­Г± Г­Г  Г±Г·ГҐГІГҐ" ГЁГ«ГЁ "Г¤Г ГІГ  ГўГ»Г§Г®ГўГ  Г­ГҐ Г¬Г®Г¦ГҐГІ ГЎГ»ГІГј
+Гў ГЇГ°Г®ГёГ«Г®Г¬". ГЌГҐГ±Г¬Г®ГІГ°Гї Г­Г  ГІГ®, Г·ГІГ® ГЅГІГЁ Г®ГёГЁГЎГЄГЁ Г®ГІГ«ГЁГ·Г ГѕГІГ±Гї ГЇГ® Г±ГўГ®ГҐГ© ГЇГ°ГЁГ°Г®Г¤ГҐ Г®ГІ "Г¤ГҐГ«ГҐГ­ГЁГї Г­Г  Г­Г®Г«Гј", Г®Г­ГЁ ГЇГ®-ГЇГ°ГҐГ¦Г­ГҐГ¬Гі
+ГїГўГ«ГїГѕГІГ±Гї ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГїГ¬ГЁ ГЁГ§ Г®ГЎГ»Г·Г­Г®Г© Г®ГЎГ°Г ГЎГ®ГІГЄГЁ ГЁ Г¤Г®Г«Г¦Г­Г» ГЄГ®Г°Г°ГҐГЄГІГ­Г® Г®ГЎГ°Г ГЎГ ГІГ»ГўГ ГІГјГ±Гї ГўГ ГёГҐГ© ГЇГ°Г®ГЈГ°Г Г¬Г¬Г®Г©.
     
     Of course, to handle an exception, you must have a name for that exception.
 Because PL/SQL cannot name these exceptions for you (they are specific to your
 application), you must do so yourself by declaring an exception in the declaration
 section of your PL/SQL block.
-    Конечно, чтобы обработать исключение, у вас должно быть имя для этого исключения.
-Поскольку PL / SQL не может назвать эти исключения для вас (они специфичны для вашего
-приложения), вы должны сделать это самостоятельно, объявив исключение в разделе объявления
-вашего блока PL / SQL.
+    ГЉГ®Г­ГҐГ·Г­Г®, Г·ГІГ®ГЎГ» Г®ГЎГ°Г ГЎГ®ГІГ ГІГј ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГҐ, Гі ГўГ Г± Г¤Г®Г«Г¦Г­Г® ГЎГ»ГІГј ГЁГ¬Гї Г¤Г«Гї ГЅГІГ®ГЈГ® ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї.
+ГЏГ®Г±ГЄГ®Г«ГјГЄГі PL / SQL Г­ГҐ Г¬Г®Г¦ГҐГІ Г­Г Г§ГўГ ГІГј ГЅГІГЁ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї Г¤Г«Гї ГўГ Г± (Г®Г­ГЁ Г±ГЇГҐГ¶ГЁГґГЁГ·Г­Г» Г¤Г«Гї ГўГ ГёГҐГЈГ®
+ГЇГ°ГЁГ«Г®Г¦ГҐГ­ГЁГї), ГўГ» Г¤Г®Г«Г¦Г­Г» Г±Г¤ГҐГ«Г ГІГј ГЅГІГ® Г±Г Г¬Г®Г±ГІГ®ГїГІГҐГ«ГјГ­Г®, Г®ГЎГєГїГўГЁГў ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГҐ Гў Г°Г Г§Г¤ГҐГ«ГҐ Г®ГЎГєГїГўГ«ГҐГ­ГЁГї
+ГўГ ГёГҐГЈГ® ГЎГ«Г®ГЄГ  PL / SQL.
 
 DECLARE
     v_num_1     NUMBER := 6;
@@ -1320,14 +1273,14 @@ END;
 from within the server and communicate this error back to the client application process.
 To do this, you need a way to identify application-specific errors and return information
 about those error back to the client.
-    Такого рода исключения возникают, когда вам нужно вызвать ошибку, относящуюся к конкретному приложению, 
-с сервера и передать эту ошибку обратно в процесс клиентского приложения.
-Чтобы сделать это, вам нужен способ идентифицировать ошибки, относящиеся к конкретному приложению, и возвращать информацию
-об этих ошибках обратно клиенту.
+    Г’Г ГЄГ®ГЈГ® Г°Г®Г¤Г  ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї ГўГ®Г§Г­ГЁГЄГ ГѕГІ, ГЄГ®ГЈГ¤Г  ГўГ Г¬ Г­ГіГ¦Г­Г® ГўГ»Г§ГўГ ГІГј Г®ГёГЁГЎГЄГі, Г®ГІГ­Г®Г±ГїГ№ГіГѕГ±Гї ГЄ ГЄГ®Г­ГЄГ°ГҐГІГ­Г®Г¬Гі ГЇГ°ГЁГ«Г®Г¦ГҐГ­ГЁГѕ, 
+Г± Г±ГҐГ°ГўГҐГ°Г  ГЁ ГЇГҐГ°ГҐГ¤Г ГІГј ГЅГІГі Г®ГёГЁГЎГЄГі Г®ГЎГ°Г ГІГ­Г® Гў ГЇГ°Г®Г¶ГҐГ±Г± ГЄГ«ГЁГҐГ­ГІГ±ГЄГ®ГЈГ® ГЇГ°ГЁГ«Г®Г¦ГҐГ­ГЁГї.
+Г—ГІГ®ГЎГ» Г±Г¤ГҐГ«Г ГІГј ГЅГІГ®, ГўГ Г¬ Г­ГіГ¦ГҐГ­ Г±ГЇГ®Г±Г®ГЎ ГЁГ¤ГҐГ­ГІГЁГґГЁГ¶ГЁГ°Г®ГўГ ГІГј Г®ГёГЁГЎГЄГЁ, Г®ГІГ­Г®Г±ГїГ№ГЁГҐГ±Гї ГЄ ГЄГ®Г­ГЄГ°ГҐГІГ­Г®Г¬Гі ГЇГ°ГЁГ«Г®Г¦ГҐГ­ГЁГѕ, ГЁ ГўГ®Г§ГўГ°Г Г№Г ГІГј ГЁГ­ГґГ®Г°Г¬Г Г¶ГЁГѕ
+Г®ГЎ ГЅГІГЁГµ Г®ГёГЁГЎГЄГ Гµ Г®ГЎГ°Г ГІГ­Г® ГЄГ«ГЁГҐГ­ГІГі.
 
     Oracle provides a special procedure to allow communication of an unnamed, yet programmer-defined, server-side exception: RAISE_APPLICATION_ERROR.
-    Oracle предоставляет специальную процедуру, позволяющую передавать неназванное, но определенное программистом исключение на 
-стороне сервера: RAISE_APPLICATION_ERROR.
+    Oracle ГЇГ°ГҐГ¤Г®Г±ГІГ ГўГ«ГїГҐГІ Г±ГЇГҐГ¶ГЁГ Г«ГјГ­ГіГѕ ГЇГ°Г®Г¶ГҐГ¤ГіГ°Гі, ГЇГ®Г§ГўГ®Г«ГїГѕГ№ГіГѕ ГЇГҐГ°ГҐГ¤Г ГўГ ГІГј Г­ГҐГ­Г Г§ГўГ Г­Г­Г®ГҐ, Г­Г® Г®ГЇГ°ГҐГ¤ГҐГ«ГҐГ­Г­Г®ГҐ ГЇГ°Г®ГЈГ°Г Г¬Г¬ГЁГ±ГІГ®Г¬ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГҐ Г­Г  
+Г±ГІГ®Г°Г®Г­ГҐ Г±ГҐГ°ГўГҐГ°Г : RAISE_APPLICATION_ERROR.
 
 PROCEDURE RAISE_APPLICATION_ERROR (error_number_in IN NUMBER, error_msg_in IN VARCHAR2);
 
@@ -1347,7 +1300,7 @@ END;
 
 
 --------------------------------------------------------------------------------------------------------------------------------
---      SCOPE OF AN EXCEPTION AND PROPAGATION (ОБЛАСТЬ ДЕЙСТВИЯ ИСКЛЮЧЕНИЯ И РАСПРОСТРАНЕНИЕ)
+--      SCOPE OF AN EXCEPTION AND PROPAGATION (ГЋГЃГ‹ГЂГ‘Г’Гњ Г„Г…Г‰Г‘Г’Г‚Г€Гџ Г€Г‘ГЉГ‹ГћГ—Г…ГЌГ€Гџ Г€ ГђГЂГ‘ГЏГђГЋГ‘Г’ГђГЂГЌГ…ГЌГ€Г…)
 --------------------------------------------------------------------------------------------------------------------------------
     /* The scope of an exception is that portion of the code which is "covered" by that exception.
 An exception covers a block of code if it can be raised in that block.
@@ -1367,23 +1320,23 @@ name is the same as that of the named programmer-defined exception.
     Unnamed programmer-defined exceptions - this exception is only defined in the call to
 RAISE_APPLICATION_ERROR and then is passed back to the calling program.
 
-    Область действия исключения - это та часть кода, которая "охвачена" этим исключением.
-Исключение распространяется на блок кода, если оно может быть вызвано в этом блоке.
+    ГЋГЎГ«Г Г±ГІГј Г¤ГҐГ©Г±ГІГўГЁГї ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї - ГЅГІГ® ГІГ  Г·Г Г±ГІГј ГЄГ®Г¤Г , ГЄГ®ГІГ®Г°Г Гї "Г®ГµГўГ Г·ГҐГ­Г " ГЅГІГЁГ¬ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГҐГ¬.
+Г€Г±ГЄГ«ГѕГ·ГҐГ­ГЁГҐ Г°Г Г±ГЇГ°Г®Г±ГІГ°Г Г­ГїГҐГІГ±Гї Г­Г  ГЎГ«Г®ГЄ ГЄГ®Г¤Г , ГҐГ±Г«ГЁ Г®Г­Г® Г¬Г®Г¦ГҐГІ ГЎГ»ГІГј ГўГ»Г§ГўГ Г­Г® Гў ГЅГІГ®Г¬ ГЎГ«Г®ГЄГҐ.
 
-    Именованные системные исключения - эти исключения доступны во всем мире, поскольку они не
-объявлены в каком-либо конкретном блоке кода и не ограничены им. Вы можете вызвать и обработать именованное
-системное исключение в любом блоке.
+    Г€Г¬ГҐГ­Г®ГўГ Г­Г­Г»ГҐ Г±ГЁГ±ГІГҐГ¬Г­Г»ГҐ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї - ГЅГІГЁ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї Г¤Г®Г±ГІГіГЇГ­Г» ГўГ® ГўГ±ГҐГ¬ Г¬ГЁГ°ГҐ, ГЇГ®Г±ГЄГ®Г«ГјГЄГі Г®Г­ГЁ Г­ГҐ
+Г®ГЎГєГїГўГ«ГҐГ­Г» Гў ГЄГ ГЄГ®Г¬-Г«ГЁГЎГ® ГЄГ®Г­ГЄГ°ГҐГІГ­Г®Г¬ ГЎГ«Г®ГЄГҐ ГЄГ®Г¤Г  ГЁ Г­ГҐ Г®ГЈГ°Г Г­ГЁГ·ГҐГ­Г» ГЁГ¬. Г‚Г» Г¬Г®Г¦ГҐГІГҐ ГўГ»Г§ГўГ ГІГј ГЁ Г®ГЎГ°Г ГЎГ®ГІГ ГІГј ГЁГ¬ГҐГ­Г®ГўГ Г­Г­Г®ГҐ
+Г±ГЁГ±ГІГҐГ¬Г­Г®ГҐ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГҐ Гў Г«ГѕГЎГ®Г¬ ГЎГ«Г®ГЄГҐ.
 
-    Именованные исключения, определяемые программистом. Эти исключения могут вызываться и обрабатываться только в
-разделах выполнения и исключения блока, в котором они объявлены (и во всех вложенных
-блоках).
+    Г€Г¬ГҐГ­Г®ГўГ Г­Г­Г»ГҐ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї, Г®ГЇГ°ГҐГ¤ГҐГ«ГїГҐГ¬Г»ГҐ ГЇГ°Г®ГЈГ°Г Г¬Г¬ГЁГ±ГІГ®Г¬. ГќГІГЁ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї Г¬Г®ГЈГіГІ ГўГ»Г§Г»ГўГ ГІГјГ±Гї ГЁ Г®ГЎГ°Г ГЎГ ГІГ»ГўГ ГІГјГ±Гї ГІГ®Г«ГјГЄГ® Гў
+Г°Г Г§Г¤ГҐГ«Г Гµ ГўГ»ГЇГ®Г«Г­ГҐГ­ГЁГї ГЁ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї ГЎГ«Г®ГЄГ , Гў ГЄГ®ГІГ®Г°Г®Г¬ Г®Г­ГЁ Г®ГЎГєГїГўГ«ГҐГ­Г» (ГЁ ГўГ® ГўГ±ГҐГµ ГўГ«Г®Г¦ГҐГ­Г­Г»Гµ
+ГЎГ«Г®ГЄГ Гµ).
 
-    Неназванные системные исключения - эти исключения могут быть обработаны в любом разделе исключений PL/SQL
-через раздел WHEN OTHERS. Если им присвоено имя, то область действия этого
-имени такая же, как и у именованного исключения, определенного программистом.
+    ГЌГҐГ­Г Г§ГўГ Г­Г­Г»ГҐ Г±ГЁГ±ГІГҐГ¬Г­Г»ГҐ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї - ГЅГІГЁ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї Г¬Г®ГЈГіГІ ГЎГ»ГІГј Г®ГЎГ°Г ГЎГ®ГІГ Г­Г» Гў Г«ГѕГЎГ®Г¬ Г°Г Г§Г¤ГҐГ«ГҐ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГ© PL/SQL
+Г·ГҐГ°ГҐГ§ Г°Г Г§Г¤ГҐГ« WHEN OTHERS. Г…Г±Г«ГЁ ГЁГ¬ ГЇГ°ГЁГ±ГўГ®ГҐГ­Г® ГЁГ¬Гї, ГІГ® Г®ГЎГ«Г Г±ГІГј Г¤ГҐГ©Г±ГІГўГЁГї ГЅГІГ®ГЈГ®
+ГЁГ¬ГҐГ­ГЁ ГІГ ГЄГ Гї Г¦ГҐ, ГЄГ ГЄ ГЁ Гі ГЁГ¬ГҐГ­Г®ГўГ Г­Г­Г®ГЈГ® ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї, Г®ГЇГ°ГҐГ¤ГҐГ«ГҐГ­Г­Г®ГЈГ® ГЇГ°Г®ГЈГ°Г Г¬Г¬ГЁГ±ГІГ®Г¬.
 
-    Неназванные исключения, определенные программистом. Это исключение определяется только при вызове
-RAISE_APPLICATION_ERROR, а затем передается обратно вызывающей программе. */
+    ГЌГҐГ­Г Г§ГўГ Г­Г­Г»ГҐ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї, Г®ГЇГ°ГҐГ¤ГҐГ«ГҐГ­Г­Г»ГҐ ГЇГ°Г®ГЈГ°Г Г¬Г¬ГЁГ±ГІГ®Г¬. ГќГІГ® ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГҐ Г®ГЇГ°ГҐГ¤ГҐГ«ГїГҐГІГ±Гї ГІГ®Г«ГјГЄГ® ГЇГ°ГЁ ГўГ»Г§Г®ГўГҐ
+RAISE_APPLICATION_ERROR, Г  Г§Г ГІГҐГ¬ ГЇГҐГ°ГҐГ¤Г ГҐГІГ±Гї Г®ГЎГ°Г ГІГ­Г® ГўГ»Г§Г»ГўГ ГѕГ№ГҐГ© ГЇГ°Г®ГЈГ°Г Г¬Г¬ГҐ. */
 
 BEGIN 
     DECLARE
@@ -1404,11 +1357,11 @@ procedure, or function) for this exception. If it does not find a match, then PL
 the enclosing block of that current block. PL/SQL then attempts to handle the exception by raising that
 exception once more in the enclosing block. It continues to do this in each successive enclosing block until there
 are no more blocks in which to raise the exception.
-    Когда возникает исключение, PL/SQL ищет обработчик исключения в текущем блоке (анонимный блок,
-процедура или функция) для этого исключения. Если он не находит совпадения, то PL/SQL распространяет исключение на
-заключающий блок этого текущего блока. Затем PL/SQL пытается обработать исключение, вызывая это
-исключение еще раз во включающем блоке. Он продолжает делать это в каждом последующем включающем блоке до тех пор, пока не останется
-больше блоков, в которых можно вызвать исключение.
+    ГЉГ®ГЈГ¤Г  ГўГ®Г§Г­ГЁГЄГ ГҐГІ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГҐ, PL/SQL ГЁГ№ГҐГІ Г®ГЎГ°Г ГЎГ®ГІГ·ГЁГЄ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї Гў ГІГҐГЄГіГ№ГҐГ¬ ГЎГ«Г®ГЄГҐ (Г Г­Г®Г­ГЁГ¬Г­Г»Г© ГЎГ«Г®ГЄ,
+ГЇГ°Г®Г¶ГҐГ¤ГіГ°Г  ГЁГ«ГЁ ГґГіГ­ГЄГ¶ГЁГї) Г¤Г«Гї ГЅГІГ®ГЈГ® ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї. Г…Г±Г«ГЁ Г®Г­ Г­ГҐ Г­Г ГµГ®Г¤ГЁГІ Г±Г®ГўГЇГ Г¤ГҐГ­ГЁГї, ГІГ® PL/SQL Г°Г Г±ГЇГ°Г®Г±ГІГ°Г Г­ГїГҐГІ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГҐ Г­Г 
+Г§Г ГЄГ«ГѕГ·Г ГѕГ№ГЁГ© ГЎГ«Г®ГЄ ГЅГІГ®ГЈГ® ГІГҐГЄГіГ№ГҐГЈГ® ГЎГ«Г®ГЄГ . Г‡Г ГІГҐГ¬ PL/SQL ГЇГ»ГІГ ГҐГІГ±Гї Г®ГЎГ°Г ГЎГ®ГІГ ГІГј ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГҐ, ГўГ»Г§Г»ГўГ Гї ГЅГІГ®
+ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГҐ ГҐГ№ГҐ Г°Г Г§ ГўГ® ГўГЄГ«ГѕГ·Г ГѕГ№ГҐГ¬ ГЎГ«Г®ГЄГҐ. ГЋГ­ ГЇГ°Г®Г¤Г®Г«Г¦Г ГҐГІ Г¤ГҐГ«Г ГІГј ГЅГІГ® Гў ГЄГ Г¦Г¤Г®Г¬ ГЇГ®Г±Г«ГҐГ¤ГіГѕГ№ГҐГ¬ ГўГЄГ«ГѕГ·Г ГѕГ№ГҐГ¬ ГЎГ«Г®ГЄГҐ Г¤Г® ГІГҐГµ ГЇГ®Г°, ГЇГ®ГЄГ  Г­ГҐ Г®Г±ГІГ Г­ГҐГІГ±Гї
+ГЎГ®Г«ГјГёГҐ ГЎГ«Г®ГЄГ®Гў, Гў ГЄГ®ГІГ®Г°Г»Гµ Г¬Г®Г¦Г­Г® ГўГ»Г§ГўГ ГІГј ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГҐ.
 */
 
 BEGIN 
@@ -1450,8 +1403,8 @@ BEGIN
     END IF;
 END;
 
--- Когда вы находитесь внутри обработчика исключений в разделе исключений, вы можете повторно вызвать исключение, 
--- которое "привело вас туда", выдав неквалифицированный оператор RAISE
+-- ГЉГ®ГЈГ¤Г  ГўГ» Г­Г ГµГ®Г¤ГЁГІГҐГ±Гј ГўГ­ГіГІГ°ГЁ Г®ГЎГ°Г ГЎГ®ГІГ·ГЁГЄГ  ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГ© Гў Г°Г Г§Г¤ГҐГ«ГҐ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГ©, ГўГ» Г¬Г®Г¦ГҐГІГҐ ГЇГ®ГўГІГ®Г°Г­Г® ГўГ»Г§ГўГ ГІГј ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГҐ, 
+-- ГЄГ®ГІГ®Г°Г®ГҐ "ГЇГ°ГЁГўГҐГ«Г® ГўГ Г± ГІГіГ¤Г ", ГўГ»Г¤Г Гў Г­ГҐГЄГўГ Г«ГЁГґГЁГ¶ГЁГ°Г®ГўГ Г­Г­Г»Г© Г®ГЇГҐГ°Г ГІГ®Г° RAISE
 CREATE OR REPLACE PROCEDURE print_count_emp
 IS
 BEGIN
@@ -1481,9 +1434,9 @@ END;
     You can use the WHEN OTHERS clause in the exception section to trap all otherwise unhandled exceptions, including internal 
 errors which are not predefined by PL/SQL. Once inside the exception handler, however, you will often want to know which error 
 occurred. We can use the SQL CODE and
-    Вы можете использовать предложение WHEN OTHERS в разделе exception , чтобы перехватывать все необработанные исключения, 
-включая внутренние ошибки, которые не предопределены PL/SQL. Однако, оказавшись внутри обработчика исключений, вы часто захотите 
-узнать, какая ошибка произошла. Мы можем использовать SQL-КОД и Функции SQLERRM для получения этой информации.
+    Г‚Г» Г¬Г®Г¦ГҐГІГҐ ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ ГІГј ГЇГ°ГҐГ¤Г«Г®Г¦ГҐГ­ГЁГҐ WHEN OTHERS Гў Г°Г Г§Г¤ГҐГ«ГҐ exception , Г·ГІГ®ГЎГ» ГЇГҐГ°ГҐГµГўГ ГІГ»ГўГ ГІГј ГўГ±ГҐ Г­ГҐГ®ГЎГ°Г ГЎГ®ГІГ Г­Г­Г»ГҐ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї, 
+ГўГЄГ«ГѕГ·Г Гї ГўГ­ГіГІГ°ГҐГ­Г­ГЁГҐ Г®ГёГЁГЎГЄГЁ, ГЄГ®ГІГ®Г°Г»ГҐ Г­ГҐ ГЇГ°ГҐГ¤Г®ГЇГ°ГҐГ¤ГҐГ«ГҐГ­Г» PL/SQL. ГЋГ¤Г­Г ГЄГ®, Г®ГЄГ Г§Г ГўГёГЁГ±Гј ГўГ­ГіГІГ°ГЁ Г®ГЎГ°Г ГЎГ®ГІГ·ГЁГЄГ  ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГ©, ГўГ» Г·Г Г±ГІГ® Г§Г ГµГ®ГІГЁГІГҐ 
+ГіГ§Г­Г ГІГј, ГЄГ ГЄГ Гї Г®ГёГЁГЎГЄГ  ГЇГ°Г®ГЁГ§Г®ГёГ«Г . ГЊГ» Г¬Г®Г¦ГҐГ¬ ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ ГІГј SQL-ГЉГЋГ„ ГЁ Г”ГіГ­ГЄГ¶ГЁГЁ SQLERRM Г¤Г«Гї ГЇГ®Г«ГіГ·ГҐГ­ГЁГї ГЅГІГ®Г© ГЁГ­ГґГ®Г°Г¬Г Г¶ГЁГЁ.
 */
 SQLERRM functions to obtain this information.
 DECLARE
@@ -1509,42 +1462,42 @@ END;
 --------------------------------------------------------------------------------------------------------------------------------
 
 set serveroutput on;
-/* В PL SQL предоставляет возможность гармонично группировать программные единицы – процедуры и функции.
-Такая возможность позволяют осуществить специальные конструкции пакеты или модули.
-Так же в пакетах PL SQL объявления, процедур функций, переменных отделены от реализации.
-Дополнительно пакеты реализуют своеобразную инкапсуляцию PL SQL кода, часть кода публичная отделена от внутренней реализации.
-Вызываемые, публичные процедуры функции и переменные описываются в спецификации пакета, а их реализация, 
-внутренние программное устройство в теле пакета.
-Можно вызывать процедуры и функции пакета, объявленные в спецификации пакета из других пакетов, других процедур, 
-функции из SQL, а так же из анонимных PL SQL подпрограмм.
-Private - определяется только в теле пакета, но не отображается в спецификации.
-На закрытый элемент нельзя ссылаться вне пакета. Однако любой другой элемент
-пакета может ссылаться на закрытый элемент и использовать его. Частные элементы в пакете
-должны быть определены, прежде чем на них смогут ссылаться другие элементы пакета. Если, другими
-словами, общедоступная процедура вызывает закрытую функцию, эта функция должна быть определена над
-общедоступной процедурой в теле пакета.
+/* Г‚ PL SQL ГЇГ°ГҐГ¤Г®Г±ГІГ ГўГ«ГїГҐГІ ГўГ®Г§Г¬Г®Г¦Г­Г®Г±ГІГј ГЈГ Г°Г¬Г®Г­ГЁГ·Г­Г® ГЈГ°ГіГЇГЇГЁГ°Г®ГўГ ГІГј ГЇГ°Г®ГЈГ°Г Г¬Г¬Г­Г»ГҐ ГҐГ¤ГЁГ­ГЁГ¶Г» В– ГЇГ°Г®Г¶ГҐГ¤ГіГ°Г» ГЁ ГґГіГ­ГЄГ¶ГЁГЁ.
+Г’Г ГЄГ Гї ГўГ®Г§Г¬Г®Г¦Г­Г®Г±ГІГј ГЇГ®Г§ГўГ®Г«ГїГѕГІ Г®Г±ГіГ№ГҐГ±ГІГўГЁГІГј Г±ГЇГҐГ¶ГЁГ Г«ГјГ­Г»ГҐ ГЄГ®Г­Г±ГІГ°ГіГЄГ¶ГЁГЁ ГЇГ ГЄГҐГІГ» ГЁГ«ГЁ Г¬Г®Г¤ГіГ«ГЁ.
+Г’Г ГЄ Г¦ГҐ Гў ГЇГ ГЄГҐГІГ Гµ PL SQL Г®ГЎГєГїГўГ«ГҐГ­ГЁГї, ГЇГ°Г®Г¶ГҐГ¤ГіГ° ГґГіГ­ГЄГ¶ГЁГ©, ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г»Гµ Г®ГІГ¤ГҐГ«ГҐГ­Г» Г®ГІ Г°ГҐГ Г«ГЁГ§Г Г¶ГЁГЁ.
+Г„Г®ГЇГ®Г«Г­ГЁГІГҐГ«ГјГ­Г® ГЇГ ГЄГҐГІГ» Г°ГҐГ Г«ГЁГ§ГіГѕГІ Г±ГўГ®ГҐГ®ГЎГ°Г Г§Г­ГіГѕ ГЁГ­ГЄГ ГЇГ±ГіГ«ГїГ¶ГЁГѕ PL SQL ГЄГ®Г¤Г , Г·Г Г±ГІГј ГЄГ®Г¤Г  ГЇГіГЎГ«ГЁГ·Г­Г Гї Г®ГІГ¤ГҐГ«ГҐГ­Г  Г®ГІ ГўГ­ГіГІГ°ГҐГ­Г­ГҐГ© Г°ГҐГ Г«ГЁГ§Г Г¶ГЁГЁ.
+Г‚Г»Г§Г»ГўГ ГҐГ¬Г»ГҐ, ГЇГіГЎГ«ГЁГ·Г­Г»ГҐ ГЇГ°Г®Г¶ГҐГ¤ГіГ°Г» ГґГіГ­ГЄГ¶ГЁГЁ ГЁ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г»ГҐ Г®ГЇГЁГ±Г»ГўГ ГѕГІГ±Гї Гў Г±ГЇГҐГ¶ГЁГґГЁГЄГ Г¶ГЁГЁ ГЇГ ГЄГҐГІГ , Г  ГЁГµ Г°ГҐГ Г«ГЁГ§Г Г¶ГЁГї, 
+ГўГ­ГіГІГ°ГҐГ­Г­ГЁГҐ ГЇГ°Г®ГЈГ°Г Г¬Г¬Г­Г®ГҐ ГіГ±ГІГ°Г®Г©Г±ГІГўГ® Гў ГІГҐГ«ГҐ ГЇГ ГЄГҐГІГ .
+ГЊГ®Г¦Г­Г® ГўГ»Г§Г»ГўГ ГІГј ГЇГ°Г®Г¶ГҐГ¤ГіГ°Г» ГЁ ГґГіГ­ГЄГ¶ГЁГЁ ГЇГ ГЄГҐГІГ , Г®ГЎГєГїГўГ«ГҐГ­Г­Г»ГҐ Гў Г±ГЇГҐГ¶ГЁГґГЁГЄГ Г¶ГЁГЁ ГЇГ ГЄГҐГІГ  ГЁГ§ Г¤Г°ГіГЈГЁГµ ГЇГ ГЄГҐГІГ®Гў, Г¤Г°ГіГЈГЁГµ ГЇГ°Г®Г¶ГҐГ¤ГіГ°, 
+ГґГіГ­ГЄГ¶ГЁГЁ ГЁГ§ SQL, Г  ГІГ ГЄ Г¦ГҐ ГЁГ§ Г Г­Г®Г­ГЁГ¬Г­Г»Гµ PL SQL ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬.
+Private - Г®ГЇГ°ГҐГ¤ГҐГ«ГїГҐГІГ±Гї ГІГ®Г«ГјГЄГ® Гў ГІГҐГ«ГҐ ГЇГ ГЄГҐГІГ , Г­Г® Г­ГҐ Г®ГІГ®ГЎГ°Г Г¦Г ГҐГІГ±Гї Гў Г±ГЇГҐГ¶ГЁГґГЁГЄГ Г¶ГЁГЁ.
+ГЌГ  Г§Г ГЄГ°Г»ГІГ»Г© ГЅГ«ГҐГ¬ГҐГ­ГІ Г­ГҐГ«ГјГ§Гї Г±Г±Г»Г«Г ГІГјГ±Гї ГўГ­ГҐ ГЇГ ГЄГҐГІГ . ГЋГ¤Г­Г ГЄГ® Г«ГѕГЎГ®Г© Г¤Г°ГіГЈГ®Г© ГЅГ«ГҐГ¬ГҐГ­ГІ
+ГЇГ ГЄГҐГІГ  Г¬Г®Г¦ГҐГІ Г±Г±Г»Г«Г ГІГјГ±Гї Г­Г  Г§Г ГЄГ°Г»ГІГ»Г© ГЅГ«ГҐГ¬ГҐГ­ГІ ГЁ ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ ГІГј ГҐГЈГ®. Г—Г Г±ГІГ­Г»ГҐ ГЅГ«ГҐГ¬ГҐГ­ГІГ» Гў ГЇГ ГЄГҐГІГҐ
+Г¤Г®Г«Г¦Г­Г» ГЎГ»ГІГј Г®ГЇГ°ГҐГ¤ГҐГ«ГҐГ­Г», ГЇГ°ГҐГ¦Г¤ГҐ Г·ГҐГ¬ Г­Г  Г­ГЁГµ Г±Г¬Г®ГЈГіГІ Г±Г±Г»Г«Г ГІГјГ±Гї Г¤Г°ГіГЈГЁГҐ ГЅГ«ГҐГ¬ГҐГ­ГІГ» ГЇГ ГЄГҐГІГ . Г…Г±Г«ГЁ, Г¤Г°ГіГЈГЁГ¬ГЁ
+Г±Г«Г®ГўГ Г¬ГЁ, Г®ГЎГ№ГҐГ¤Г®Г±ГІГіГЇГ­Г Гї ГЇГ°Г®Г¶ГҐГ¤ГіГ°Г  ГўГ»Г§Г»ГўГ ГҐГІ Г§Г ГЄГ°Г»ГІГіГѕ ГґГіГ­ГЄГ¶ГЁГѕ, ГЅГІГ  ГґГіГ­ГЄГ¶ГЁГї Г¤Г®Г«Г¦Г­Г  ГЎГ»ГІГј Г®ГЇГ°ГҐГ¤ГҐГ«ГҐГ­Г  Г­Г Г¤
+Г®ГЎГ№ГҐГ¤Г®Г±ГІГіГЇГ­Г®Г© ГЇГ°Г®Г¶ГҐГ¤ГіГ°Г®Г© Гў ГІГҐГ«ГҐ ГЇГ ГЄГҐГІГ .
 */
 
---синтаксис
-  PACKAGE имя IS  -- спецификация (видимая часть)
-            -- объявления публичных типов и объектов, переменных , констант
-            -- спецификации подпрограмм
-        END [имя];
+--Г±ГЁГ­ГІГ ГЄГ±ГЁГ±
+  PACKAGE ГЁГ¬Гї IS  -- Г±ГЇГҐГ¶ГЁГґГЁГЄГ Г¶ГЁГї (ГўГЁГ¤ГЁГ¬Г Гї Г·Г Г±ГІГј)
+            -- Г®ГЎГєГїГўГ«ГҐГ­ГЁГї ГЇГіГЎГ«ГЁГ·Г­Г»Гµ ГІГЁГЇГ®Гў ГЁ Г®ГЎГєГҐГЄГІГ®Гў, ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г»Гµ , ГЄГ®Г­Г±ГІГ Г­ГІ
+            -- Г±ГЇГҐГ¶ГЁГґГЁГЄГ Г¶ГЁГЁ ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬
+        END [ГЁГ¬Гї];
 
-        PACKAGE BODY имя IS  -- тело (скрытая часть)
-            -- объявления внутренних типов и объектов
-            -- тела подпрограмм
+        PACKAGE BODY ГЁГ¬Гї IS  -- ГІГҐГ«Г® (Г±ГЄГ°Г»ГІГ Гї Г·Г Г±ГІГј)
+            -- Г®ГЎГєГїГўГ«ГҐГ­ГЁГї ГўГ­ГіГІГ°ГҐГ­Г­ГЁГµ ГІГЁГЇГ®Гў ГЁ Г®ГЎГєГҐГЄГІГ®Гў
+            -- ГІГҐГ«Г  ГЇГ®Г¤ГЇГ°Г®ГЈГ°Г Г¬Г¬
         [BEGIN
-            -- предложения инициализации]
-        END [имя];
+            -- ГЇГ°ГҐГ¤Г«Г®Г¦ГҐГ­ГЁГї ГЁГ­ГЁГ¶ГЁГ Г«ГЁГ§Г Г¶ГЁГЁ]
+        END [ГЁГ¬Гї];
 
--- Пример
+-- ГЏГ°ГЁГ¬ГҐГ°
 CREATE OR REPLACE PACKAGE pck_test 
 IS
   gr_test   NUMBER := 10;
-  gc_cr     CONSTANT VARCHAR2(30) := 'test'; -- константа менять нельзя
-  PROCEDURE pr_test; -- публичная процедура 
-  FUNCTION get_gr return number; -- публичная функция
+  gc_cr     CONSTANT VARCHAR2(30) := 'test'; -- ГЄГ®Г­Г±ГІГ Г­ГІГ  Г¬ГҐГ­ГїГІГј Г­ГҐГ«ГјГ§Гї
+  PROCEDURE pr_test; -- ГЇГіГЎГ«ГЁГ·Г­Г Гї ГЇГ°Г®Г¶ГҐГ¤ГіГ°Г  
+  FUNCTION get_gr return number; -- ГЇГіГЎГ«ГЁГ·Г­Г Гї ГґГіГ­ГЄГ¶ГЁГї
 --->
 END;
 
@@ -1552,19 +1505,19 @@ CREATE OR REPLACE PACKAGE BODY pck_test
 IS
     gc_div constant VARCHAR2(30) := '**********************';
     
-    PROCEDURE pr_print(v VARCHAR2) -- внутрення процедура
+    PROCEDURE pr_print(v VARCHAR2) -- ГўГ­ГіГІГ°ГҐГ­Г­Гї ГЇГ°Г®Г¶ГҐГ¤ГіГ°Г 
     IS
     BEGIN 
         dbms_output.put_line(v);
     END;    
   
-    FUNCTION get_gr RETURN NUMBER -- -- публичная функция , есть в спецификации
+    FUNCTION get_gr RETURN NUMBER -- -- ГЇГіГЎГ«ГЁГ·Г­Г Гї ГґГіГ­ГЄГ¶ГЁГї , ГҐГ±ГІГј Гў Г±ГЇГҐГ¶ГЁГґГЁГЄГ Г¶ГЁГЁ
     IS
     BEGIN 
         return gr_test;
     END;    
 
-    PROCEDURE pr_test IS -- публичная процедура , есть в спецификации
+    PROCEDURE pr_test IS -- ГЇГіГЎГ«ГЁГ·Г­Г Гї ГЇГ°Г®Г¶ГҐГ¤ГіГ°Г  , ГҐГ±ГІГј Гў Г±ГЇГҐГ¶ГЁГґГЁГЄГ Г¶ГЁГЁ
         a_test      VARCHAR2(100);
     BEGIN
         pr_print('gc_cr =');
@@ -1574,15 +1527,15 @@ IS
         pr_print(gc_div);    
     End;
 BEGIN 
-    pck_test.gr_test := gr_test*10; -- инициализация
+    pck_test.gr_test := gr_test*10; -- ГЁГ­ГЁГ¶ГЁГ Г«ГЁГ§Г Г¶ГЁГї
 END;
 
--- Вызов 
+-- Г‚Г»Г§Г®Гў 
 begin
   pck_test.pr_test;
   dbms_output.put_line( pck_test.get_gr);
 end;
--- или в SQL
+-- ГЁГ«ГЁ Гў SQL
 select pck_test.get_gr from dual
 
 
@@ -1673,7 +1626,7 @@ SELECT * FROM audits;
 
 -- A statement-level trigger is fired whenever a trigger event occurs on a table regardless of how many rows are affected. 
 -- In other words, a statement-level trigger executes once for each transaction.
--- It’s typically used to enforce extra security measures on the kind of transaction that may be performed on a table.
+-- ItВ’s typically used to enforce extra security measures on the kind of transaction that may be performed on a table.
 
 -- Suppose, you want to restrict users to update credit of customers from 28th to 31st of every month so that you can close the financial month.
 
@@ -1775,4 +1728,5 @@ INSERT INTO
 SELECT * FROM customers 
 ORDER BY customer_id DESC
 FETCH FIRST ROWS ONLY;
+
 
