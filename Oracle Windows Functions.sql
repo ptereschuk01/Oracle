@@ -1,7 +1,35 @@
 ------------------------------------------------------------------------------------------------------------------------
 -- Oracle Windows Functions
 ------------------------------------------------------------------------------------------------------------------------
-
+'''
+📝 Window Functions – Exam Cheat Sheet (DE + EN)
+Frage / Question	Kurzantwort / Short Answer
+1. SUM(grade) OVER (PARTITION BY student_name)?	
+    Berechnet Summe aller Noten pro Student / Calculates total grades per student, keeps all rows
+2. Unterschied ROW_NUMBER(), RANK(), DENSE_RANK()?	
+    ROW_NUMBER: fortlaufend, auch bei Duplikaten / sequential, ignores duplicates
+    RANK: gleiche Werte = gleiche Rang, Lücken / same rank, gaps
+    DENSE_RANK: gleiche Werte = gleiche Rang, keine Lücken / same rank, no gaps
+3. LAG() / LEAD()?	LAG: vorherige Zeile / previous row
+    LEAD: nächste Zeile / next row
+4. FIRST_VALUE() / LAST_VALUE()?	
+    FIRST_VALUE: erster Wert im Fenster / first value in window
+    LAST_VALUE: letzter Wert, meist mit ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING / last value, usually with rows between unbounded preceding and following
+5. PARTITION BY?	
+    Teilt Daten in Gruppen / divides data into partitions (groups)
+6. ORDER BY in OVER?	
+    Bestimmt Reihenfolge für Ranking, LAG/LEAD / defines order for ranking, LAG/LEAD
+7. WHERE vs HAVING?	
+    WHERE: filtert Zeilen vor Aggregation / filters rows before aggregation
+    HAVING: filtert Gruppen nach Aggregation / filters groups after aggregation
+8. COUNT(*) OVER (PARTITION BY student_name)?	
+    Zählt Zeilen pro Student, ohne Zeilen zu reduzieren / counts rows per student, keeps all rows
+9. SUM(grade) vs SUM(grade) OVER(PARTITION BY student_name)?	
+    SUM(grade): reduziert Resultset / reduces result set
+    SUM(...) OVER(...): behält alle Zeilen + Aggregat / keeps all rows + aggregate
+10. Erste und letzte Note eines Schülers im Quartal?	
+    FIRST_VALUE() und LAST_VALUE() mit ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING / FIRST_VALUE() and LAST_VALUE() with rows between unbounded preceding and following
+'''
 ---
 
 -- Oracle SQL: Window Functions
@@ -177,3 +205,4 @@ last_value(grade) over (
 ```
 
 from grades_quarter;
+
