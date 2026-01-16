@@ -2,108 +2,178 @@
 -- Oracle Windows Functions
 ------------------------------------------------------------------------------------------------------------------------
 
--- Для примеров будем использовать небольшую таблицу
+---
+
+-- Oracle SQL: Window Functions
+-- Didaktisches Beispiel mit parallelen DE / EN Kommentaren (Uni-Style)
+-----------------------------------------------------------------------
+
+-- Beispieltabelle fГјr Window Functions / Example table for window functions
 -- drop table student_grades;
-create table student_grades 
-( 
-    name    varchar2(20), 
-    subject varchar2(20),
-    grade   NUMBER(3,2)
+
+create table student_grades
+(
+student_name varchar2(20),  -- Name des Studenten / Student name
+subject_name varchar2(20),  -- Fach / Subject
+grade        number(3,2)    -- Note / Grade
 );
 
-insert into student_grades 
-VALUES  ('Петя', 'математика',3);
-insert into student_grades 
-VALUES  ('Петя', 'русский', 4);
-insert into student_grades 
-VALUES  ('Петя', 'физика', 5);
-insert into student_grades 
-VALUES  ('Петя', 'история', 4);
-insert into student_grades 
-VALUES  ('Маша', 'математика', 4);
-insert into student_grades 
-VALUES  ('Маша', 'русский', 3);
-insert into student_grades 
-VALUES  ('Маша', 'физика', 5);
-insert into student_grades 
-VALUES  ('Маша', 'история', 3);
+-- EinfГјgen von Beispieldaten / Insert sample data
+insert into student_grades values ('Peter', 'Mathematics', 3);
+insert into student_grades values ('Peter', 'Russian',     4);
+insert into student_grades values ('Peter', 'Physics',     5);
+insert into student_grades values ('Peter', 'History',     4);
 
---SELECT * FROM student_grades;
+insert into student_grades values ('Masha', 'Mathematics', 4);
+insert into student_grades values ('Masha', 'Russian',     3);
+insert into student_grades values ('Masha', 'Physics',     5);
+insert into student_grades values ('Masha', 'History',     3);
 
--- Классы Оконных функций
--- Множество оконных функций можно разделять на 3 класса:
+commit; -- Г„nderungen speichern / Persist changes
 
--- Агрегирующие (Aggregate)
--- Ранжирующие (Ranking)
--- Функции смещения (Value)
+---
 
--- Агрегирующие (Aggregate)
+-- Klassen von Window Functions / Categories of window functions:
+-- 1) Aggregatfunktionen / Aggregate functions
+-- 2) Ranking-Funktionen / Ranking functions
+-- 3) Value-Funktionen   / Value (offset) functions
+---------------------------------------------------
 
-select name, subject, grade,
-sum(grade) over (partition by name) as sum_grade,
-avg(grade) over (partition by name) as avg_grade,
-count(grade) over (partition by name) as count_grade,
-min(grade) over (partition by name) as min_grade,
-max(grade) over (partition by name) as max_grade
-from student_grades
+---
 
--- Ранжирующие (Ranking)
+## -- 1) Aggregatfunktionen / Aggregate window functions
 
--- В ранжирующих функция под ключевым словом OVER обязательным идет указание условия ORDER BY, по которому будет 
--- происходить сортировка ранжирования. 
+-- Aggregation ohne Reduktion der Zeilenanzahl / Aggregation without collapsing rows
 
--- ROW_NUMBER() - функция вычисляет последовательность ранг (порядковый номер) строк внутри партиции, НЕЗАВИСИМО от того, 
---                есть ли в строках повторяющиеся значения или нет.
--- RANK()       - функция вычисляет ранг каждой строки внутри партиции. Если есть повторяющиеся значения, 
---                функция возвращает одинаковый ранг для таких строчек, пропуская при этом следующий числовой ранг. 
--- DENSE_RANK() - то же самое что и RANK, только в случае одинаковых значений DENSE_RANK 
---                не пропускает следующий числовой ранг, а идет последовательно.
--- Для SQL пустые NULL значения будут определяться одинаковым рангом
+select
+student_name,
+subject_name,
+grade,
 
-select name, subject, grade,
-row_number() over (partition by name, grade order by grade desc) "row_number",
-row_number() over (partition by name order by grade desc) "row_number",
-rank() over (partition by name order by grade desc) "rank",
-dense_rank() over (partition by name order by grade desc) "dense_rank"
+```
+-- Gesamtsumme der Noten pro Student / Total sum of grades per student
+sum(grade) over (partition by student_name) as total_grade,
+
+-- Durchschnittsnote pro Student / Average grade per student
+avg(grade) over (partition by student_name) as average_grade,
+
+-- Anzahl der FГ¤cher pro Student / Number of subjects per student
+count(*) over (partition by student_name) as subject_count,
+
+-- Niedrigste Note pro Student / Minimum grade per student
+min(grade) over (partition by student_name) as min_grade,
+
+-- HГ¶chste Note pro Student / Maximum grade per student
+max(grade) over (partition by student_name) as max_grade
+```
+
 from student_grades;
 
--- Функции смещения:
--- Это функции, которые позволяют перемещаясь по выделенной партиции таблицы обращаться к предыдущему значению строки
--- или крайним значениям строк в партиции.
+---
 
--- LAG()    - функция, возвращающая предыдущее значение столбца по порядку сортировки.
--- LEAD()   - функция, возвращающая следующее значение столбца по порядку сортировки.
+## -- 2) Ranking-Funktionen / Ranking functions
 
--- На простом примере видно, как можно в одной строке получить текущую оценку, предыдущую и следующую оценки Пети в четвертях.
+-- ORDER BY in OVER bestimmt die Rangfolge / ORDER BY inside OVER defines ranking order
 
---создание таблицы 
-create table grades_quartal 
+select
+student_name,
+subject_name,
+grade,
+
+```
+-- Fortlaufende Zeilennummer ohne RГјcksicht auf Duplikate / Sequential row number ignoring duplicates
+row_number() over (
+    partition by student_name
+    order by grade desc
+) as row_num,
+
+-- Rang mit LГјcken bei gleichen Werten / Rank with gaps for duplicate values
+rank() over (
+    partition by student_name
+    order by grade desc
+) as rank_value,
+
+-- Rang ohne LГјcken / Rank without gaps
+dense_rank() over (
+    partition by student_name
+    order by grade desc
+) as dense_rank_value
+```
+
+from student_grades;
+
+---
+
+## -- 3) Value-Funktionen / Offset functions
+
+-- Zugriff auf vorherige oder nГ¤chste Zeile / Access previous or next rows within a window
+
+-- Tabelle mit Quartalsnoten / Table with quarterly grades
+-- drop table grades_quarter;
+
+create table grades_quarter
 (
-    name    varchar2(20),
-    quartal varchar2(20),
-    subject varchar2(20),
-    grade   NUMBER(3,2));
+student_name varchar2(20),  -- Student / Student
+quarter_name varchar2(10),  -- Quartal / Quarter
+subject_name varchar2(20),  -- Fach / Subject
+grade        number(3,2)    -- Note / Grade
+);
 
---наполнение таблицы данными
-insert into student_grades 
-values ('Петя', '1 четверть', 'физика', 4);
-insert into grades_quartal
-values ('Петя', '2 четверть', 'физика', 3);
-insert into grades_quartal
-values ('Петя', '3 четверть', 'физика', 4);
-insert into grades_quartal
-values ('Петя', '4 четверть', 'физика', 5);
+-- Notenverlauf Гјber mehrere Quartale / Grade development across quarters
+insert into grades_quarter values ('РџРµС‚СЏ', 'Q1', 'Physik', 4);
+insert into grades_quarter values ('РџРµС‚СЏ', 'Q2', 'Physik', 3);
+insert into grades_quarter values ('РџРµС‚СЏ', 'Q3', 'Physik', 4);
+insert into grades_quarter values ('РџРµС‚СЏ', 'Q4', 'Physik', 5);
 
-select * from grades_quartal;
+commit; -- Г„nderungen speichern / Persist changes
 
-select name, quartal, subject, grade, 
-lag(grade) over (order by quartal) as previous_grade,
-lead(grade) over (order by quartal) as next_grade
-from grades_quartal;
+-- Vergleich vorheriger und nГ¤chster Werte / Compare previous and next values
+select
+student_name,
+quarter_name,
+subject_name,
+grade,
 
+```
+-- Vorherige Note im Verlauf / Previous grade in sequence
+lag(grade) over (
+    partition by student_name
+    order by quarter_name
+) as previous_grade,
 
-FIRST_VALUE()
-select name, quartal, grade, 
-FIRST_VALUE(grade) over (order by name) as FIRST_VALUE,
-LAST_VALUE(grade) over (order by name) as LAST_VALUE
-from grades_quartal;
+-- NГ¤chste Note im Verlauf / Next grade in sequence
+lead(grade) over (
+    partition by student_name
+    order by quarter_name
+) as next_grade
+```
+
+from grades_quarter;
+
+---
+
+## -- FIRST_VALUE und LAST_VALUE
+
+-- Zugriff auf erste und letzte Werte im Fenster / Access first and last values in window
+
+select
+student_name,
+quarter_name,
+grade,
+
+```
+-- Erste Note im Fenster / First grade in window
+first_value(grade) over (
+    partition by student_name
+    order by quarter_name
+) as first_grade,
+
+-- Letzte Note im gesamten Fenster / Last grade across entire window
+last_value(grade) over (
+    partition by student_name
+    order by quarter_name
+    rows between unbounded preceding and unbounded following
+) as last_grade
+```
+
+from grades_quarter;
