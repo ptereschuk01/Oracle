@@ -2,9 +2,7 @@
 # SQL
 # PL/SQL
 
-Portfolio Oracle SQL PL/SQL
-
-Oracle SQL Practice
+# Oracle SQL Practice
 
 This repository contains SQL scripts created while learning Oracle SQL.
 Most scripts are based on tutorials and online examples and were used
