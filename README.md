@@ -1,7 +1,3 @@
-# Oracle
-# SQL
-# PL/SQL
-
 # Oracle SQL Practice Repository
 
 This repository contains SQL scripts created as part of my in-depth study of Oracle SQL.
@@ -23,4 +19,4 @@ All scripts were created for educational purposes to enhance skills and maintain
 - Oracle SQL
 - SQL Developer / any SQL client
 
-
+Oracle, SQL, PL/SQL
